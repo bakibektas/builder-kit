@@ -16,8 +16,8 @@ in the terminal or the browser. Other assistants are the direction, not the curr
 
 ## Install
 
-1. Get the kit: clone this repository, or use the Code button and Download ZIP, then unzip it
-   somewhere convenient.
+1. Get the kit: `git clone https://github.com/Threchette/builder-kit.git`, or use the Code
+   button and Download ZIP, then unzip it somewhere convenient.
 2. Open your AI agent in that folder: a terminal opened there running `claude`, or the folder
    opened in your editor with the Claude extension.
 3. Say this:
@@ -254,7 +254,7 @@ going.
 
 Where the kit is going next is in `ROADMAP.md`. Licensed MIT: see `LICENSE`.
 
-More about the thinking: baki.io
+More about the thinking: https://baki.io/builder-kit
 
 ## Version history
 
