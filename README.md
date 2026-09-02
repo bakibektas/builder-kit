@@ -1,6 +1,6 @@
 # The Builder Kit
 
-Version 1.4 (2026-08-24). Version history at the end of this file.
+Version 1.5 (2026-09-02). Version history at the end of this file.
 
 A portable working system for an AI assistant: project memory in five plain files, seven
 session rituals, a model ladder, and a canary that proves the protocol was actually loaded. It
@@ -258,6 +258,9 @@ More about the thinking: https://baki.io/builder-kit
 
 ## Version history
 
+- 1.5 (2026-09-02): the canary now carries the session role: an orchestrating session opens
+  with the literal [orchestrator mode] tag beside the greeting, and a missing tag while
+  delegating triggers the same re-read.
 - 1.4 (2026-08-24): the opening address became an explicit canary rule proving the protocol is loaded, and a missing
   greeting triggers a re-read; installing onto an already-customized setup can now keep it untouched via a one-line import.
 - 1.3 (2026-08-19): deliverables get a committed `artifacts/` folder; superseded lessons move to

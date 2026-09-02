@@ -62,7 +62,7 @@ section 5 and the manual step in section 6. Sections 4, 7 and 8 apply as written
    `session-start` runs its scaffold check.
 6. The preferences text lives in the user's claude.ai settings rather than on this machine, so
    an update leaves it alone. Ask for a re-paste only if the new version changed the shipped
-   `PREFERENCES.txt` structure. Version 1.4 did not, so say nothing about it.
+   `PREFERENCES.txt` structure. Version 1.5 did not, so say nothing about it.
 7. Report as an update rather than an install: the version that was installed, the version now
    installed, the history entries between the two (they are listed at the end of `README.md`),
    the backup path, the ritual folders replaced, and one line confirming that the user's
