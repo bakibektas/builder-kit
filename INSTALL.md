@@ -1,166 +1,128 @@
-# INSTALL: instructions for the installing agent
+# Install or update BuilderKit
 
-You are the agent installing this kit for the person who opened you in this folder, and what
-you are installing is the way of working you should have had all along: a preferences text, a
-user-level Builder protocol, a project template of five documents plus an `artifacts/` folder,
-and seven session rituals. Announce a distinctive two-word codename before your first reply of
-this install and keep it for the whole session, because that is the kit's own ritual and you
-start as you mean to go on. Read `README.md`, then `ETHOS.md`, then `global/CLAUDE.md`, then
-follow this file in order. Nothing here needs admin rights: every step is a question, a file
-copy, or a check.
+For the installing agent. Read README.md, PROTOCOL.md and the chosen native entry before
+writing. Install the kit's instructions, skills and optional project template only.
+The user's scope and prior choices govern this workflow.
 
-## 1. Check the environment
+## 1. Establish the target
 
-1. Identify the operating system and resolve the target folder: on Windows
-   `C:\Users\<username>\.claude`, on macOS `~/.claude`. Substitute the real username, and
-   create the folder only if it is missing. Change nothing else inside it yet.
-2. Run `claude --version`. If it prints a version, continue.
-3. If the command is not found, stop the installation. Tell the user Claude Code is not
-   present on this machine, name it as the thing to install, and point at the browser-only
-   path in `README.md` as the route that works meanwhile. Install nothing yourself.
-4. Look for `<claude-folder>/CLAUDE.md` and for `<claude-folder>/builder-protocol.md`. Either
-   one already there means this may be an update rather than a first install: go to section 2
-   and settle that before anything else.
+Determine Claude Code, Codex or both from the request and active host. Ask only for
+missing material choices. Determine whether the user wants global installation, a
+project setup, or both; do not invent a project path. Inspect existing instructions first.
 
-## 2. Updating an existing installation
+- For standalone setup, use the paths below. Run `claude --version` or `codex --version`
+  as appropriate. If absent, report that CLI validation is unavailable; file preparation
+  may continue if requested, but do not claim a working CLI install or install software.
+- For Codex, inspect applicable AGENTS.override.md files and report shadowing. Do not
+  remove overrides or edit config.toml to force this kit to load.
 
-An update is not a fresh install, and getting that wrong costs somebody their personalization.
-Settle it before you deploy anything.
+| Source | Claude destination | Codex destination |
+|---|---|---|
+| global/CLAUDE.md | ~/.claude/CLAUDE.md | — |
+| global/AGENTS.md | — | $CODEX_HOME/AGENTS.md, default ~/.codex/AGENTS.md |
+| PROTOCOL.md | ~/.claude/builder-protocol.md | builder-protocol.md in the same Codex home |
+| Seven skills/* folders | ~/.claude/skills/ | ~/.agents/skills/ |
 
-1. Look first for `<claude-folder>/builder-protocol.md`. If that file exists and carries a
-   `Kit version` line, this machine holds an import-style installation, made by the import
-   choice in section 4. Such an update replaces that imported file and nothing else, carrying
-   its `PERSONALIZE` block forward verbatim as always, and leaves the user's `CLAUDE.md` alone:
-   the import line already sits in it. Read `builder-protocol.md` wherever the steps below say
-   `CLAUDE.md`, and skip the rest of this classification.
-2. Read the target protocol file, `<claude-folder>/CLAUDE.md`. If nothing is there, this is a
-   fresh install: continue at section 3.
-3. If the file exists and carries a `Kit version` line, this is an update. Note the version it
-   states. The version you are installing is the one at the top of this kit's `README.md`.
-4. If the file exists without a `Kit version` line, compare its structure with this kit's
-   `global/CLAUDE.md`: the `PERSONALIZE` comment markers in section 1 and the five numbered
-   section headings are the tell. If they match, treat it as a pre-versioning installation of
-   this kit and update it. If they do not match, it is a foreign file: leave the update path
-   and handle it under the conflict rules in section 4.
+On Windows resolve `~` from the user's profile directory. Use PowerShell literal paths;
+do not repurpose HOME, CODEX_HOME or another system variable. Honor an existing custom
+Claude configuration directory if the environment supplies one. For project-only skills,
+use the target project's .claude/skills or .agents/skills instead. Choose one discovery
+scope per harness; do not duplicate same-named skills globally and locally. Existing
+legacy Codex skill paths require an inventory, not a second automatic installation.
 
-On the update path, use the steps below in place of the interview in section 3, the deploy in
-section 5 and the manual step in section 6. Sections 4, 7 and 8 apply as written.
+## 2. Prepare a reviewable change
 
-1. Copy the content between the `PERSONALIZE` markers out of the installed file and carry it
-   into this kit's `global/CLAUDE.md` verbatim, character for character, before you deploy
-   anything. That block is the user's own words and an update never rewrites them.
-2. Skip the interview in section 3 entirely, the language question included. Run it only if the
-   installed file carries no `PERSONALIZE` block, or the block is empty.
-3. Back up before replacing: copy the installed protocol next to itself as
-   `<name>.backup-YYYY-MM-DD` using today's date, then write the new file over it. Everything
-   outside the `PERSONALIZE` block is replaced by the new version.
-4. Replace the deployed ritual folders in `<claude-folder>/skills/` wholesale. They carry no
-   personal content, so they need no diff and no question.
-5. Touch no project's `docs/` folder. Those five files are the user's own record, and an update
-   never edits, replaces or reorders them. Anything a newer version adds, such as `RESEARCH.md`
-   or the `artifacts/` folder with its `README.md`, arrives by itself the next time
-   `session-start` runs its scaffold check.
-6. The preferences text lives in the user's claude.ai settings rather than on this machine, so
-   an update leaves it alone. Ask for a re-paste only if the new version changed the shipped
-   `PREFERENCES.txt` structure. Version 1.5 did not, so say nothing about it.
-7. Report as an update rather than an install: the version that was installed, the version now
-   installed, the history entries between the two (they are listed at the end of `README.md`),
-   the backup path, the ritual folders replaced, and one line confirming that the user's
-   personalization was carried across unchanged.
+Inventory every exact target file and same-named skill folder. Read only the named
+instruction/skill targets; never inspect credential stores. Preserve the source checkout.
+Prepare personalized copies in a project-local scratch directory, not by editing the kit.
 
-## 3. Interview the user before deploying anything
+For a fresh install collect any missing address, role, tone and language preferences in
+one concise question. Reuse answers already given. Fill the native entry's PERSONALIZE
+block. PREFERENCES.txt is optional and only for a requested browser setup.
 
-Ask these four questions in one message and wait for the answers:
+For an existing installation, recognize the `Kit version` line and PERSONALIZE markers.
+Capture the entire existing block verbatim before transforming anything. If markers are
+missing or malformed, treat the file as custom: show a proposed merge, do not guess the
+boundary or erase user text. Preserve existing personal rules, not just the four fields.
 
-- How should a Builder address you at the start of every reply?
-- What is your role, in one or two sentences? Include whether you write code yourself or
-  commission and review the work instead.
-- What tone do you want? Name what you dislike as well as what you want.
-- Which language do you want to work in?
+Show a concise target list and diffs for conflicts. If authorization already covers an
+exact replacement or merge, apply it. Otherwise ask once for the concrete unresolved
+conflict. Routine copying into an empty, requested target needs no repeated confirmation.
 
-Then write the answers into this folder's own copies, before anything is copied anywhere:
+## 3. Handle existing content
 
-- `PREFERENCES.txt`: replace the four paragraphs between `PERSONALIZE: START` and
-  `PERSONALIZE: END`, keeping the same shape, then delete both marker blocks, because this
-  text goes into a settings field as it stands.
-- `global/CLAUDE.md`, section 1: replace the four bullets between the `PERSONALIZE` comments
-  with the same content, leaving the comment markers in place so the user can see later which
-  part is theirs to edit.
+- **Already identical:** leave it alone and report no change. A repeat install should
+  create no duplicate loading lines, redundant copies or unnecessary backups.
+- **Kit-owned update:** preserve personalization and review any other local edits. The
+  version marker alone does not prove all text is replaceable. Preserve local skill
+  changes unless the user has explicitly chosen their replacement.
+- **Custom native file:** propose a minimal merge, keep a separate adapter, or skip.
+  For a separate adapter, install the personalized native template as builder-kit-entry.md
+  and add one reviewed ordinary instruction to the custom native file:
+  `Read builder-kit-entry.md beside this file and follow its Builder protocol.`
+  This works as an explicit instruction on either host; it does not assume Claude import
+  syntax on Codex. Keep the shared protocol beside the adapter. Track this as an import
+  installation and update the adapter on future runs, preserving the custom native file.
+- **Protected or read-only target:** leave it untouched and report the conflict. Do not
+  change permissions or bypass a denied write to force the installation.
 
-On language, follow what the kit already says: it governs conversation and the entries a
-Builder writes, while file names, commands and the shipped instruction headers stay in
-English. If the user works in another language, write their personal block in that language,
-as the kit's own example shows. Change nothing outside those two blocks: the rest is the
-shared protocol, and it is what makes every Builder alike.
+Before every changed target, make a byte-for-byte backup next to it with date, time and a
+unique suffix. Use no-clobber creation; two updates in one day must not overwrite the
+first backup. Back up modified skill files too. Never replace an entire skill directory
+blindly: it may contain personal resources. Preserve unrelated files and folders.
 
-## 4. Check before every copy
+## 4. Upgrade a 1.x installation
 
-Before writing any file to a target location, test whether something is already there. If it
-is, show the user what exists now and what this kit would put there (a short diff for a small
-file, a summary for a large one), and ask them to choose.
+1. Detect whether the old personalized protocol is CLAUDE.md or builder-protocol.md.
+   The latter was loaded by a custom CLAUDE.md using `@builder-protocol.md`.
+2. Capture its PERSONALIZE block verbatim and inspect local edits outside that block.
+3. For the direct case, prepare the current Claude entry with that block, plus PROTOCOL.md as
+   builder-protocol.md. Back up old content before the reviewed replacement.
+4. For the old import case, prepare builder-kit-entry.md with the preserved block and
+   PROTOCOL.md as builder-protocol.md. Propose replacing only the old import line in the
+   custom CLAUDE.md with the ordinary read instruction from section 3. Leave all other
+   custom content untouched. Apply only once the concrete migration is authorized.
+5. Copy changed skill files under the same names after handling local modifications.
+6. Never replace project STATUS, JOURNAL, DECISIONS, LESSONS, RESEARCH or artifacts during
+   an upgrade. Offer a separate project-instruction migration if Codex should share an
+   existing Claude project's facts. Do not overwrite project-specific notes with placeholders.
+7. If adding Codex beside Claude, carry preferences only when requested and prepare its
+   own native entry and discovery path. A Claude preferences field does not configure Codex.
 
-A `<claude-folder>/CLAUDE.md` that is the user's own hand-grown protocol rather than this
-kit's is the case worth taking slowly. Offer these four, in this order:
+## 5. Deploy and set up an optional project
 
-1. Import, and recommend it when what they already have is substantial. Deploy the personalized
-   protocol as a separate file, `<claude-folder>/builder-protocol.md`, then append exactly one
-   line to the end of their existing `CLAUDE.md`: `@builder-protocol.md`, preceded by one blank
-   line and no comment. Spell out what that buys them: everything they wrote stays untouched
-   apart from that single appended line, deleting the line uninstalls the Builder rules
-   outright, and both instruction sets load together, so if one of their old rules later reads
-   as a contradiction of one of ours, the fix is to ask a Builder to reconcile the two. The
-   interview in section 3 still runs; its answers fill the `PERSONALIZE` block inside the
-   deployed `builder-protocol.md`, never inside their file.
-2. Merge, and recommend it when the user wants one unified ruleset. Propose the merged text and
-   get it confirmed before writing. Put all of the user's own instructions inside the
-   `PERSONALIZE` block of the merged file, because the update procedure in section 2 preserves
-   exactly that block and replaces everything outside it.
-3. Back up and replace. Copy the existing file next to itself as `<name>.backup-YYYY-MM-DD`
-   using today's date, then write the new one over it.
-4. Skip. Note it for the install report and move on.
+Copy the chosen native entry, shared protocol and seven SKILL.md folders. Copy only the
+files reviewed for this install. No package install, network call, hook/config edit, model
+selection change or permission change is part of deployment.
 
-For every other target, offer the last three of those: back up and replace, merge, or skip, on
-the same terms. Never delete anything, and never overwrite a file without an answer to that
-question.
+For an explicitly named fresh project, copy project-template/ without replacing
+existing files. Keep AGENTS.md as the canonical project facts and CLAUDE.md as its reader
+when both harnesses are wanted. For Claude-only setup both files are needed; for Codex-only
+setup CLAUDE.md is optional. Fill project purpose, conventions and actual validation
+commands. If the user chose a project-only install with no global Builder protocol, place
+PROTOCOL.md as builder-protocol.md in the project and add an explicit read instruction to
+project AGENTS.md. Personalization belongs there as well in that case.
 
-## 5. Deploy
+Some retained file-template headers use the older Claude terminology. PROTOCOL.md is
+authoritative for canonical standing-rule placement, immediate lesson capture and optional
+numeric confidence. Preserve existing records; do not reinterpret that wording as a second
+memory authority or rewrite historical entries during installation.
 
-1. Copy the personalized `global/CLAUDE.md` to `<claude-folder>/CLAUDE.md`. On a machine with
-   no `CLAUDE.md` at all, that is all there is to it. If the user chose import in section 4,
-   the target is `<claude-folder>/builder-protocol.md` instead, plus the one appended line.
-2. Copy the seven ritual folders from `skills/` into `<claude-folder>/skills/`, so the result is
-   `<claude-folder>/skills/session-start/SKILL.md` and six siblings. Keep the folder names
-   exactly as they are: the folder name is the skill name.
-3. Apply section 4 to each of those eight targets separately. A `skills/` folder holding
-   unrelated skills is not a conflict; only a same-named ritual folder is. Use ordinary file
-   copies, and move nothing out of this kit folder: it stays intact as the reference copy.
+## 6. Verify, then report
 
-## 6. Hand the one manual step to the user
+Re-read targets, not source drafts. Verify that personalization survived verbatim, the
+shared protocol exists beside the entry, references resolve, seven skills have valid
+frontmatter, and no unrelated file changed. Confirm the five project memory files are
+present and all existing project records are preserved.
 
-Print the finished `PREFERENCES.txt` text in a clearly marked block, with the marker blocks
-already removed, and tell the user in plain terms: paste this into claude.ai under Settings,
-personal preferences. This is the one step you cannot do for them, because it lives in their
-account rather than on this machine. The CLI ignores that field; the browser reads it.
+Start a fresh user session for the host to discover installed instructions and skills.
+Ask it to name the loaded sources and memory files and invoke session-start in the intended
+project. Do not claim runtime discovery was tested merely because files exist. If a fresh
+session was not run, say **files verified; runtime discovery not yet verified**.
 
-## 7. Offer project setup
+Report exact targets, installed version, preserved preferences, backups, skipped conflicts,
+validation performed and remaining steps. For browser preferences, provide the personalized
+text only if requested; account settings are a separate manual/connected-app action.
 
-Ask whether to set up a project now. If yes, ask for the project folder, copy the contents of
-`project-template/` into it, and fill in the project name where the template asks for it. If
-no, tell the user that in any folder without a `docs/` folder the `session-start` ritual
-scaffolds the five files itself on first run, so nothing is lost by skipping this.
-
-## 8. Verify and report
-
-Re-read every file you deployed from its target location, not from this folder, confirm the
-contents arrived intact and personalized, then print an install report covering every file
-deployed with its full target path, everything skipped or backed up with the backup path, the
-manual step from section 6 and whether the user has confirmed doing it, and the suggested
-first command: open a terminal in a project folder, run `claude`, and say `session-start`.
-Sign the report with your codename.
-
-## 9. Rules for you, the installer
-
-Install only what this file names, touch nothing else on this machine, and change no setting
-not listed here. Where anything is ambiguous, including which folder is a project and whether
-an existing file should go, ask rather than guess: that rule is in the protocol you are
-installing.
+To undo, restore the exact pre-install backups and remove only known kit-owned additions
+after review. Keep project memory. Never erase whole configuration or skills directories.
