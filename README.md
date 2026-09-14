@@ -1,271 +1,132 @@
 # The Builder Kit
 
-Version 1.5 (2026-09-02). Version history at the end of this file.
+Version 2.0.1 (2026-09-14).
 
-A portable working system for an AI assistant: project memory in five plain files, seven
-session rituals, a model ladder, and a canary that proves the protocol was actually loaded. It
-turns an assistant that begins every conversation knowing nothing into a partner that picks up
-where the last session stopped, writes down every correction it receives, and hands off cleanly
-to the next session. Everything is plain text: nothing is installed, nothing runs in the
-background, nothing calls out to a service.
+A portable working protocol for **Claude Code and OpenAI Codex**: seven session skills,
+durable project memory, evidence-based work, and a clean handoff between sessions.
+The kit is plain text: project files, instructions and skills. It runs inside the
+assistant you already use, with no additional service or background process to install.
 
-It is for anyone who works with an assistant most days and is tired of re-explaining the same
-project: solo developers, designers, founders, researchers, writers. It ships wired for Claude,
-in the terminal or the browser. Other assistants are the direction, not the current state; see
-`ROADMAP.md`.
+## Start here
 
-## Install
+1. Clone `https://github.com/bakibektas/builder-kit.git`, or download and extract its ZIP.
+2. Open the folder in Claude Code or Codex.
+3. Say: **Install this kit for me. Follow INSTALL.md.** Name the target harness if different
+   from the one you are using, and the project folder if you want project setup too.
 
-1. Get the kit: `git clone https://github.com/Threchette/builder-kit.git`, or use the Code
-   button and Download ZIP, then unzip it somewhere convenient.
-2. Open your AI agent in that folder: a terminal opened there running `claude`, or the folder
-   opened in your editor with the Claude extension.
-3. Say this:
+The agent personalizes your address, role, tone and language, prepares the target files,
+preserves existing content, and verifies the installation. Read [INSTALL.md](INSTALL.md)
+first: it is the complete file-copy contract. Installation does not configure hooks,
+change permissions, install software or connect external services.
 
-> Install this kit for me. Follow INSTALL.md.
+For Codex, start a fresh session in the project and invoke `$session-start`. For Claude
+Code use `/session-start` or ask for the skill by name. Then give it the task. If you
+already gave a task, the startup ritual continues into it.
 
-That is the install. The agent interviews you for the four things that are actually yours,
-copies the protocol and the rituals into place, checks with you before touching anything that
-already exists, and reports what it did. The detail is in "Setup, path A" below, and the manual
-route is in "Setup, path B" for anyone who would rather do it themselves.
+## What changed in 2.0
 
-## Read before you run
+- A shared [protocol](PROTOCOL.md) with native Claude and Codex entry files, avoiding two
+  independent copies of the same working rules.
+- Codex installation, skill discovery, override checks and upgrade instructions.
+- Five project memory files shared by both assistants.
+- Task ownership, verified checkpoints and practical guidance for choosing available models.
+- Correct Git commit argument order and guidance for files with mixed contributors' hunks.
+- Skills that preserve the user's authorization and do not impose an extra startup gate.
 
-`INSTALL.md` is written for the agent, but it is meant to be read by you first. It is short,
-it is plain English, and it is the whole contract. What an install does:
+## Five files keep the project continuous
 
-- Copies files into your assistant's user folder (`.claude` in your home directory) and, if you
-  ask for it, into one project folder that you name.
-- Asks before touching anything that already exists, showing you what is there next to what the
-  kit would write, and waits for your answer.
-- Backs up rather than overwrites, with the date in the backup file name.
-- Never deletes anything.
-- Never touches credentials, keys, or any setting the file does not name.
-- Never reaches the network. There is nothing to fetch: the kit is the folder you cloned.
+The [project template](project-template/AGENTS.md) keeps memory in five files under `docs/`.
+STATUS holds the current focus and owned task list. JOURNAL records sessions.
+DECISIONS records why direction changed. LESSONS records corrections and mitigations.
+RESEARCH preserves findings with sources and dates. Read the small volatile record at
+startup and search the others when relevant. Every session closes with a usable next step.
 
-If an agent proposes something outside that list, it has left the file, and stopping it is the
-right move.
+## Package map
+
+| Path | Purpose |
+|---|---|
+| [ETHOS.md](ETHOS.md) | Why the discipline exists |
+| [PROTOCOL.md](PROTOCOL.md) | Shared behavior; installed as builder-protocol.md |
+| [global/CLAUDE.md](global/CLAUDE.md) | Claude entry and personalization |
+| [global/AGENTS.md](global/AGENTS.md) | Codex entry and personalization |
+| [project-template/](project-template/AGENTS.md) | Shared project facts, native entry files and file memory |
+| [skills/](skills/session-start/SKILL.md) | Seven shared SKILL.md rituals |
+| [INSTALL.md](INSTALL.md) | Install, update, conflicts and verification |
+| [VALIDATION.md](VALIDATION.md) | Package checks and behavior acceptance scenarios |
+| [PREFERENCES.txt](PREFERENCES.txt) | Optional browser-chat preference text |
+| [ROADMAP.md](ROADMAP.md) | Remaining work, separate from shipped features |
+
+## Native installation paths
+
+| Component | Claude Code | Codex |
+|---|---|---|
+| User instructions | ~/.claude/CLAUDE.md | $CODEX_HOME/AGENTS.md; default ~/.codex/AGENTS.md |
+| Shared protocol | builder-protocol.md beside entry | builder-protocol.md beside entry |
+| User skills | ~/.claude/skills/ | ~/.agents/skills/ |
+| Project skills alternative | Project .claude/skills/ | Project .agents/skills/ |
+| Project instructions | CLAUDE.md reads shared AGENTS.md | AGENTS.md |
+| Explicit skill | /checkpoint or name | $checkpoint or name |
+
+For Codex, the documented portable skill path is `.agents/skills`; some deployments also
+expose legacy `.codex/skills`. Check actual discovery and avoid duplicates. Respect a
+custom CODEX_HOME for instructions; do not assume it relocates the documented user skill
+directory. Applicable AGENTS.override.md files can shadow an AGENTS.md file. See the
+[official instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+and [official skills guide](https://learn.chatgpt.com/docs/build-skills).
+
+For a manual install, follow the target mapping and conflict checks in INSTALL.md: copy
+the personalized native entry, PROTOCOL.md as builder-protocol.md, and the seven skill
+folders into one chosen discovery scope. Copy the project template only to a
+project you choose. Keep the kit checkout unchanged as the source for future updates.
+
+## Everyday use
+
+| Skill | Result |
+|---|---|
+| session-start | Restore context, identity and ownership; continue requested work |
+| next-task | Pick and claim useful unblocked work |
+| log-lesson | Capture a correction with a specific prevention rule |
+| research-method | Verify evidence through distinct lenses and resolve disagreements |
+| premortem | Stress-test consequential plans before action |
+| checkpoint | Persist an exact resume point without closing work |
+| session-end | Close owned work and save a verified handoff |
+
+These are instructions an agent follows, not a runtime that enforces compliance. A
+greeting alone proves little. Ask it to name the loaded files and last
+checkpoint; then check the actual records. See [VALIDATION.md](VALIDATION.md).
+
+For browser-only chat, personalize PREFERENCES.txt and provide the relevant project
+records explicitly. Browser preferences do not install local skills, run hooks or grant
+filesystem access. Copy returned file updates back yourself unless a connected tool
+actually saved them. Never treat a promise to remember as proof of persistence.
 
 ## Updating
 
-Run `git pull`, then say the same sentence: "Install this kit for me. Follow INSTALL.md." The
-installer detects the version you are already running, carries your personalized blocks across
-untouched, replaces the shared protocol and the seven rituals, leaves every project's `docs/`
-folder alone, and reports what changed between your version and this one.
-
-## Why it works this way
-
-The philosophy in one screen: a Claude session begins knowing nothing, so a project keeps its
-memory in files instead of in scrollback. A Builder announces itself with a codename, reads
-the project's state, does the work as an owner would, writes down every correction it receives,
-verifies anything it is about to assert, and closes every loop before it signs off. Importance
-buys tighter verification, never a bigger model. Nothing written is nothing remembered.
-
-If you read one other file, read `ETHOS.md`. It is the reason the rest of this exists.
-
-## What is in this folder
-
-| File | What it is |
-|---|---|
-| `README.md` | This guide: setup, personalization, rhythm. |
-| `INSTALL.md` | Instructions written for an AI agent, so it can install the kit for you. See "Setup, path A". |
-| `ROADMAP.md` | Where the kit is going: direction, not dates. |
-| `ETHOS.md` | The Builder manifesto. The philosophy, in nine parts. Read it once. |
-| `PREFERENCES.txt` | Text for your claude.ai personal-preferences field. Personalize before use. |
-| `global/CLAUDE.md` | The working protocol: identity, model ladder, docs convention, conventions, standards. Drops into your user-level Claude folder. |
-| `project-template/` | A ready-to-copy project skeleton: a project `CLAUDE.md`, the five `docs/` files, and an `artifacts/` folder for deliverables. |
-| `skills/` | Seven session rituals: `session-start`, `session-end`, `next-task`, `log-lesson`, `premortem`, `research-method`, `checkpoint`. |
-
-## The idea in one paragraph
-
-Claude starts every conversation with no memory of the last one. So each project keeps its
-memory in five small files under `docs/`: **STATUS.md** (what is happening now, plus the task
-list), **JOURNAL.md** (one five-line entry per session, newest first), **DECISIONS.md** (only
-decisions that changed direction, each with a mandatory why), **LESSONS.md** (what went
-wrong and the rule that prevents it recurring), and **RESEARCH.md** (what was found out, with
-sources and dates, so nobody researches the same question twice). A session opens by reading
-STATUS in full and the newest journal entry, and closes by updating them. Splitting it five
-ways is deliberate: you load only the small volatile file every time and search the others
-when a task actually needs them, which keeps sessions cheap.
-
-## How memory works
-
-Three layers, each with one job. Claude keeps its own working memory of your sessions
-automatically: that layer is personal and needs nothing from you. `docs/LESSONS.md` is the
-durable record: at session end the lessons worth keeping are written there deliberately, and
-because the folder is committed, every future session and every collaborator inherits them.
-When a lesson has proved itself as a standing rule, it graduates to a one-line entry in the
-project's `CLAUDE.md`, which is read at the start of every session, so that stays short.
-
-The input that feeds all of it is your corrections. Every time you tell a Builder it got
-something wrong, that correction gets written down with a mitigation before the work continues.
-It is the one habit that makes the system improve on its own.
-
-## Setup, path A: let a Builder install it (recommended)
-
-This is the install from the top of this file, in full. Open Claude in the kit folder and say:
-
-> Install this kit for me. Follow INSTALL.md.
-
-One line per surface, whichever you use: in a terminal opened at the kit folder, run `claude`;
-in VS Code, open the kit folder and use the Claude extension there.
-
-It announces a codename, reads the kit including `ETHOS.md`, then interviews you for the four
-things that are actually yours: how to address you, your role, your tone, your language. It
-fills those into the two personalized files, copies the protocol and the seven rituals into
-place, checks with you before touching anything that already exists, verifies what it wrote,
-and reports back signed with its codename. One step stays yours: pasting your preferences text
-into claude.ai settings, which lives in your account rather than on your machine. Windows or
-macOS makes no difference on this path, because the agent resolves the paths itself.
-
-## Setup, path B: by hand, with the Claude Code CLI
-
-The same install, done yourself. It also doubles as the reference for what path A does.
-
-1. Confirm the CLI is there. Windows: open PowerShell. macOS: open Terminal. Run
-   `claude --version`. If it prints a version, continue. If not, use the browser path below.
-2. Find your Claude folder and create it if it does not exist.
-   Windows: `C:\Users\<your-username>\.claude`. macOS: `~/.claude`.
-3. Personalize `global/CLAUDE.md` first (see "Make it yours"), then copy it into that folder
-   as `CLAUDE.md`. It is read at the start of every session, in every project.
-4. Copy the whole `skills` folder into the same `.claude` folder, so you end up with
-   `.claude/skills/session-start/SKILL.md` and six siblings. Keep the folder names exactly as
-   they are: the folder name is the skill name.
-5. Personalize `PREFERENCES.txt`, then paste it into claude.ai under Settings, personal
-   preferences. The CLI does not read that field but the browser does, and most people use both.
-6. Set up a project: copy the contents of `project-template/` into a project folder you
-   actually work in. That gives you a project `CLAUDE.md` and a `docs/` folder with five files.
-   Fill in the project name and the project-specific notes. Or skip the copy: in a folder with
-   no `docs/`, `session-start` detects the fresh project and creates the files itself. The
-   template folder just shows you what you will get.
-7. Open each `docs/` file, read the instruction block at the top, and delete the blocks marked
-   EXAMPLE once you have real content. Leave the instruction blocks: Claude reads them.
-8. If the project is a git repository, commit the `docs/` folder deliberately. It is meant to
-   be shared with your future self and with anyone else on the project, and committing is what
-   turns the lessons file into a durable record instead of a local note.
-9. Start working: open a terminal in the project folder, run `claude`, and say `session-start`.
-   It should announce a codename, read STATUS, report where things stand, and recommend a next
-   action. Close with `session-end`.
-10. Repeat step 6 for each new project. One `docs/` folder per project.
-
-## Setup in the browser only, no terminal
-
-1. Paste your personalized `PREFERENCES.txt` into Settings, personal preferences. It then
-   applies to every conversation on the account.
-2. Create a Project for each real body of work. Projects are what give you persistent context
-   in the browser.
-3. Paste your personalized `global/CLAUDE.md` into the project's custom-instructions field. If
-   it is rejected as too long, drop the section 4 bullets you need least; keep sections 1, 3
-   and 5.
-4. Upload the five `docs/` files into the project's knowledge, and add one line to the custom
-   instructions: "The files STATUS.md, JOURNAL.md, DECISIONS.md, LESSONS.md and RESEARCH.md in
-   this project's knowledge are the working memory described in section 3. Read STATUS.md at
-   the start of every conversation."
-5. Rhythm: start each conversation with "session-start", end with "session-end".
-6. The one manual step. Claude cannot edit a project knowledge file. At session end it outputs
-   the updated content; you paste it into your local copies and re-upload, replacing the old
-   versions. It takes about a minute, and the whole system depends on that habit.
-7. Skills in the browser depend on your setup. If they are not available, upload the seven
-   `SKILL.md` files as project knowledge instead and add: "When I name a ritual (session-start,
-   session-end, next-task, log-lesson, premortem, research-method, checkpoint), follow the
-   matching SKILL.md in this project's knowledge."
-
-## Make it yours
-
-Two files contain personal content, and both mark it clearly with `PERSONALIZE` markers.
-Everything outside the markers is the shared protocol: leave it alone and every Builder you
-work with behaves the same way.
-
-1. `PREFERENCES.txt`: replace the four paragraphs between `PERSONALIZE: START` and
-   `PERSONALIZE: END` with your own role, form of address, tone and language. Delete the marker
-   blocks before pasting into claude.ai.
-2. `global/CLAUDE.md`, section 1: replace the four bullets between the `PERSONALIZE` comments
-   with the same information. Leave the rest of section 1 and all of sections 2 to 5.
-
-That is the whole personalization surface. Two minutes.
-
-**On language.** The kit's own files stay in English: the structure, the file names, the
-instruction headers, the section titles. That is what keeps it shareable and keeps the headers
-matching the protocol that describes them. Your language preference governs everything the
-Builder produces as content: the conversation, the reports, and the journal, decision and
-lesson entries it writes into `docs/`. Set it once in the `Language:` line and it holds.
-
-The kit ships with a solo indie game developer as the worked example. Yours might read:
-
-- *Product designer:* "Role: product designer working across brand and interface. I judge work
-  by craft, so show me options rather than one answer. Address me as <name>. Tone: direct and
-  opinionated; argue for a direction and say what you would cut. Language: English."
-- *Founder or PM:* "Role: founder. I need decisions, risks and dates, not implementation
-  detail. Address me as <name>. Tone: crisp, front-load the answer, flag anything that slips.
-  Language: English."
-- *Turkish-speaking indie developer:* "Rol: bağımsız oyun geliştiricisi; tek kişilik ekip, 2B
-  bir roguelike üzerinde çalışıyorum. Bana 'Deniz' diye hitap et. Ton: doğrudan, samimi,
-  profesyonel; bir yardımcı değil, deneyimli bir ortak gibi davran. Dil: Türkçe. Türkçe konuş
-  ve günlük, karar ve ders kayıtlarını Türkçe yaz. Komutları, dosya adlarını ve kutudan çıkan
-  dosya başlıklarını olduğu gibi bırak."
-
-That third one is the shape to copy if you do not work in English: the block itself is written
-in your language, so the Builder converses and writes its `docs/` entries in Turkish, while the
-file names, the shipped instruction headers and the shell commands stay exactly as they came.
-
-## The working rhythm
-
-- **Open with `session-start`.** You get a codename, a one-line account of where things stand,
-  the open P0 and P1 tasks, any orphaned work cleaned up, and one recommended next action. Then
-  it stops and waits, because you may have a priority that never reached the file.
-- **Work in fresh chats, one per task.** Context is re-read on every turn, so a long thread
-  gets more expensive with every message. The `docs/` files carry the continuity: that is what
-  they are for. Say `next-task` to pick up the next thing by priority.
-- **Correct freely.** A correction is not friction, it is the input the system runs on. Say
-  `log-lesson` if you want one captured on the spot.
-- **Before anything expensive or irreversible, say `premortem`.** You get the plan move by
-  move with fork triggers and abort criteria, and a go / no-go verdict at the end.
-- **For a real question, say `research-method`.** Several deliberately disagreeing lenses, then
-  a synthesis with an explicit contradiction map instead of a comfortable average. The verdict
-  lands in `docs/RESEARCH.md` with its sources before you see the report, so the next session
-  searches that file instead of buying the same answer again.
-- **When the conversation is filling up, say `checkpoint`.** STATUS is rewritten to the exact
-  current state, a checkpoint journal entry goes in, drafts are saved, and the work continues.
-  Nothing is closed. After a compaction, the first thing read is STATUS.
-- **Close with `session-end`.** Tasks closed, STATUS rewritten, a journal entry prepended,
-  decisions and lessons appended, deliverables saved into `artifacts/`, and a Done / Files /
-  Blocked / Next report.
-
-Keep STATUS under about 40 lines and JOURNAL under about 150. When JOURNAL passes that, the
-oldest entries move into `docs/journal-archive.md` rather than being deleted.
-
-## Where this came from
-
-The Builder Kit distils several years of daily practice running a multi-agent working system,
-where many sessions across several model tiers worked on one continuous body of work and had
-to hand off cleanly to each other. Everything that depended on bespoke infrastructure has been
-stripped out. What is left is the part that turned out to be portable: the five files, the
-ladder, the rituals, and the ethos that holds them together. It is deliberately plain text, so
-it will still work when the tooling around it has changed twice.
+Update your checkout from Git, then repeat the install request. The installer carries your
+PERSONALIZE block forward verbatim, backs up changed targets with collision-safe names,
+and preserves project memory and unrelated skills. Upgrading a 1.x imported installation
+needs a reviewed migration because builder-protocol.md used to contain personalization.
+See INSTALL.md before replacing anything. Existing custom instructions and project
+records remain yours; updates preserve them.
 
 ## Contributing
 
-Issues and Discussions are open, and reports of the "this did not survive contact with my
-setup" kind are the most useful thing you can send. Pull requests are welcome, and the protocol
-is opinionated: improvements to clarity land fast, changes to the philosophy get discussed
-first. If your change touches what a Builder is rather than how clearly it is described, open an
-issue before you write the patch, so nobody spends an evening on a direction the kit is not
-going.
+Run the checks in VALIDATION.md. Prefer concrete reports showing which workflow failed.
+Keep host-specific mechanics in adapters, shared habits in PROTOCOL.md, and shipped
+capabilities separate from planned ones. Do not add personal machine paths, credentials,
+unrelated infrastructure details or frozen model tiers to the portable kit.
 
-Where the kit is going next is in `ROADMAP.md`. Licensed MIT: see `LICENSE`.
-
-More about the thinking: https://baki.io/builder-kit
+Licensed MIT. BuilderKit is a standalone, lightweight set of working habits for Claude
+and Codex. Its scope is project memory, session skills and portable instructions.
 
 ## Version history
 
-- 1.5 (2026-09-02): the canary now carries the session role: an orchestrating session opens
-  with the literal [orchestrator mode] tag beside the greeting, and a missing tag while
-  delegating triggers the same re-read.
-- 1.4 (2026-08-24): the opening address became an explicit canary rule proving the protocol is loaded, and a missing
-  greeting triggers a re-read; installing onto an already-customized setup can now keep it untouched via a one-line import.
-- 1.3 (2026-08-19): deliverables get a committed `artifacts/` folder; superseded lessons move to
-  an archive; memory is repository-only; a new `checkpoint` ritual saves state before compaction.
-- 1.2 (2026-08-18): research record added. `docs/RESEARCH.md` joins the project files so
-  findings survive sessions, and the session rituals search and update it.
-- 1.1: agent-driven installation added (`INSTALL.md`). Manual setup became the secondary path.
+- 2.0.1 (2026-09-14): simplified documentation and skills around the standalone file workflow.
+- 2.0 (2026-09-14): shared protocol, Codex adapter, ownership-safe task lifecycle and
+  revised installation.
+- 1.5 (2026-09-02): session role tag added to the greeting canary.
+- 1.4 (2026-08-24): explicit greeting canary and import-style installation.
+- 1.3 (2026-08-19): artifacts folder, lesson archives and checkpoint ritual.
+- 1.2 (2026-08-18): research record added.
+- 1.1: agent-driven installation added.
 - 1.0: initial release.

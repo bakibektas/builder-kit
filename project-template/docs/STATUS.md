@@ -8,11 +8,11 @@ It is the ONE file read in full at the start of every session, so it must stay s
 
 - Cap: ~40 lines. If it grows past that, the extra belongs in JOURNAL.md or as a closed task.
 - Update it at the end of every session, before the final report.
-- Tasks: `- [ ] [P0] <title>: <why it matters> (status)`.
+- Tasks: `- [ ] [P0] <title>: <why it matters> (status; owner: <codename>)`.
   Priorities: P0 urgent or blocking, P1 this week, P2 backlog.
   Statuses: `todo`, `doing`, `blocked: <reason>`, `done <date>`.
-- Nothing may be left at `doing` when a session ends. Finish it, or return it to `todo` with
-  a note on exactly where it stopped.
+- Close only your owned tasks when your session ends: finish, block with a reason, or
+  return to `todo` with an exact resume step. Preserve another active owner's `doing` task.
 - Move completed tasks out after a week: delete the line here, the work is already recorded
   in JOURNAL.md.
 - Refer to people by role, never by name.
