@@ -9,11 +9,13 @@ A lesson changes future behavior. Record it while the particulars are still avai
 
 1. Search docs/LESSONS.md for related lessons first. Merge duplicates and archive
    superseded entries without losing their history.
-2. Record context, what failed, what worked, a specific mitigation, date and useful tags.
-   Prepend an entry using the file's schema and verify the saved text. If the write
-   fails, say it was not saved and provide the intended entry in the response.
-3. Name the trigger and action. "Be more careful" is not a mitigation. Keep it scoped to
+2. Record context, what failed, what worked, a specific action to prevent a repeat
+   (the Mitigation field), date and useful tags. Add an entry at the top using the file's
+   format and verify the saved text. If the write fails, say it was not saved and provide
+   the intended entry in the response.
+3. Name when to act and what to do. "Be more careful" is not a useful action. Keep it scoped to
    the actual evidence; a one-off preference does not become a universal prohibition.
 4. Promote recurring, broadly applicable lessons to concise standing rules in the
-   canonical project instruction file. Keep the live lesson record focused.
-5. Briefly report the mitigation and whether it was successfully saved, then continue.
+   shared project instruction file (AGENTS.md in the kit's project template). Keep the
+   current lesson record focused.
+5. Briefly report what to do next time and whether the lesson was saved, then continue.

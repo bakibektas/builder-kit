@@ -2,8 +2,8 @@
 
 Kit version 2.0.1. Project memory lives in the five files under `docs/`.
 
-Read `AGENTS.md` beside this file for shared project purpose, conventions, acceptance
-checks and memory locations. The installer deploys both files for Claude projects,
+Read `AGENTS.md` beside this file for shared project purpose, conventions, checks for
+success and record locations. The installer copies both files for Claude projects,
 so Codex and Claude inherit the same project facts without maintaining two copies.
 
 The installed Builder protocol supplies the working conventions. Preserve existing
