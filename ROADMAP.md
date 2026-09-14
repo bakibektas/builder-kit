@@ -1,15 +1,17 @@
 # Roadmap
 
-Version 2.0.1 ships native Claude Code and Codex instructions, seven shared skills,
+Version 2.0.1 ships instruction files for Claude Code and Codex, seven shared skills,
 and standalone project memory in five files.
-These are instruction-level capabilities; no background runtime is bundled.
+The assistant follows these text files; the kit includes no background program.
 
 ## Next: repeatable installation and release validation
 
-An executable installer could make ownership tracking, backups and three-way updates
-deterministic. It needs dry-run, idempotence, custom-path and rollback tests before it
-replaces the agent-driven contract. Runtime acceptance across supported CLI versions
-should use isolated homes and real discovery, not just check for files on disk.
+An installer program could track which files belong to the kit, create backups and
+compare old kit files, user edits and updated kit files before merging changes. Before
+replacing installation by the assistant, it needs tests for previewing changes, repeating
+an install without duplicates, custom paths and restoring backups. Tests across supported
+command-line application versions should use separate test configuration folders and
+confirm that each assistant actually finds the installed instructions and skills.
 
 ## Localization
 
@@ -19,7 +21,8 @@ still share records and commands. Keep English structural names until that exist
 
 ## Other assistants
 
-Add adapters for hosts people actually use, including local models, with verified
-instruction discovery, skill delivery and persistence checks. Reuse the shared protocol
-instead of multiplying doctrine copies. A host that reads text can follow the habits;
+Add instruction files for other assistants people use, including local models. Verify
+that each assistant finds the instructions and skills and can save project records.
+Reuse the shared protocol instead of maintaining separate copies of the same rules.
+An assistant that reads text can follow the habits;
 tool access and enforcement still need separate verification.

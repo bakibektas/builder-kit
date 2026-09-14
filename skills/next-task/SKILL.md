@@ -5,20 +5,20 @@ description: Select and claim the next useful Builder task using priority, depen
 
 # next-task
 
-1. Read the current tasks in STATUS and the latest JOURNAL entry.
+1. Read the current tasks in docs/STATUS.md and the latest docs/JOURNAL.md entry.
    Preserve active owners. Investigate abandoned work
    rather than resetting every in-progress task.
 2. Respect an explicitly requested task. Otherwise choose the highest-priority unblocked
    task, favoring dependencies it resolves and the current project focus. Search relevant
    lessons, decisions and research before repeating work.
-3. State the intended result and acceptance checks. Plan only to the detail the task needs.
+3. State the intended result and how to check it. Plan only to the detail the task needs.
    Record the task's owner and doing status in STATUS before edits. Use the project's
    existing task entry when one matches; avoid duplicate tasks.
 4. Inspect affected references before changes. Execute and validate within the authorized
    scope. Continue without another confirmation when the user asked you to take the task.
-5. Delegate only if authorized and useful for independent work. Give each worker task
-   description, ownership paths, context, model selection and acceptance checks.
-   Otherwise do the work inline. Verify startup and integrated results, not just launch.
+5. Delegate only if authorized and useful for independent work. Give each worker the task,
+   files it may edit, context, chosen model and checks for success. Otherwise do the work
+   yourself. Verify that each worker started and review how its result fits the whole task.
 
 Report task, why it was selected, ownership and material blockers concisely. Save a
 checkpoint at useful milestones and close your task honestly when finished.

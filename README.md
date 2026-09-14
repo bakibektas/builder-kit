@@ -2,8 +2,9 @@
 
 Version 2.0.1 (2026-09-14).
 
-A portable working protocol for **Claude Code and OpenAI Codex**: seven session skills,
-durable project memory, evidence-based work, and a clean handoff between sessions.
+A shared set of working instructions for **Claude Code and OpenAI Codex**: seven skills
+(reusable task instructions), saved project records, checks backed by evidence, and
+clear notes so the next session can continue the work.
 The kit is plain text: project files, instructions and skills. It runs inside the
 assistant you already use, with no additional service or background process to install.
 
@@ -11,35 +12,27 @@ assistant you already use, with no additional service or background process to i
 
 1. Clone `https://github.com/bakibektas/builder-kit.git`, or download and extract its ZIP.
 2. Open the folder in Claude Code or Codex.
-3. Say: **Install this kit for me. Follow INSTALL.md.** Name the target harness if different
+3. Say: **Install this kit for me. Follow INSTALL.md.** Name the target assistant if different
    from the one you are using, and the project folder if you want project setup too.
 
-The agent personalizes your address, role, tone and language, prepares the target files,
-preserves existing content, and verifies the installation. Read [INSTALL.md](INSTALL.md)
-first: it is the complete file-copy contract. Installation does not configure hooks,
-change permissions, install software or connect external services.
+The assistant records the name or nickname you want it to use, your role, preferred tone
+and language. It prepares the target files, preserves existing content, and verifies the
+installation. Read [INSTALL.md](INSTALL.md) first: it explains which files to copy and how
+to preserve existing content. Installation does not configure hooks, change permissions,
+install software or connect external services.
 
 For Codex, start a fresh session in the project and invoke `$session-start`. For Claude
 Code use `/session-start` or ask for the skill by name. Then give it the task. If you
-already gave a task, the startup ritual continues into it.
+already gave a task, the assistant continues that task after reading the project records.
 
-## What changed in 2.0
+## Five files help the next session continue
 
-- A shared [protocol](PROTOCOL.md) with native Claude and Codex entry files, avoiding two
-  independent copies of the same working rules.
-- Codex installation, skill discovery, override checks and upgrade instructions.
-- Five project memory files shared by both assistants.
-- Task ownership, verified checkpoints and practical guidance for choosing available models.
-- Correct Git commit argument order and guidance for files with mixed contributors' hunks.
-- Skills that preserve the user's authorization and do not impose an extra startup gate.
-
-## Five files keep the project continuous
-
-The [project template](project-template/AGENTS.md) keeps memory in five files under `docs/`.
-STATUS holds the current focus and owned task list. JOURNAL records sessions.
-DECISIONS records why direction changed. LESSONS records corrections and mitigations.
-RESEARCH preserves findings with sources and dates. Read the small volatile record at
-startup and search the others when relevant. Every session closes with a usable next step.
+The [project template](project-template/AGENTS.md) saves project memory as five text files
+under `docs/`. STATUS holds the current focus, tasks and who is working on each task.
+JOURNAL records what happened in each session. DECISIONS records why direction changed.
+LESSONS records corrections and what to do differently next time. RESEARCH preserves
+findings with sources and dates. Read STATUS and the latest JOURNAL entry at startup;
+search the other records when relevant. Every session ends with a saved next step.
 
 ## Package map
 
@@ -47,21 +40,24 @@ startup and search the others when relevant. Every session closes with a usable 
 |---|---|
 | [ETHOS.md](ETHOS.md) | Why the discipline exists |
 | [PROTOCOL.md](PROTOCOL.md) | Shared behavior; installed as builder-protocol.md |
-| [global/CLAUDE.md](global/CLAUDE.md) | Claude entry and personalization |
-| [global/AGENTS.md](global/AGENTS.md) | Codex entry and personalization |
-| [project-template/](project-template/AGENTS.md) | Shared project facts, native entry files and file memory |
-| [skills/](skills/session-start/SKILL.md) | Seven shared SKILL.md rituals |
+| [global/CLAUDE.md](global/CLAUDE.md) | Claude instruction file and personal preferences |
+| [global/AGENTS.md](global/AGENTS.md) | Codex instruction file and personal preferences |
+| [project-template/](project-template/AGENTS.md) | Starter project instructions and records |
+| [skills/](skills/session-start/SKILL.md) | Seven reusable workflows, each in a SKILL.md file |
 | [INSTALL.md](INSTALL.md) | Install, update, conflicts and verification |
-| [VALIDATION.md](VALIDATION.md) | Package checks and behavior acceptance scenarios |
+| [VALIDATION.md](VALIDATION.md) | File checks and scenarios for testing assistant behavior |
 | [PREFERENCES.txt](PREFERENCES.txt) | Optional browser-chat preference text |
 | [ROADMAP.md](ROADMAP.md) | Remaining work, separate from shipped features |
 
-## Native installation paths
+## Installation paths for each assistant
+
+User instructions and skills apply across your projects. Project instructions and skills
+apply within the chosen project. Pick one skill location per assistant to avoid duplicates.
 
 | Component | Claude Code | Codex |
 |---|---|---|
 | User instructions | ~/.claude/CLAUDE.md | $CODEX_HOME/AGENTS.md; default ~/.codex/AGENTS.md |
-| Shared protocol | builder-protocol.md beside entry | builder-protocol.md beside entry |
+| Shared protocol | builder-protocol.md beside instruction file | builder-protocol.md beside instruction file |
 | User skills | ~/.claude/skills/ | ~/.agents/skills/ |
 | Project skills alternative | Project .claude/skills/ | Project .agents/skills/ |
 | Project instructions | CLAUDE.md reads shared AGENTS.md | AGENTS.md |
@@ -70,40 +66,40 @@ startup and search the others when relevant. Every session closes with a usable 
 For Codex, the documented portable skill path is `.agents/skills`; some deployments also
 expose legacy `.codex/skills`. Check actual discovery and avoid duplicates. Respect a
 custom CODEX_HOME for instructions; do not assume it relocates the documented user skill
-directory. Applicable AGENTS.override.md files can shadow an AGENTS.md file. See the
+directory. Applicable AGENTS.override.md files can take precedence over an AGENTS.md file. See the
 [official instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
 and [official skills guide](https://learn.chatgpt.com/docs/build-skills).
 
 For a manual install, follow the target mapping and conflict checks in INSTALL.md: copy
-the personalized native entry, PROTOCOL.md as builder-protocol.md, and the seven skill
-folders into one chosen discovery scope. Copy the project template only to a
+the personalized instruction file, PROTOCOL.md as builder-protocol.md, and the seven skill
+folders into one chosen user or project location. Copy the project template only to a
 project you choose. Keep the kit checkout unchanged as the source for future updates.
 
 ## Everyday use
 
 | Skill | Result |
 |---|---|
-| session-start | Restore context, identity and ownership; continue requested work |
-| next-task | Pick and claim useful unblocked work |
+| session-start | Read project records, identify the session and task owner, then continue requested work |
+| next-task | Choose useful work that can start now and record who will do it |
 | log-lesson | Capture a correction with a specific prevention rule |
-| research-method | Verify evidence through distinct lenses and resolve disagreements |
-| premortem | Stress-test consequential plans before action |
-| checkpoint | Persist an exact resume point without closing work |
-| session-end | Close owned work and save a verified handoff |
+| research-method | Check evidence from different expert perspectives and resolve disagreements |
+| premortem | Imagine how a costly or hard-to-reverse plan could fail before acting |
+| checkpoint | Save the current state and exact next step while keeping the task active |
+| session-end | Update your tasks and verify that the next session's notes were saved |
 
-These are instructions an agent follows, not a runtime that enforces compliance. A
+The assistant must follow these instructions; no separate program enforces them. A
 greeting alone proves little. Ask it to name the loaded files and last
 checkpoint; then check the actual records. See [VALIDATION.md](VALIDATION.md).
 
 For browser-only chat, personalize PREFERENCES.txt and provide the relevant project
 records explicitly. Browser preferences do not install local skills, run hooks or grant
 filesystem access. Copy returned file updates back yourself unless a connected tool
-actually saved them. Never treat a promise to remember as proof of persistence.
+actually saved them. A promise to remember does not mean the information was saved.
 
 ## Updating
 
 Update your checkout from Git, then repeat the install request. The installer carries your
-PERSONALIZE block forward verbatim, backs up changed targets with collision-safe names,
+PERSONALIZE block forward without changing it, gives each backup a unique name,
 and preserves project memory and unrelated skills. Upgrading a 1.x imported installation
 needs a reviewed migration because builder-protocol.md used to contain personalization.
 See INSTALL.md before replacing anything. Existing custom instructions and project
@@ -112,8 +108,8 @@ records remain yours; updates preserve them.
 ## Contributing
 
 Run the checks in VALIDATION.md. Prefer concrete reports showing which workflow failed.
-Keep host-specific mechanics in adapters, shared habits in PROTOCOL.md, and shipped
-capabilities separate from planned ones. Do not add personal machine paths, credentials,
+Keep assistant-specific instructions in the Claude and Codex entry files and shared habits
+in PROTOCOL.md. Distinguish shipped capabilities from plans. Do not add personal machine paths, credentials,
 unrelated infrastructure details or frozen model tiers to the portable kit.
 
 Licensed MIT. BuilderKit is a standalone, lightweight set of working habits for Claude
@@ -121,11 +117,16 @@ and Codex. Its scope is project memory, session skills and portable instructions
 
 ## Version history
 
-- 2.0.1 (2026-09-14): simplified documentation and skills around the standalone file workflow.
-- 2.0 (2026-09-14): shared protocol, Codex adapter, ownership-safe task lifecycle and
-  revised installation.
-- 1.5 (2026-09-02): session role tag added to the greeting canary.
-- 1.4 (2026-08-24): explicit greeting canary and import-style installation.
+- 2.0.1 (2026-09-14): simplified documentation and skills around the standalone file
+  workflow; clarified preferred names, installation scope, project records and checks.
+- 2.0 (2026-09-14): introduced the shared protocol and separate Claude and Codex instruction
+  files, with five project records used by both assistants. Added Codex installation,
+  skill discovery, override checks and upgrade instructions. Added task ownership,
+  verified checkpoints and guidance for choosing available models. Corrected Git commit
+  argument order and explained how to commit files containing several contributors' edits.
+  Skills preserve the user's existing authorization and continue requested work after startup.
+- 1.5 (2026-09-02): added a session role label to the greeting used to check that instructions loaded.
+- 1.4 (2026-08-24): added that greeting check and installation through an imported instruction file.
 - 1.3 (2026-08-19): artifacts folder, lesson archives and checkpoint ritual.
 - 1.2 (2026-08-18): research record added.
 - 1.1: agent-driven installation added.

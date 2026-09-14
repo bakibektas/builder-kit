@@ -1,19 +1,24 @@
-# Validation contract
+# How to check the kit
 
-BuilderKit is an instruction package. Static checks establish package consistency;
-behavioral scenarios establish whether an agent follows it. Neither proves universal
-compliance. Do not report an unrun scenario as passed.
+BuilderKit is a set of instructions. File checks show whether the package is consistent;
+tests in an assistant session show whether it follows the instructions in that scenario.
+Neither guarantees that every session will follow every rule. Do not report a scenario
+as passed unless you ran it.
 
 ## Package checks
 
-- Both native entries point to builder-protocol.md; INSTALL maps PROTOCOL.md there.
+- Both assistant instruction templates point to builder-protocol.md; INSTALL copies
+  PROTOCOL.md to that name.
 - Project CLAUDE.md points to the shipped project AGENTS.md.
 - Seven skill directories each contain SKILL.md with matching name and a non-empty
   description. Skill bodies work from their installed location without links back into
   an unavailable kit checkout.
 - Markdown links to shipped files resolve. Version markers agree. No private absolute
   paths, frozen vendor tier requirements or obsolete commit syntax enter the package.
-- Global and project-only installations preserve existing content and provide a complete loading chain.
+- User-wide and project-only installations preserve existing content and give the
+  assistant a file reference to every required instruction file.
+- Personal preferences ask for the name or nickname the assistant should use. The
+  README keeps release details together in its version history without a duplicate 2.0 section.
 - Keep the package standalone: instructions and skills use the five project files and
   artifacts/. No external service, private deployment or central task registry is required.
 - Run `git diff --check` and review the exact changed paths.
@@ -21,27 +26,27 @@ compliance. Do not report an unrun scenario as passed.
 When the Codex skill-creator validator is available, run its quick_validate.py on each
 skills/* folder. It checks metadata, not behavioral correctness.
 
-## Behavioral acceptance scenarios
+## Scenarios to test in an assistant session
 
 Use disposable project directories and explicitly isolated test configuration. Never
-overwrite a real user home or consume paid APIs for a smoke test.
+overwrite a real user home or use paid APIs for a basic installation check.
 
 | Scenario | Expected observable outcome |
 |---|---|
-| Fresh Codex | AGENTS + shared protocol identified; seven skills discoverable; session-start reads/scaffolds only this project's memory |
-| Fresh Claude | Native entry loads protocol; project CLAUDE reads AGENTS; same records used |
+| Fresh Codex | AGENTS + shared protocol identified; seven skills found; session-start reads or creates records only for this project |
+| Fresh Claude | Claude instruction file loads protocol; project CLAUDE reads AGENTS; same records used |
 | Existing task in startup request | Context restored, task owner recorded in STATUS and work continues without another approval gate |
 | Existing active collaborator | Their task status and uncommitted edits stay untouched |
 | Checkpoint then resume | Identity, exact task and next step survive; checkpoint did not close the task |
 | File write fails | No success claim; exact unsaved update and handoff reported |
-| Codex override shadows entry | Installer identifies override, preserves it, reports discovery unresolved |
+| Codex override takes precedence | Installer identifies override, preserves it, reports that kit loading is unresolved |
 | Repeat identical install | No changes, duplicate read lines or extra backups |
 | Custom instruction or modified skill | Concrete merge/conflict presented; unrelated content preserved |
 | 1.x direct update | Personal block preserved verbatim; entry + shared protocol correctly deployed |
-| 1.x imported update | Custom native content preserved; one reviewed reference change; personal block moved into adapter |
+| 1.x imported update | Custom instructions preserved; one reviewed reference change; personal block moved into builder-kit-entry.md |
 | Project-only installation | Local AGENTS explicitly reads local protocol; local skills discovered; globals untouched |
 | Protected instruction file | Target preserved; unresolved conflict reported without changing permissions |
 
-Record which host/version and scenarios were actually exercised in the release review.
-Use current primary documentation for claims about host behavior; keep local deployment
-observations distinct from general product guarantees.
+Record which assistant/version and scenarios were actually tested in the release review.
+Use current official documentation for claims about assistant behavior. Distinguish what
+you observed in one installation from what the product guarantees for all users.

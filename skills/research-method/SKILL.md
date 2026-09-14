@@ -1,30 +1,30 @@
 ---
 name: research-method
-description: Investigate a question through distinct expert lenses, verify primary evidence, and synthesize disagreements and knowledge gaps. Use for research or comparisons that benefit from multiple perspectives; supports inline work or authorized delegation.
+description: Investigate a question from different expert perspectives, check original sources, and explain disagreements and missing evidence. Use for research or comparisons that benefit from multiple perspectives; work directly or delegate when authorized.
 ---
 
 # research-method
 
-A method, not a pipeline. It works in a single chat or fanned out to subagents.
+Use this method in one session or divide the work among other assistants when authorized.
 
 Search docs/RESEARCH.md for existing findings before doing the research again.
 The user's request and host permissions govern scope; this skill does not authorize
 additional workers, paid data pulls or publication.
 
-## 1. Decompose
+## 1. Choose expert perspectives
 
 Restate the question in one sentence, so any misreading surfaces before the work starts. Then
-pick 3 to 5 expert lenses that would genuinely disagree with each other, each written as an
-inline persona: its discipline, what it optimises for, and its blind spot.
+pick 3 to 5 expert perspectives (called lenses below) that could disagree with each other.
+For each, state its discipline, what it prioritizes, and what it might overlook.
 
-Weak decomposition is the main failure mode of this whole method. Five lenses that agree tell
+Choosing similar perspectives is the main failure mode of this method. Five lenses that agree tell
 you nothing you did not already believe, and they cost the same as five that do not. If your
 lenses would all reach the same verdict, you have picked five names for one lens: go back and
 find the disciplines that would actually fight about this.
 
 ## 2. Run each lens
 
-Work through the lenses inline unless authorized, useful delegation is available. For
+Work through the lenses yourself unless authorized, useful delegation is available. For
 delegation, select an available suitable model and give each worker a bounded task and
 ownership scope. Use the delegation tools available in the current host.
 For each lens produce:
@@ -43,7 +43,7 @@ confirm it says what you are about to claim it says. If you cannot open it, keep
 label it `unverified` so the synthesis can weigh it correctly. A confident sentence with no
 checked source behind it is the most damaging thing this method can produce.
 
-## 3. Synthesise
+## 3. Combine the findings
 
 Use an available model suited to the reasoning required. Produce, in this order:
 
@@ -63,7 +63,7 @@ Explain confidence using the evidence and remaining gaps; numerical confidence i
 Prepend a `docs/RESEARCH.md` entry using its format and save a substantive
 deliverable in `artifacts/`. Verify the written files before reporting success.
 Record the question, verdict, URLs, verification
-dates, uncertainty and what the finding informed. Report any persistence failure honestly.
+dates, uncertainty and what the finding informed. Report any failure to save the files.
 
 ## Rules
 
@@ -77,4 +77,5 @@ dates, uncertainty and what the finding informed. Report any persistence failure
   authorization before a metered data pull.
 
 Write the output in the user's configured language, keeping the field labels above (LENS,
-PLAIN VERDICT, FINDING, CONFIDENCE, SOURCES, GAPS) as they are so the format stays parseable.
+PLAIN VERDICT, FINDING, CONFIDENCE, SOURCES, GAPS) unchanged so people and tools can
+recognize the same fields across entries.

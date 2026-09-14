@@ -2,20 +2,21 @@
 
 Kit version 2.0.1. Project memory lives in the five files under `docs/`.
 
-## Purpose and acceptance
+## Purpose and checks for success
 
 <Goal, audience, deliverable and how to verify it. Replace this.>
 
 ## Project conventions
 
-<Stack, relevant paths, build/test commands and constraints. Replace this.>
+<Languages and tools, relevant paths, build/test commands and constraints. Replace this.>
 
-## Memory
+## Saved project records
 
 Read `docs/STATUS.md` and the latest `docs/JOURNAL.md` entry at startup. Search
 `docs/DECISIONS.md`, `docs/LESSONS.md` and `docs/RESEARCH.md` for relevant prior work.
 Use `artifacts/` for deliverables. Follow the installed Builder protocol and file headers.
-Record ownership before changing tasks; close only your own work and save a handoff.
+Record who is working on a task before editing; update only your own tasks and save
+notes with an exact next step for the next session.
 
 This is a standalone template. Preserve existing project instructions and records when
 installing it; replace only the placeholders that belong to this template.

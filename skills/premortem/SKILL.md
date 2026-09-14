@@ -1,6 +1,6 @@
 ---
 name: premortem
-description: Stress-test a plan before committing to it. Produces move-by-move actions with expected signals, fork triggers and counteractions, a ledger of blocked variables with working assumptions, explicit success and abort criteria, the point of no return, and a go / go-with-changes / no-go verdict. Use when the user says "premortem", "wargame this", "stress-test this plan", "what could go wrong", or before any high-stakes or hard-to-reverse move.
+description: Test a plan by imagining how it could fail, identifying warning signs and responses, and deciding when to stop. Use for a premortem, "what could go wrong", "wargame this", or before a costly or hard-to-reverse action.
 ---
 
 # premortem
@@ -9,7 +9,7 @@ Assume the plan has already failed, then work out how. Confidence in a plan is n
 about the plan. Output the structure below, not an essay.
 
 Scale this to the stakes. The user's scope and existing authorization remain in force;
-a hypothetical counteraction is not permission to execute it. Save a substantive analysis
+a proposed response to a failure is not permission to execute it. Save a substantive analysis
 in artifacts/ and reference it in the project journal.
 
 ## 1. Frame
@@ -19,44 +19,44 @@ in artifacts/ and reference it in the project journal.
 - Reversibility: whether this can be undone and at what cost. If it cannot be undone, say so
   in plain words here rather than burying it in a later section.
 
-## 2. The moves
+## 2. Actions and warning signs
 
 One block per move, in the order you will make them. This is the core of the exercise.
 
 ```
 Move <n>: <what you do>
 - Expected signal: <what you should observe if it is working>
-- Fork trigger: <the observation that means it is going wrong>
-- Counteraction: <what you do instead, immediately>
+- Warning sign: <the observation that means it is going wrong>
+- Response: <what you do instead, immediately>
 ```
 
 Rules for this section:
 
 - The expected signal must be observable, not a feeling: "three of five reviewers approve",
   not "it goes well". If you cannot say how you would see it, you cannot claim it.
-- Every move needs a fork trigger. A move with no failure mode has not been thought about yet.
-- A counteraction must be executable without stopping to ask permission mid-flight. If it
-  needs someone else's decision first, secure that decision now or make the move an abort point.
+- Every move needs a warning sign that tells you it may be failing.
+- A response must be within existing authorization. If it needs someone else's decision,
+  obtain that decision before starting or stop at that point and request it.
 
-## 3. Blocked variables
+## 3. What you cannot control or observe
 
 What you cannot control or observe, and what you are assuming about each. This is where the
 surprises come from, so be honest about how much of the plan rests here.
 
 ```
-Variable: <name>
-- Why blocked: <why you cannot see it or control it>
+Unknown or external factor: <name>
+- Limit: <why you cannot see it or control it>
 - Working assumption: <what you are assuming, stated plainly>
 - If wrong: <what changes, and what you do about it>
 ```
 
-## 4. Criteria
+## 4. When to proceed or stop
 
 - Success: the specific conditions that mean stop, it worked.
 - Abort: the specific conditions that mean stop, cut losses. Write these before starting:
   criteria written mid-crisis are always too generous, because by then you are counting what
   you have already spent.
-- Point of no return: the last move after which abort is no longer possible. Name it, and say
+- Point of no return: the action after which the result cannot be undone. Name it, and say
   what you want confirmed before you cross it.
 
 ## 5. Verdict

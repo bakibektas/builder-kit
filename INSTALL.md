@@ -1,20 +1,24 @@
 # Install or update BuilderKit
 
-For the installing agent. Read README.md, PROTOCOL.md and the chosen native entry before
+For the assistant doing the installation. Read README.md, PROTOCOL.md and the chosen
+assistant's instruction template (global/CLAUDE.md or global/AGENTS.md) before
 writing. Install the kit's instructions, skills and optional project template only.
 The user's scope and prior choices govern this workflow.
 
 ## 1. Establish the target
 
-Determine Claude Code, Codex or both from the request and active host. Ask only for
-missing material choices. Determine whether the user wants global installation, a
-project setup, or both; do not invent a project path. Inspect existing instructions first.
+Determine Claude Code, Codex or both from the request and the assistant being used.
+Ask only for missing choices that affect the installation. A user-wide (global)
+installation applies across projects; a project-only installation applies in one chosen
+folder. Determine which the user wants, or whether they want both user-wide defaults and
+project setup. Do not invent a project path. Inspect existing instructions first.
 
 - For standalone setup, use the paths below. Run `claude --version` or `codex --version`
-  as appropriate. If absent, report that CLI validation is unavailable; file preparation
-  may continue if requested, but do not claim a working CLI install or install software.
-- For Codex, inspect applicable AGENTS.override.md files and report shadowing. Do not
-  remove overrides or edit config.toml to force this kit to load.
+  as appropriate. If the command is unavailable, report that the command-line application
+  could not be checked. File preparation may continue if requested, but do not claim
+  a working application installation or install software.
+- For Codex, inspect applicable AGENTS.override.md files and report if they take
+  precedence over AGENTS.md. Do not remove overrides or edit config.toml to force this kit to load.
 
 | Source | Claude destination | Codex destination |
 |---|---|---|
@@ -27,18 +31,19 @@ On Windows resolve `~` from the user's profile directory. Use PowerShell literal
 do not repurpose HOME, CODEX_HOME or another system variable. Honor an existing custom
 Claude configuration directory if the environment supplies one. For project-only skills,
 use the target project's .claude/skills or .agents/skills instead. Choose one discovery
-scope per harness; do not duplicate same-named skills globally and locally. Existing
-legacy Codex skill paths require an inventory, not a second automatic installation.
+location per assistant, either user-wide or project-only; do not duplicate same-named
+skills in both. Check any older Codex skill locations before adding another copy.
 
 ## 2. Prepare a reviewable change
 
-Inventory every exact target file and same-named skill folder. Read only the named
+List every exact target file and same-named skill folder. Read only the named
 instruction/skill targets; never inspect credential stores. Preserve the source checkout.
 Prepare personalized copies in a project-local scratch directory, not by editing the kit.
 
-For a fresh install collect any missing address, role, tone and language preferences in
-one concise question. Reuse answers already given. Fill the native entry's PERSONALIZE
-block. PREFERENCES.txt is optional and only for a requested browser setup.
+For a fresh install, collect any missing preferences in one concise question: the name
+or nickname the user wants the assistant to use, role, tone and language. Reuse answers
+already given. Fill the instruction file's PERSONALIZE block. PREFERENCES.txt is optional
+and only for a requested browser setup.
 
 For an existing installation, recognize the `Kit version` line and PERSONALIZE markers.
 Capture the entire existing block verbatim before transforming anything. If markers are
@@ -56,18 +61,19 @@ conflict. Routine copying into an empty, requested target needs no repeated conf
 - **Kit-owned update:** preserve personalization and review any other local edits. The
   version marker alone does not prove all text is replaceable. Preserve local skill
   changes unless the user has explicitly chosen their replacement.
-- **Custom native file:** propose a minimal merge, keep a separate adapter, or skip.
-  For a separate adapter, install the personalized native template as builder-kit-entry.md
-  and add one reviewed ordinary instruction to the custom native file:
+- **Existing custom instruction file:** propose a small merge, use a separate BuilderKit
+  entry file, or skip. For a separate entry file, install the personalized instruction
+  template as builder-kit-entry.md and add one reviewed read instruction to the custom file:
   `Read builder-kit-entry.md beside this file and follow its Builder protocol.`
-  This works as an explicit instruction on either host; it does not assume Claude import
-  syntax on Codex. Keep the shared protocol beside the adapter. Track this as an import
-  installation and update the adapter on future runs, preserving the custom native file.
+  This is an explicit instruction for either assistant; it does not rely on Claude import
+  syntax in Codex. Keep the shared protocol beside builder-kit-entry.md. Record that the
+  custom instruction file loads this separate entry, and update the entry on future runs.
+  Preserve the custom instruction file.
 - **Protected or read-only target:** leave it untouched and report the conflict. Do not
   change permissions or bypass a denied write to force the installation.
 
-Before every changed target, make a byte-for-byte backup next to it with date, time and a
-unique suffix. Use no-clobber creation; two updates in one day must not overwrite the
+Before changing an existing target, make an exact backup next to it with date, time and a
+unique suffix. Create the backup only if its path is unused; two updates in one day must not overwrite the
 first backup. Back up modified skill files too. Never replace an entire skill directory
 blindly: it may contain personal resources. Preserve unrelated files and folders.
 
@@ -87,38 +93,42 @@ blindly: it may contain personal resources. Preserve unrelated files and folders
    an upgrade. Offer a separate project-instruction migration if Codex should share an
    existing Claude project's facts. Do not overwrite project-specific notes with placeholders.
 7. If adding Codex beside Claude, carry preferences only when requested and prepare its
-   own native entry and discovery path. A Claude preferences field does not configure Codex.
+   own instruction file and skill location. A Claude preferences field does not configure Codex.
 
-## 5. Deploy and set up an optional project
+## 5. Copy the files and set up an optional project
 
-Copy the chosen native entry, shared protocol and seven SKILL.md folders. Copy only the
-files reviewed for this install. No package install, network call, hook/config edit, model
-selection change or permission change is part of deployment.
+Copy the chosen instruction file, shared protocol and seven skill folders, each containing
+SKILL.md. Copy only the files reviewed for this install.
+No package install, network call, hook/config edit, model
+selection change or permission change is part of this installation.
 
 For an explicitly named fresh project, copy project-template/ without replacing
-existing files. Keep AGENTS.md as the canonical project facts and CLAUDE.md as its reader
-when both harnesses are wanted. For Claude-only setup both files are needed; for Codex-only
-setup CLAUDE.md is optional. Fill project purpose, conventions and actual validation
+existing files. Keep shared project facts in AGENTS.md and use CLAUDE.md to read it
+when both assistants are wanted. For Claude-only setup both files are needed; for Codex-only
+setup CLAUDE.md is optional. Fill project purpose, conventions and actual build or test
 commands. If the user chose a project-only install with no global Builder protocol, place
 PROTOCOL.md as builder-protocol.md in the project and add an explicit read instruction to
 project AGENTS.md. Personalization belongs there as well in that case.
 
-Some retained file-template headers use the older Claude terminology. PROTOCOL.md is
-authoritative for canonical standing-rule placement, immediate lesson capture and optional
-numeric confidence. Preserve existing records; do not reinterpret that wording as a second
-memory authority or rewrite historical entries during installation.
+Some retained template headers use older guidance: save lessons only at session end,
+put project rules in CLAUDE.md or always give a confidence percentage. Follow PROTOCOL.md:
+save corrections promptly, keep shared project rules in AGENTS.md when both assistants
+use it, and explain confidence through evidence; percentages are optional. Preserve
+existing records and do not rewrite historical entries during installation.
 
 ## 6. Verify, then report
 
 Re-read targets, not source drafts. Verify that personalization survived verbatim, the
-shared protocol exists beside the entry, references resolve, seven skills have valid
-frontmatter, and no unrelated file changed. Confirm the five project memory files are
+shared protocol exists beside the instruction file, file references work, each of the
+seven skills has a valid name and description in its opening metadata block (YAML
+frontmatter), and no unrelated file changed. Confirm the five project memory files are
 present and all existing project records are preserved.
 
 Start a fresh user session for the host to discover installed instructions and skills.
-Ask it to name the loaded sources and memory files and invoke session-start in the intended
-project. Do not claim runtime discovery was tested merely because files exist. If a fresh
-session was not run, say **files verified; runtime discovery not yet verified**.
+Ask it to name the loaded instruction files and project records and invoke session-start
+in the intended project. The presence of files on disk does not prove the assistant found and
+loaded them. If a fresh session was not run, say **files verified; loading in a fresh
+assistant session not yet verified**.
 
 Report exact targets, installed version, preserved preferences, backups, skipped conflicts,
 validation performed and remaining steps. For browser preferences, provide the personalized
