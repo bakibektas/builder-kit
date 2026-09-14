@@ -1,11 +1,15 @@
 ---
 name: research-method
-description: Structured multi-lens research on a question. Decomposes it into expert lenses that genuinely disagree, runs each as a mid-tier subagent producing a plain verdict plus evidence, confidence and sources, then synthesises with an explicit contradiction map, knowledge gaps and a recommendation. Use when the user says "research", "investigate", "compare options", "what does the evidence say", or asks a question needing more than one perspective.
+description: Investigate a question through distinct expert lenses, verify primary evidence, and synthesize disagreements and knowledge gaps. Use for research or comparisons that benefit from multiple perspectives; supports inline work or authorized delegation.
 ---
 
 # research-method
 
 A method, not a pipeline. It works in a single chat or fanned out to subagents.
+
+Read the project's memory backend first. Search existing research before doing it again.
+The user's request and host permissions govern scope; this skill does not authorize
+additional workers, paid data pulls or publication.
 
 ## 1. Decompose
 
@@ -20,7 +24,10 @@ find the disciplines that would actually fight about this.
 
 ## 2. Run each lens
 
-One mid-tier subagent per lens. Give each the question, its persona, and this required output:
+Work through the lenses inline unless authorized, useful delegation is available. For
+delegation, select an available suitable model and give each worker a bounded task and
+ownership scope. In the Collective, use live model-board routing and tracked wrappers.
+For each lens produce:
 
 ```
 LENS: <name>
@@ -38,7 +45,7 @@ checked source behind it is the most damaging thing this method can produce.
 
 ## 3. Synthesise
 
-This is the one step that justifies the strongest tier. Produce, in this order:
+Use an available model suited to the reasoning required. Produce, in this order:
 
 - Answer: the direct answer, first, in plain language. Not a summary of the process.
 - Consensus: what the lenses agree on, and how strongly.
@@ -49,14 +56,15 @@ This is the one step that justifies the strongest tier. Produce, in this order:
 - Knowledge gaps: what no lens could answer, and what specifically would close each gap.
 - Recommendation: what to actually do, and the main risk in doing it.
 
-End with `Conf: <percentage>%` and `Weights: <top factors>`.
+Explain confidence using the evidence and remaining gaps; numerical confidence is optional.
 
 ## 4. Record it before you report it
 
-Condense the synthesis into one `docs/RESEARCH.md` entry in that file's format (question,
-verdict, sources with URL and date marked verified or secondary, confidence, what it informed)
-and append it at the top. Write the entry first, then report in chat: research that only ever
-existed in a chat window gets bought a second time, by you or by whoever picks this up next.
+In files mode, prepend a `docs/RESEARCH.md` entry using its format and save a substantive
+deliverable in `artifacts/`. In Collective mode use `agent_save_research` and the artifact
+tools with the absolute repo and live schemas; verify successful responses. Never write a
+parallel file record on an MCP outage. Record the question, verdict, URLs, verification
+dates, uncertainty and what the finding informed. Report any persistence failure honestly.
 
 ## Rules
 
@@ -65,9 +73,9 @@ existed in a chat window gets bought a second time, by you or by whoever picks t
   it complicates the story: that is how a research method becomes a persuasion method.
 - Resolve conflicts claim by claim, not source by source. A source being better overall does
   not make it right on this particular point.
-- Web access is confirmation-gated: use the WebFetch or WebSearch tool, expect a prompt, and
-  accept a denial as the answer. Never fetch via a shell command, and never trigger a paid data
-  pull without a fresh explicit OK at that moment.
+- Use the host's available research tools and configured permissions. No particular Claude
+  tool name or confirmation prompt is assumed. Respect denials and obtain any missing
+  authorization before a metered data pull.
 
 Write the output in the user's configured language, keeping the field labels above (LENS,
 PLAIN VERDICT, FINDING, CONFIDENCE, SOURCES, GAPS) as they are so the format stays parseable.

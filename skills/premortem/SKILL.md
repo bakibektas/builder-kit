@@ -8,6 +8,10 @@ description: Stress-test a plan before committing to it. Produces move-by-move a
 Assume the plan has already failed, then work out how. Confidence in a plan is not evidence
 about the plan. Output the structure below, not an essay.
 
+Scale this to the stakes. The user's scope and existing authorization remain in force;
+a hypothetical counteraction is not permission to execute it. Use the declared memory
+backend when saving the analysis: artifacts/ for files, artifact tools for Collective.
+
 ## 1. Frame
 
 - Mission: what success concretely looks like, in one sentence.
@@ -60,5 +64,5 @@ Variable: <name>
 Two lines: go, go-with-changes, or no-go, and the single biggest risk in one sentence. For
 go-with-changes, list the changes as numbered edits to the moves above, not as general advice.
 
-End with `Conf: <percentage>%` and `Weights: <top factors>`, writing the whole output in the
-user's configured language.
+Explain confidence and its main evidence, writing in the user's configured language.
+Numerical confidence is optional; distinguish observations from assumptions.

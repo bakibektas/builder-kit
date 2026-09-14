@@ -1,25 +1,33 @@
 # Roadmap
 
-Direction, not dates. Three things the kit is meant to grow into. Nothing here is promised for
-a release; if one of them matters to you, an issue saying so is the fastest way to move it up.
+Version 2.0 ships native Claude Code and Codex instructions, seven shared skills,
+standalone project memory and a documented adapter for existing Collective deployments.
+These are instruction-level capabilities; no background runtime is bundled.
 
-## Full localization
+## Next: repeatable installation and release validation
 
-The language setting today governs what a Builder produces: the conversation, and the journal,
-decision and lesson entries it writes. Next it extends to the structure: the five document
-template file names, their instruction headers, and the ritual names. The open design question
-is sharing, because mixed-language teams pass these files around by exact name, so localized
-names need a mapping the rituals understand rather than a straight rename.
+An executable installer could make ownership tracking, backups and three-way updates
+deterministic. It needs dry-run, idempotence, custom-path and rollback tests before it
+replaces the agent-driven contract. Runtime acceptance across supported CLI versions
+should use isolated homes and real discovery, not just check for files on disk.
 
-## Codex support
+## Collective integration packaging
 
-A wiring variant for the OpenAI Codex CLI: where its context file lives, how the seven rituals
-are delivered on that surface, and an installer path that resolves both. The shared
-project-memory convention stays exactly as it is, so a project picked up by whichever assistant
-is open finds the same memory waiting.
+The current adapter documents the live protocol; it does not install the MCP server,
+hooks, tracked spawners, model board or AgentHub. Package those only behind explicit
+capability checks and supported version ranges. Keep feature-gated behavior distinct
+from enabled production behavior. A file-to-DB migration needs provenance and readback
+verification before switching authority.
 
-## Llama and other assistants
+## Localization
 
-Local and open models next, plus whatever harnesses people actually run. The kit asks very
-little of its host, and that is the principle and the test: if it can read a folder of plain
-text, it can join the collective.
+Personal language already governs conversation and entries. Translating structural file
+names, headings and ritual names needs a stable mapping so mixed-language teams can
+still share records and commands. Keep English structural names until that exists.
+
+## Other assistants
+
+Add adapters for hosts people actually use, including local models, with verified
+instruction discovery, skill delivery and persistence checks. Reuse the shared protocol
+instead of multiplying doctrine copies. A host that reads text can follow the habits;
+tool access and enforcement still need separate verification.

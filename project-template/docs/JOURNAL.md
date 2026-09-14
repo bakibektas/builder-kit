@@ -3,7 +3,7 @@
 <!--
 HOW TO USE THIS FILE
 
-Append-only session log, newest first. One entry per working session, five lines, no more.
+Append-only session log, newest first. One heading and five fields per working session.
 
 - At session start read the TOP entry only. Do not read the rest of the file.
 - At session end prepend one new entry above the others.
@@ -16,7 +16,7 @@ Append-only session log, newest first. One entry per working session, five lines
 
 Entry format:
 
-### YYYY-MM-DD: <model used>
+### YYYY-MM-DD: <model used> — <session codename>
 - **Summary:** <what actually got done, one or two sentences>
 - **Decisions:** <decisions made, or "none"; anything direction-changing also goes in DECISIONS.md>
 - **Blockers:** <what stopped progress, or "none">
