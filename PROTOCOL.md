@@ -1,6 +1,6 @@
 # Builder Working Protocol
 
-Kit version 2.1.0 (2026-09-17).
+Kit version 2.1.1 (2026-09-17).
 
 Shared behavior for Claude Code and Codex. The installer copies this file beside the
 assistant's instruction file as `builder-protocol.md`. Personal preferences belong in
@@ -45,15 +45,18 @@ write nothing.
    messages, THERE is unknown. That is fine.
 3. **What the folder says (RECORD):** the `## Project` block in HERE's `docs/STATUS.md`:
    `Project id` and `Project root`.
+   **If `docs/STATUS.md` exists but has no Project block, stop here.** Adding the block
+   is your first and only action (see "A folder with records but no identity" below).
+   Do not work out THERE, read another file or continue a task until the user answers.
 4. Compare the folders as paths. Ignore letter case on Windows and macOS, slash direction
    and a trailing slash. Then act on the first matching row:
 
 | Situation | Action |
 |---|---|
 | THERE is a folder outside HERE | **Stop and ask (A).** |
-| Earlier messages exist but you cannot tell which folder they belong to | **Stop and ask (C).** |
 | RECORD's root is a different folder from HERE | **Stop and ask (B).** |
-| RECORD is missing, or there is no `docs/STATUS.md` | HERE is not a registered project. Continue under the write gate below. |
+| Earlier messages exist but you cannot tell which folder they belong to | **Stop and ask (C).** |
+| There is no `docs/STATUS.md` | HERE is not a registered project. Continue under the write gate below. |
 | THERE is unknown or equals HERE, and RECORD's root equals HERE or reads `any clone of this repository` | Pass. Say `Project: <id> at <HERE>` in your first report. |
 
 **Ask (A), in these words:** "This conversation belongs to `<THERE>`. You are now in
@@ -107,11 +110,30 @@ If you have no project in mind, say "for this folder". Name the real counts and 
   example "fix this file here") may edit the named files without setting up a project.
   It still never creates kit records in HERE. "Continue", "go on" or a task named in
   earlier messages asks for remembered work, so it is never such a request.
-- A folder with kit records but no Project block was set up by an older kit version.
-  Ask once: "This folder has Builder records but no project identity yet. Add one for
-  `<HERE>`?"
 
 Before any later record write, confirm that you are still in the folder you checked.
+
+### A folder with records but no identity
+
+A `docs/STATUS.md` without a `## Project` block was set up by a kit older than 2.1, or
+copied from such a project. Nothing in it says which folder the records belong to, so
+remembered work, "continue" and the copied tasks all look like your own. The update
+procedure in INSTALL.md adds the block to every project the user points it at; this is
+the backstop for any it missed. Adding the block is the first and only action. Your whole
+first reply is this question, asked before you read any other file, write anything or
+continue any task:
+
+"`<HERE>` has Builder records but no project identity, so I can't tell whether they were
+made here or copied from another folder.
+1. Add the identity: Project id `<HERE's folder name>-<today>`, Project root `<HERE>`.
+2. Stop and change nothing."
+
+- **1:** insert only the `## Project` block (the two lines above) above `## Now`, or under
+  the title if there is no `## Now`. Change nothing else. Then run the location check
+  from step 4 as usual.
+- **2:** write nothing and stop.
+- Anything else, including "continue", "go on" or a task, is not an answer: change
+  nothing and ask the same question again.
 
 ## Project memory in files
 

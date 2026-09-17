@@ -60,9 +60,8 @@ conflict. Routine copying into an empty, requested target needs no repeated conf
   create no duplicate loading lines, redundant copies or unnecessary backups.
 - **Kit-owned update:** preserve personalization and review any other local edits. The
   version marker alone does not prove all text is replaceable. Preserve local skill
-  changes unless the user has explicitly chosen their replacement. When updating from a
-  version before 2.1, offer to add the `## Project` block to STATUS.md in each project
-  the user names; change nothing else in those projects.
+  changes unless the user has explicitly chosen their replacement. Every update also
+  runs section 5 for the user's existing projects.
 - **Existing custom instruction file:** propose a small merge, use a separate BuilderKit
   entry file, or skip. For a separate entry file, install the personalized instruction
   template as builder-kit-entry.md and add one reviewed read instruction to the custom file:
@@ -92,14 +91,55 @@ blindly: it may contain personal resources. Preserve unrelated files and folders
    custom content untouched. Apply only once the concrete migration is authorized.
 5. Copy changed skill files under the same names after handling local modifications.
 6. Never replace project STATUS, JOURNAL, DECISIONS, LESSONS, RESEARCH or artifacts during
-   an upgrade. Offer to add the `## Project` block (id and root) at the top of an existing
-   STATUS.md; that is the only change 2.1 needs in a project. Offer a separate
+   an upgrade. Section 5 adds the `## Project` block; that is the only change 2.1 needs in
+   a project. Offer a separate
    project-instruction migration if Codex should share an existing Claude project's facts.
    Do not overwrite project-specific notes with placeholders.
 7. If adding Codex beside Claude, carry preferences only when requested and prepare its
    own instruction file and skill location. A Claude preferences field does not configure Codex.
 
-## 5. Copy the files and set up an optional project
+## 5. Give existing projects an identity (every update)
+
+From 2.1 a project's `docs/STATUS.md` carries a `## Project` block: its id and the folder
+it lives in. Projects set up by an older kit do not have one. Without it the assistant
+cannot tell a project from a copy of it, and in live testing a small model resumed old
+work in a copied folder and overwrote files there. This step closes that for every
+project you are shown. Run it on every update, including an update from 2.1.0, and
+after a 1.x upgrade.
+
+1. Ask once: "Which folder or folders hold your Builder Kit projects? I will look for
+   projects beneath them and change nothing until you confirm." Reuse folders the user
+   already named. If the user declines, skip this step and say that the assistant will
+   ask about the identity the first time it starts in each older project.
+2. Find every `docs/STATUS.md` beneath those folders. Skip `.git`, `node_modules`, other
+   dependency and build folders, and anything you cannot read. Do not follow links out of
+   the named folders. A kit project's STATUS.md has `## Now` and `## Tasks` sections;
+   list any other STATUS.md as "not a kit project, skipped".
+3. Show one list, one line per project folder, as absolute paths:
+   - **will add:** no `## Project` block. Show the block you will add:
+     `Project id` = the folder's name plus today's date (`cnc-plotter-2026-09-17`),
+     `Project root` = the folder's absolute path.
+   - **already set:** the block exists and its root is this folder, or reads
+     `any clone of this repository`. No change.
+   - **needs a decision:** the block exists but its root is another folder (a moved or
+     copied project), or two found projects have the same focus and tasks (one may be a
+     copy of the other). Change nothing for these; the assistant asks in that folder at
+     the next session start. Say so.
+   - **skipped:** not a kit project, or unreadable.
+4. Ask once: "Add the identity to the N projects marked 'will add'?" On yes, insert only
+   the two-line block under a `## Project` heading, above `## Now`. Change nothing else in
+   the file and nothing else in the project. The report lists every file changed, and a
+   project under Git shows the two lines in its diff. On no, change nothing.
+5. Re-read each changed STATUS.md and confirm its root is its own folder.
+
+Be honest about the limit: this step can only change the projects it was pointed at.
+Tell the user: "Projects outside these folders still lack an identity. The assistant will
+ask to add one, before doing anything else, the first time it starts in each of them."
+That question is the backstop in PROTOCOL.md; it is not a substitute for this step.
+A copy made after this step carries the original's root, so the assistant will ask
+whether it was moved or copied.
+
+## 6. Copy the files and set up an optional project
 
 Copy the chosen instruction file, shared protocol and seven skill folders, each containing
 SKILL.md. Copy only the files reviewed for this install.
@@ -122,14 +162,15 @@ save corrections promptly, keep shared project rules in AGENTS.md when both assi
 use it, and explain confidence through evidence; percentages are optional. Preserve
 existing records and do not rewrite historical entries during installation.
 
-## 6. Verify, then report
+## 7. Verify, then report
 
 Re-read targets, not source drafts. Verify that personalization survived verbatim, the
 shared protocol exists beside the instruction file, file references work, each of the
 seven skills has a valid name and description in its opening metadata block (YAML
 frontmatter), and no unrelated file changed. Confirm the five project memory files are
 present, a set-up project's STATUS.md Project root is that project's folder, and all
-existing project records are preserved.
+existing project records are preserved. List the projects that received an identity in
+section 5, the ones that need a decision, and the folders that were not searched.
 
 Start a fresh user session for the host to discover installed instructions and skills.
 Ask it to name the loaded instruction files and project records and invoke session-start

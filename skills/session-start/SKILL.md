@@ -22,18 +22,28 @@ startup workflow, but only for the folder where it was given.
       If the conversation has no earlier messages, THERE is unknown.
    c. Read HERE's `docs/STATUS.md` only. RECORD = its `## Project` block
       (`Project id`, `Project root`).
+      **If `docs/STATUS.md` exists without a `## Project` block, adding one is your
+      first and only action.** Your whole first reply is this question; before the
+      answer, read no other file, write nothing and continue no task:
+      "`<HERE>` has Builder records but no project identity, so I can't tell whether
+      they were made here or copied from another folder.
+      1. Add the identity: Project id `<HERE's folder name>-<today>`, Project root `<HERE>`.
+      2. Stop and change nothing."
+      On 1, insert only that block above `## Now` (or under the title), change nothing
+      else, and go on to d. On 2, write nothing and stop. Anything else is not an
+      answer (see e).
    d. Compare paths, ignoring letter case on Windows and macOS, slash direction and a
       trailing slash. Use the first row that matches:
       - THERE is a folder outside HERE: say "This conversation belongs to
         `<THERE>`. You are now in `<HERE>`. Start fresh here, or switch back to `<THERE>`?"
-      - Earlier messages exist but their folder is unclear: say "I can't tell which folder
-        this conversation belongs to (`<what you can see>`). You are now in `<HERE>`.
-        Start fresh here, or tell me which folder this work belongs to?"
       - RECORD's root is a different folder from HERE: say "This folder's records say the
         project lives at `<RECORD root>`, but you are in `<HERE>`. Is this the same
         project moved, or a copy for separate work?"
-      - RECORD or `docs/STATUS.md` is missing: HERE is not a registered project. Go to
-        step 3 and follow the write gate.
+      - Earlier messages exist but their folder is unclear: say "I can't tell which folder
+        this conversation belongs to (`<what you can see>`). You are now in `<HERE>`.
+        Start fresh here, or tell me which folder this work belongs to?"
+      - `docs/STATUS.md` is missing: HERE is not a registered project. Go to step 3 and
+        follow the write gate.
       - Otherwise the check passes.
    e. Number the options in the question (1, 2). After asking, **stop and wait**.
       Until the user answers, write nothing, create no tasks, change nothing, and read
@@ -59,8 +69,7 @@ startup workflow, but only for the folder where it was given.
    folder">` in `<HERE>`, which isn't set up as a Builder Kit project. Set it up, or
    stop?" On "set it up", create only the missing records from the project template.
    Set Project id to HERE's folder name plus today's date, and Project root to HERE. On
-   "stop", write nothing. If records exist without a Project block (older kit), ask:
-   "This folder has Builder records but no project identity yet. Add one for `<HERE>`?"
+   "stop", write nothing. Records without a Project block are handled at step 2c, first.
 4. Read the project instructions. Read `docs/STATUS.md` in full and only the latest
    `docs/JOURNAL.md` entry. Search `docs/DECISIONS.md`, `docs/LESSONS.md` and
    `docs/RESEARCH.md` for the current task's keywords. Codex uses project AGENTS.md;
