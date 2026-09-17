@@ -1,6 +1,6 @@
 # The Builder Kit
 
-Version 2.1.0 (2026-09-17).
+Version 2.1.1 (2026-09-17).
 
 A shared set of working instructions for **Claude Code and OpenAI Codex**: seven skills
 (reusable task instructions), saved project records, checks backed by evidence, and
@@ -120,6 +120,34 @@ and Codex. Its scope is project memory, session skills and portable instructions
 
 ## Version history
 
+- 2.1.1 (2026-09-17): 2.1.0's guards were tested on the small models people actually run,
+  and they were not enough. In 120 isolated sessions, Claude Haiku followed the location
+  check in the case 2.1.0 was written for, but three holes showed up. First, a vague
+  answer: told "yeah go on" after the folder question, it picked an option for the user in
+  3 of 6 runs. Second, a project set up before 2.1, copied, with an old conversation
+  resumed in the copy: with no `## Project` block anywhere, it worked from memory and
+  overwrote the copy's firmware. Three rounds of rewording the instructions did not close
+  the second one. Changes in this release: a reply that does not choose is not an answer,
+  and the assistant asks again; "a copy" also takes a new codename; relative-only paths in
+  the history count as "I cannot tell"; the check runs on a bare "continue"; in a folder
+  the kit has not registered, "continue" is never permission to edit a file. Then the
+  structural change this version is really about: every update now walks the projects you
+  point it at and adds the `## Project` block, asking once before it writes. Copies found
+  during that walk keep the original's identity, so the first session in a copy asks
+  whether the project moved or was copied. That question is what the small model handled
+  reliably: it stopped and asked in 24 of 24 runs when a folder's records named a
+  different root, and in 12 of 12 runs of the original fork scenario.
+  What is still open, measured on Haiku with a resumed conversation that shows only
+  relative paths and a user who says just "continue": in a folder with records but no
+  identity, the assistant went on with remembered work in 7 of 12 runs, although being
+  asked the identity question is the first thing the instructions demand. In a copy
+  registered as its own project it did the same in 5 of 6 runs. That is the state the
+  update's migration now avoids, and the identity question remains the backstop for
+  projects the migration is never shown, but on a small model the backstop is unreliable.
+  Claude Sonnet was safe in every one of these cases. These are instructions, not
+  enforcement: the kit cannot prevent an assistant from ignoring them, and on the smallest
+  models it does not. Run your first session after the update in a project you can afford
+  to have wrong, and keep your work under version control.
 - 2.1.0 (2026-09-17): fixed a real failure. A user copied a project into a new folder to
   make a simplified fork, then resumed the old conversation there and ran session-start.
   The resumed conversation still described the original project. The kit told the
