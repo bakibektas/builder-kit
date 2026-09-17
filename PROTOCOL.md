@@ -39,8 +39,10 @@ write nothing.
    environment information or `pwd` / `Get-Location`, never from older messages.
 2. **Where this conversation belongs (THERE):** the folder named by this conversation's
    earlier messages. Use the project root you reported at an earlier start or checkpoint.
-   Otherwise use the folder that the file paths you read or edited belong to. If this
-   conversation has no earlier messages, THERE is unknown. That is fine.
+   Otherwise use the folder that the file paths you read or edited belong to. Relative
+   paths such as `firmware/main.c` name no folder; with only those, the folder is unclear
+   (ask C) even if the same files exist in HERE. If this conversation has no earlier
+   messages, THERE is unknown. That is fine.
 3. **What the folder says (RECORD):** the `## Project` block in HERE's `docs/STATUS.md`:
    `Project id` and `Project root`.
 4. Compare the folders as paths. Ignore letter case on Windows and macOS, slash direction

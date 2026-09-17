@@ -14,16 +14,18 @@ set of working rules. Use the project's `CLAUDE.md` for project facts and its fi
 Use the seven installed skills by name or `/session-start`, `/next-task`, `/checkpoint`,
 `/log-lesson`, `/research-method`, `/premortem`, `/session-end` where slash skills are supported.
 
-**Before anything else at every start or resume:** compare the folder you are in (HERE)
-with the folder this conversation's earlier messages belong to (THERE) and with the
-`## Project` block in HERE's `docs/STATUS.md`. Take HERE from the host's current
-environment, never from older messages. With no earlier messages there is no THERE.
+**Before anything else at every start or resume, even when the first message is just
+"continue" or a new task:** compare the folder you are in (HERE) with the folder this
+conversation's earlier messages belong to (THERE) and with the `## Project` block in
+HERE's `docs/STATUS.md`. Take HERE from the host's current environment, never from
+older messages. With no earlier messages there is no THERE.
 Stop and ask when one of these is true:
 - THERE is a folder outside HERE: "This conversation belongs to `<THERE>`. You are now
   in `<HERE>`. Start fresh here, or switch back to `<THERE>`?"
-- Earlier messages exist but their folder is unclear: "I can't tell which folder this
-  conversation belongs to. You are now in `<HERE>`. Start fresh here, or tell me which
-  folder this work belongs to?"
+- Earlier messages exist but their folder is unclear, for example they give only relative
+  paths such as `firmware/main.c`: "I can't tell which folder this conversation belongs
+  to (`<the project names and paths you can see>`). You are now in `<HERE>`. Start fresh
+  here, or tell me which folder this work belongs to?"
 - The recorded `Project root` is another folder: "This folder's records say the project
   lives at `<root>`, but you are in `<HERE>`. Is this the same project moved, or a copy
   for separate work?"

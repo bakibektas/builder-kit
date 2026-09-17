@@ -17,6 +17,8 @@ startup workflow, but only for the folder where it was given.
       `pwd` / `Get-Location` command, never from older messages.
    b. THERE = the project folder this conversation's earlier messages belong to: the
       project root you reported before, or the folder of the files you read or edited.
+      Relative paths such as `firmware/main.c` name no folder: with only those, the
+      folder is unclear, even if the same files exist in HERE.
       If the conversation has no earlier messages, THERE is unknown.
    c. Read HERE's `docs/STATUS.md` only. RECORD = its `## Project` block
       (`Project id`, `Project root`).
