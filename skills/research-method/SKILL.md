@@ -24,9 +24,12 @@ find the disciplines that would actually fight about this.
 
 ## 2. Run each lens
 
-Work through the lenses yourself unless authorized, useful delegation is available. For
-delegation, select an available suitable model and give each worker a bounded task and
-ownership scope. Use the delegation tools available in the current host.
+Lenses are independent of each other, so this is the clearest case for handing work out:
+as the orchestrator, give each lens to its own worker where the host exposes a way to
+start one, on a smaller model if you may choose, with a bounded task and an ownership
+scope. Run them yourself when the host offers no workers, when the user asked you to work
+solo, or when the question is small enough that briefing a worker costs more than
+answering it. The workers report to you; you compare the lenses and answer the user.
 For each lens produce:
 
 ```

@@ -21,9 +21,15 @@ protocol's location check and write gate, naming the project and this folder.
    existing task entry when one matches; avoid duplicate tasks.
 4. Inspect affected references before changes. Execute and validate within the authorized
    scope. Continue without another confirmation when the user asked you to take the task.
-5. Delegate only if authorized and useful for independent work. Give each worker the task,
-   files it may edit, context, chosen model and checks for success. Otherwise do the work
-   yourself. Verify that each worker started and review how its result fits the whole task.
+5. Work as the orchestrator unless the user asked you to work solo. Split off the parts
+   that are routine legwork, bounded and independent of each other, and give each worker
+   the task, the files it may edit, the context, a smaller model where the host lets you
+   choose one, and the checks for success. Verify that each worker started, then inspect
+   each result and how it fits the whole task before it reaches the user.
+6. Do the work yourself where delegating would cost more than it saves: a short task, a
+   host that offers no helpers, pieces that are not independent, or a piece that needs the
+   context you are already holding. That is the ordinary answer on a small plan, not a
+   failure. Say which parts you handed out when you report.
 
-Report task, why it was selected, ownership and material blockers concisely. Save a
+Report task, why it was selected, ownership, what you delegated and material blockers concisely. Save a
 checkpoint at useful milestones and close your task honestly when finished.

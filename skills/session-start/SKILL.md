@@ -9,7 +9,19 @@ Read the installed Builder protocol. Read the project's own instructions at step
 the location check. The user's existing task authorization remains valid during this
 startup workflow, but only for the folder where it was given.
 
-1. Retain your codename when resuming; otherwise announce a two-word codename.
+**Run this yourself.** When a conversation carries no Builder context yet, do this on the
+first message, whether it is "continue", a task or a question. The user does not have to
+name this skill, and you do not stop after it: finish the check, report, then carry on
+with what they actually asked for. Running it yourself never means shortening it. The
+location check at step 2 decides what happens, and it happens before you create anything.
+
+1. Retain your codename when resuming; otherwise adopt a two-word codename. Open this
+   reply and every later one with `<Codename> [O]`, then the user's chosen name: the
+   codename signs your records, and `[O]` says you are working as the orchestrator, the
+   kit's default. The opening goes first in the reply, ahead of any line saying what you
+   are about to read or check. Drop the `[O]` if the user's preferences say to work solo. Use neither
+   if another assistant started you with a bounded task: you are a helper then, and this
+   skill is not yours to run.
 2. **Location check. Do this before reading any other project file.**
    a. HERE = the absolute path of the nearest folder, at or above the current working
       directory, that contains `docs/STATUS.md`; if none, the working directory itself.
@@ -42,8 +54,8 @@ startup workflow, but only for the folder where it was given.
       - Earlier messages exist but their folder is unclear: say "I can't tell which folder
         this conversation belongs to (`<what you can see>`). You are now in `<HERE>`.
         Start fresh here, or tell me which folder this work belongs to?"
-      - `docs/STATUS.md` is missing: HERE is not a registered project. Go to step 3 and
-        follow the write gate.
+      - `docs/STATUS.md` is missing, and none of the rows above matched: a fresh
+        conversation in an empty folder. Go to step 3 and register HERE yourself.
       - Otherwise the check passes.
    e. Number the options in the question (1, 2). After asking, **stop and wait**.
       Until the user answers, write nothing, create no tasks, change nothing, and read
@@ -62,14 +74,24 @@ startup workflow, but only for the folder where it was given.
       where they name your codename: report them as background and claim none of them
       until the user chooses one.
 3. **Write gate.** HERE is registered only if its Project block names HERE as root (or
-   reads `any clone of this repository`). If it is not registered, do not create tasks,
-   write any record or edit any file in it; "continue" or a remembered task does not
-   change that. Your first reply is the question, before any edit: "I'm about to
-   `<what you will write, with counts>` for `<project you believe this is, or "this
-   folder">` in `<HERE>`, which isn't set up as a Builder Kit project. Set it up, or
-   stop?" On "set it up", create only the missing records from the project template.
-   Set Project id to HERE's folder name plus today's date, and Project root to HERE. On
-   "stop", write nothing. Records without a Project block are handled at step 2c, first.
+   reads `any clone of this repository`).
+   a. **Register it yourself** when HERE has no `docs/STATUS.md` and this conversation has
+      no messages before the one you are answering. The test is mechanical and it is the
+      only one: any history above this message at all, of any kind, sends you to (b)
+      instead, however empty the folder looks and whatever was asked. Do not weigh up
+      whether the history is relevant; the point of the test is that you do not have to.
+      Create only the missing records from the project template, set Project id to HERE's
+      folder name plus today's date and Project root to HERE, keep existing files, and say
+      in one line what you created and how to undo it. Then continue. Do not ask.
+   b. **Ask first** in every other unregistered case, because something already claims the
+      folder: do not create tasks, write any record or edit any file, not even the five
+      records themselves. "Continue", "go on" and a plain task all ask for remembered
+      work, so none of them is permission here. Say, before any edit: "I'm about to
+      `<what you will write, with counts>` for `<project you believe this is, or "this
+      folder">` in `<HERE>`. This folder's records point somewhere else, so I have not
+      written anything. Set this up as its own project, or stop?" On "set it up", do (a).
+      On "stop", write nothing. Records without a Project block are handled at step 2c,
+      first, and that question is never skipped.
 4. Read the project instructions. Read `docs/STATUS.md` in full and only the latest
    `docs/JOURNAL.md` entry. Search `docs/DECISIONS.md`, `docs/LESSONS.md` and
    `docs/RESEARCH.md` for the current task's keywords. Codex uses project AGENTS.md;
@@ -79,9 +101,9 @@ startup workflow, but only for the folder where it was given.
    evidence of abandonment. Leave active owners alone; reconcile only your own work or
    work demonstrably abandoned and authorized for takeover.
 6. Report `Project: <id> at <HERE>`, codename, loaded sources, last checkpoint, blockers
-   and next action. Record the task and owner in STATUS before edits. Continue an already
-   requested task; if the user asked only for orientation, report the recommendation
-   without inventing new work.
+   and next action, and say plainly if you created the records just now. Record the task
+   and owner in STATUS before edits. Continue an already requested task; if the user asked
+   only for orientation, report the recommendation without inventing new work.
 
 After the assistant shortens its conversation context (compaction), run step 2 again,
 then read the saved checkpoint and current project records, and continue the same task

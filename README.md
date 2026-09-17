@@ -1,179 +1,264 @@
 # The Builder Kit
 
-Version 2.1.1 (2026-09-17).
+The Builder Kit is a set of written instructions and routines that make the AI coding
+assistant on your computer work better: it remembers your project between chats, follows
+the same steps every time, and treats you as a partner. It is plain text, free, and yours
+to change.
 
-A shared set of working instructions for **Claude Code and OpenAI Codex**: seven skills
-(reusable task instructions), saved project records, checks backed by evidence, and
-clear notes so the next session can continue the work.
-The kit is plain text: project files, instructions and skills. It runs inside the
-assistant you already use, with no additional service or background process to install.
+**Key features**
 
-## Start here
+- **[Memory](#memory):** your assistant keeps notes in your project folder and reads them
+  before it starts, so a new chat picks up where the last one stopped.
+- **[A fixed way of working](#a-fixed-way-of-working):** the same routines every session,
+  run by the assistant itself, with no commands for you to remember.
+- **[Orchestrator mode](#orchestrator-mode):** your big model plans and checks, smaller
+  helper models do the legwork. That saves the big model's tokens, keeps its context
+  clean, and makes the work more cost-effective.
+- **[A partner](#a-partner):** it pushes back when it thinks you are wrong, and logs every
+  decision.
+- **[You stay in charge](#you-stay-in-charge):** it shows you what it will do and waits for
+  your yes.
 
-1. Clone `https://github.com/bakibektas/builder-kit.git`, or download and extract its ZIP.
-2. Open the folder in Claude Code or Codex.
-3. Say: **Install this kit for me. Follow INSTALL.md.** Name the target assistant if different
-   from the one you are using, and the project folder if you want project setup too.
+Jump to: [Cost and savings](#cost-and-savings) · [Requirements](#requirements) ·
+[How to install](#how-to-install) · [FAQ](#faq)
 
-The assistant records the name or nickname you want it to use, your role, preferred tone
-and language. It prepares the target files, preserves existing content, and verifies the
-installation. Read [INSTALL.md](INSTALL.md) first: it explains which files to copy and how
-to preserve existing content. Installation does not configure hooks, change permissions,
-install software or connect external services.
+---
 
-For Codex, start a fresh session in the project and invoke `$session-start`. For Claude
-Code use `/session-start` or ask for the skill by name. Then give it the task. If you
-already gave a task, the assistant continues that task after reading the project records.
+## Memory
 
-## Five files help the next session continue
+Without the kit, a new chat knows nothing about yesterday. With it:
 
-The [project template](project-template/AGENTS.md) saves project memory as five text files
-under `docs/`. STATUS holds the current focus, tasks and who is working on each task.
-JOURNAL records what happened in each session. DECISIONS records why direction changed.
-LESSONS records corrections and what to do differently next time. RESEARCH preserves
-findings with sources and dates. Read STATUS and the latest JOURNAL entry at startup;
-search the other records when relevant. Every session ends with a saved next step.
-STATUS also names the project and the folder it lives in. The assistant checks that
-folder before it trusts what it remembers, and writes records only in a folder set up
-this way.
+**Thursday. You:** *Keep going.*
 
-## Package map
+> **Quiet Anvil [O]:** Picking up: connect the sign-up form to the email list. You asked
+> me not to add packages without checking first, so I'll ask.
 
-| Path | Purpose |
-|---|---|
-| [ETHOS.md](ETHOS.md) | Why the discipline exists |
-| [PROTOCOL.md](PROTOCOL.md) | Shared behavior; installed as builder-protocol.md |
-| [global/CLAUDE.md](global/CLAUDE.md) | Claude instruction file and personal preferences |
-| [global/AGENTS.md](global/AGENTS.md) | Codex instruction file and personal preferences |
-| [project-template/](project-template/AGENTS.md) | Starter project instructions and records |
-| [skills/](skills/session-start/SKILL.md) | Seven reusable workflows, each in a SKILL.md file |
-| [INSTALL.md](INSTALL.md) | Install, update, conflicts and verification |
-| [VALIDATION.md](VALIDATION.md) | File checks and scenarios for testing assistant behavior |
-| [PREFERENCES.txt](PREFERENCES.txt) | Optional browser-chat preference text |
-| [ROADMAP.md](ROADMAP.md) | Remaining work, separate from shipped features |
+The memory is your project itself: five small notes in your project folder, which you can
+open in any text editor.
 
-## Installation paths for each assistant
+- **STATUS** is what we're working on now, and the exact next step.
+- **JOURNAL** is what happened, one entry per session.
+- **DECISIONS** is why we changed course, and when.
+- **LESSONS** is the corrections you made, so they don't come back.
+- **RESEARCH** is what we looked up, with sources and dates.
 
-User instructions and skills apply across your projects. Project instructions and skills
-apply within the chosen project. Pick one skill location per assistant to avoid duplicates.
+Your assistant saves into them as it works, when a piece of work is finished and partway
+through a long one, without being asked. If a chat closes or crashes, the last save is
+already there.
 
-| Component | Claude Code | Codex |
+---
+
+## A fixed way of working
+
+The kit directs the order of the work, the same way every session:
+
+1. Check which project it is in.
+2. Read the notes.
+3. Agree the next step with you.
+4. Do the work, and record what changed.
+5. Hand over cleanly, so the next chat can start from the notes.
+
+Your assistant runs these routines by itself. You never type a command for them. Your first
+message can simply be *"keep going"*.
+
+---
+
+## Orchestrator mode
+
+By default the kit sets your assistant up as an **orchestrator**: the one that talks with
+you, plans the work, hands the routine parts to helper assistants, and checks what comes
+back before it reports to you.
+
+**Why it is the default.** Your biggest model is usually the one with the tightest allowance.
+Searching files, reading long documents and repetitive edits do not need it. Where your
+assistant can start helpers, smaller, faster models do that legwork, several at once when
+the pieces are independent.
+Your big model's allowance goes on thinking, and the work arrives sooner.
+
+Helpers also keep the big model's context clean. They read the long files and hand back
+only the conclusion, so the orchestrator is not filled up with raw material and stays
+sharp for longer. A small job it simply does by itself.
+
+**How you can tell.** Every reply opens with a name and a marker, like `Quiet Anvil [O]`.
+
+- **The name** is the one your assistant gave itself for this piece of work. It signs the
+  notes with it, so you can always see who did what.
+- **`[O]`** means it is working as the orchestrator.
+- **If that opening is missing,** the kit's instructions most likely did not load in this
+  chat, and you know to check before anything goes wrong.
+
+Helpers never talk to you. They report to the orchestrator, and it answers for their work.
+
+---
+
+## A partner
+
+The kit takes your assistant as a partner, and keeps everything logged.
+
+A partner helps you find the better idea instead of building the first one. It tells you
+when it thinks your judgment is off, before it carries on and not after. It writes down
+what you decided and why, so neither of you has to hold it in your head.
+
+A partner, not a slave.
+
+---
+
+## You stay in charge
+
+The kit keeps you in the loop, so your decisions are what steer the work.
+
+- Before installing or updating, it lists what it would write and waits for your yes.
+- Before a piece of work, it agrees the next step with you.
+- If something does not add up, for example you carry on an old chat inside a copied
+  project folder, it stops and asks instead of guessing.
+
+---
+
+## Cost and savings
+
+The kit is free. Reading and keeping notes is not: your assistant uses a little more of its
+allowance at the start of every chat and while it works. The bet is that you get more than
+that back.
+
+| | Without the kit | With the kit |
 |---|---|---|
-| User instructions | ~/.claude/CLAUDE.md | $CODEX_HOME/AGENTS.md; default ~/.codex/AGENTS.md |
-| Shared protocol | builder-protocol.md beside instruction file | builder-protocol.md beside instruction file |
-| User skills | ~/.claude/skills/ | ~/.agents/skills/ |
-| Project skills alternative | Project .claude/skills/ | Project .agents/skills/ |
-| Project instructions | CLAUDE.md reads shared AGENTS.md | AGENTS.md |
-| Explicit skill | /checkpoint or name | $checkpoint or name |
+| Start of each chat | You explain the project again | It reads its notes first: a little extra reading |
+| While it works | Nothing is written down | It keeps the notes current: a little extra writing |
+| Mistakes you already corrected | Tend to come back | Written down once, read every time |
+| Wrong turns | Found late, with work already built on them | The next step is agreed with you first |
+| Routine legwork | Done by your biggest model | Handed to smaller, cheaper helpers where your assistant offers them |
+| A chat that closes or crashes | The thread is lost | The last save is already in your project |
 
-For Codex, the documented portable skill path is `.agents/skills`; some deployments also
-expose legacy `.codex/skills`. Check actual discovery and avoid duplicates. Respect a
-custom CODEX_HOME for instructions; do not assume it relocates the documented user skill
-directory. Applicable AGENTS.override.md files can take precedence over an AGENTS.md file. See the
-[official instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
-and [official skills guide](https://learn.chatgpt.com/docs/build-skills).
+We have not measured the net effect, and it will differ from project to project. A short
+one-off chat costs slightly more with the kit. A project that runs over many sessions is
+where it pays back.
 
-For a manual install, follow the target mapping and conflict checks in INSTALL.md: copy
-the personalized instruction file, PROTOCOL.md as builder-protocol.md, and the seven skill
-folders into one chosen user or project location. Copy the project template only to a
-project you choose. Keep the kit checkout unchanged as the source for future updates.
+---
 
-## Everyday use
+## Requirements
 
-| Skill | Result |
+- **A computer with Claude Code or OpenAI Codex.** The kit needs an assistant that can read
+  and write files in your folders. It cannot be installed into a chat app on your phone or
+  a chat window in your browser.
+- **A capable model.** The kit is written instructions, so it works best with a model big
+  enough to hold them and careful enough to follow them: **Claude Opus**, **Sonnet** or
+  **Fable**, **OpenAI's Sol** or **Astra**, and their equivalents.
+- **Not recommended: local models.** Smaller models follow written instructions and use
+  tools less reliably, and written instructions are all this kit is.
+
+---
+
+## How to install
+
+There is nothing for you to download. Open your assistant and type:
+
+> **Learn about the Builder Kit at https://github.com/bakibektas/builder-kit and tell me
+> what it would do if we installed it.**
+
+It reads the kit for itself and tells you in plain words what it would add and where. Ask
+it anything you like before deciding. *Is this safe to install? Can I undo it?* are fair
+questions, and it answers them before it touches a single file.
+
+When you are satisfied, say so:
+
+> **Go ahead and install it.**
+
+It shows you the list of files it wants to write and waits for your yes. At the end it
+offers to write a short version of these habits for the assistant you use in a browser or
+on your phone, ready to copy and paste if you want it. After that, open
+the project you want to work on and just say what you want. Your assistant finds its notes
+by itself, or sets them up if there are none, and tells you so.
+
+---
+
+## Try it in ten minutes
+
+No project yet? Use an empty folder, with nothing at stake.
+
+1. Make a new empty folder and open it in your assistant.
+2. Ask for something small, for example: *Help me plan a simple weekly meal planner. Just
+   the plan, no code.*
+3. Correct it once, about anything: *Don't use technical words with me.*
+4. Close the chat completely.
+5. Open a new chat in the same folder and say: *Keep going.*
+
+It should tell you where you stopped, and keep off the technical words. Delete the folder
+when you're done. Nothing else on your computer changes.
+
+---
+
+## How to update
+
+The Builder Kit is updated regularly, as the assistants change and as we learn what works.
+Staying current takes one sentence. Ask your assistant: **Update the Builder protocol.** It
+tells you what would change before it changes anything, and keeps your preferences and
+project notes as they are.
+
+---
+
+## Browser and phone assistants
+
+The way of working carries over to any assistant: the partnership, the honest pushback,
+the plain answers. The memory usually does not. A plain browser or phone assistant cannot
+save notes into your project. One that you have connected to your files, for example
+through GitHub or a cloud drive, may be able to.
+
+The short version your assistant offers at the end of the install is made for this. Paste
+it into the custom instructions of the assistant you use there.
+
+---
+
+## FAQ
+
+**What does it put on my computer?** Plain text in two places: instructions in your
+assistant's own settings folder, and notes about your work in your project folder.
+
+**What does it cost?** The kit is free. It uses a little more of your assistant's allowance
+for reading and writing notes: see [Cost and savings](#cost-and-savings).
+
+**Does it control my assistant?** Yes. It directs the order of the work, what gets written
+down, and when it stops to check with you.
+
+**Is it safe?** It is an opinionated, structured way of working that keeps you in the
+loop. The ordinary care you take with any AI assistant still applies: keep your work
+backed up.
+
+**Can I change it?** Yes, and you are encouraged to. An assistant works best when it is
+shaped to your needs and preferences, so change the rules as you see fit, or ask your
+assistant to. An update does not overwrite your changes: it shows you where the new
+version differs from yours, and you decide.
+
+**What if I copy a project folder?** If you carry on an old chat inside the copy, your
+assistant stops and asks which one you mean, and changes nothing until you answer.
+
+**Can I turn orchestrator mode off?** Yes. Tell your assistant you prefer it to work solo.
+
+---
+
+## Licence and disclaimer
+
+This kit is free to use, copy, personalise and iterate on as you see fit. It is an
+opinionated way of working between a person and an AI, not a product and not a guarantee.
+
+You are the human in the loop, so stay mindful of what an AI assistant could damage or
+lose on your system. The kit offers no guarantee against the mistakes of an AI or of a
+person. It is a structured way of working, not a promise about the outcome.
+
+The formal wording is the standard MIT licence, in [LICENSE](LICENSE).
+
+---
+
+## Files in this kit
+
+Version 2.2.0 (2026-09-17). Works with **Claude Code** and **OpenAI Codex**.
+
+| File | What's inside |
 |---|---|
-| session-start | Check the session is in the right project folder, read its records, identify the session and task owner, then continue requested work |
-| next-task | Choose useful work that can start now and record who will do it |
-| log-lesson | Capture a correction with a specific prevention rule |
-| research-method | Check evidence from different expert perspectives and resolve disagreements |
-| premortem | Imagine how a costly or hard-to-reverse plan could fail before acting |
-| checkpoint | Save the current state and exact next step while keeping the task active |
-| session-end | Update your tasks and verify that the next session's notes were saved |
-
-The assistant must follow these instructions; no separate program enforces them. A
-greeting alone proves little. Ask it to name the loaded files and last
-checkpoint; then check the actual records. See [VALIDATION.md](VALIDATION.md).
-
-For browser-only chat, personalize PREFERENCES.txt and provide the relevant project
-records explicitly. Browser preferences do not install local skills, run hooks or grant
-filesystem access. Copy returned file updates back yourself unless a connected tool
-actually saved them. A promise to remember does not mean the information was saved.
-
-## Updating
-
-Update your checkout from Git, then repeat the install request. The installer carries your
-PERSONALIZE block forward without changing it, gives each backup a unique name,
-and preserves project memory and unrelated skills. Upgrading a 1.x imported installation
-needs a reviewed migration because builder-protocol.md used to contain personalization.
-See INSTALL.md before replacing anything. Existing custom instructions and project
-records remain yours; updates preserve them.
-
-## Contributing
-
-Run the checks in VALIDATION.md. Prefer concrete reports showing which workflow failed.
-Keep assistant-specific instructions in the Claude and Codex entry files and shared habits
-in PROTOCOL.md. Distinguish shipped capabilities from plans. Do not add personal machine paths, credentials,
-unrelated infrastructure details or frozen model tiers to the portable kit.
-
-Licensed MIT. BuilderKit is a standalone, lightweight set of working habits for Claude
-and Codex. Its scope is project memory, session skills and portable instructions.
-
-## Version history
-
-- 2.1.1 (2026-09-17): 2.1.0's guards were tested on the small models people actually run,
-  and they were not enough. In 120 isolated sessions, Claude Haiku followed the location
-  check in the case 2.1.0 was written for, but three holes showed up. First, a vague
-  answer: told "yeah go on" after the folder question, it picked an option for the user in
-  3 of 6 runs. Second, a project set up before 2.1, copied, with an old conversation
-  resumed in the copy: with no `## Project` block anywhere, it worked from memory and
-  overwrote the copy's firmware. Three rounds of rewording the instructions did not close
-  the second one. Changes in this release: a reply that does not choose is not an answer,
-  and the assistant asks again; "a copy" also takes a new codename; relative-only paths in
-  the history count as "I cannot tell"; the check runs on a bare "continue"; in a folder
-  the kit has not registered, "continue" is never permission to edit a file. Then the
-  structural change this version is really about: every update now walks the projects you
-  point it at and adds the `## Project` block, asking once before it writes. Copies found
-  during that walk keep the original's identity, so the first session in a copy asks
-  whether the project moved or was copied. That question is what the small model handled
-  reliably: it stopped and asked in 24 of 24 runs when a folder's records named a
-  different root, and in 12 of 12 runs of the original fork scenario.
-  What is still open, measured on Haiku with a resumed conversation that shows only
-  relative paths and a user who says just "continue": in a folder with records but no
-  identity, the assistant went on with remembered work in 7 of 12 runs, although being
-  asked the identity question is the first thing the instructions demand. In a copy
-  registered as its own project it did the same in 5 of 6 runs. That is the state the
-  update's migration now avoids, and the identity question remains the backstop for
-  projects the migration is never shown, but on a small model the backstop is unreliable.
-  Claude Sonnet was safe in every one of these cases. These are instructions, not
-  enforcement: the kit cannot prevent an assistant from ignoring them, and on the smallest
-  models it does not. Run your first session after the update in a project you can afford
-  to have wrong, and keep your work under version control.
-- 2.1.0 (2026-09-17): fixed a real failure. A user copied a project into a new folder to
-  make a simplified fork, then resumed the old conversation there and ran session-start.
-  The resumed conversation still described the original project. The kit told the
-  assistant to load context, resume and record tasks before work, and nothing checked
-  which folder it was now in. So it read the original project's files from the new
-  folder and filed tasks that had nothing to do with the fork. The user stopped using
-  the kit, and the defect was ours: the kit assumed one project stays in one folder.
-  Two guards now apply at every start and resume. First, a location check: the assistant
-  compares the current folder with the folder the conversation belongs to and with the
-  project root recorded in docs/STATUS.md. If they differ or it cannot tell, it stops and
-  asks whether to start fresh or switch back. Second, a write gate: tasks and records are
-  written only in a registered project, one whose STATUS.md has the new `## Project`
-  block naming that folder. Elsewhere, the assistant names the project it thinks it is in
-  and asks first. Existing projects need that block added once; the assistant offers to
-  add it. These are still instructions, not enforcement.
-- 2.0.1 (2026-09-14): simplified documentation and skills around the standalone file
-  workflow; clarified preferred names, installation scope, project records and checks.
-- 2.0 (2026-09-14): introduced the shared protocol and separate Claude and Codex instruction
-  files, with five project records used by both assistants. Added Codex installation,
-  skill discovery, override checks and upgrade instructions. Added task ownership,
-  verified checkpoints and guidance for choosing available models. Corrected Git commit
-  argument order and explained how to commit files containing several contributors' edits.
-  Skills preserve the user's existing authorization and continue requested work after startup.
-- 1.5 (2026-09-02): added a session role label to the greeting used to check that instructions loaded.
-- 1.4 (2026-08-24): added that greeting check and installation through an imported instruction file.
-- 1.3 (2026-08-19): artifacts folder, lesson archives and checkpoint ritual.
-- 1.2 (2026-08-18): research record added.
-- 1.1: agent-driven installation added.
-- 1.0: initial release.
+| [INSTALL.md](INSTALL.md) | Exactly what gets installed where, and how existing files are kept |
+| [ETHOS.md](ETHOS.md) | Why this discipline exists, and the kind of collaborator it's aiming to be |
+| [PROTOCOL.md](PROTOCOL.md) | The full working rules both assistants follow |
+| [skills/](skills/session-start/SKILL.md) | The seven routines your assistant runs by itself: start, next task, log a lesson, research, premortem, checkpoint, end |
+| [HISTORY.md](HISTORY.md) | Every version: what changed, and why |
+| [ROADMAP.md](ROADMAP.md) | What isn't built yet |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Where to ask a question, share an idea or report a problem |
+| [project-template/](project-template/AGENTS.md) | The starter notes a new project begins with |

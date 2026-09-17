@@ -1,16 +1,100 @@
-# Install or update BuilderKit
+# Install or update the Builder Kit
 
-For the assistant doing the installation. Read README.md, PROTOCOL.md and the chosen
+## If you are the person, not the assistant
+
+You do not need this page, and you do not need to download anything. Open your AI coding
+assistant and ask it about the kit first:
+
+> **Learn about the Builder Kit at https://github.com/bakibektas/builder-kit and tell me
+> what it would do if we installed it.**
+
+It fetches the kit, reads it, and explains it back to you: what it would add, where, and
+what it changes. Ask whatever you want before deciding, including *is this safe to
+install?* and *how do I undo it?*. When you are ready, say **go ahead and install it**.
+
+To update later, say **update the Builder protocol**. Nothing to re-download by hand.
+
+The rest of this page is the recipe your assistant follows. Three things worth knowing
+before you say yes:
+
+- **It shows you the list first.** Every file it wants to write, before it writes one.
+- **Nothing you already have is thrown away.** Existing instructions are kept, and
+  anything it replaces is copied to a backup beside the original first.
+- **It only copies text files.** No software is installed, no setting on your computer
+  is changed, no permission is granted, nothing is sent anywhere.
+
+### What it will ask you, and why
+
+Eleven questions at most, usually far fewer: it reuses anything you have already told it.
+Each one is there for a reason:
+
+| It asks | Because |
+|---|---|
+| What should I call you? | So it speaks to you by name, and never has to ask again. |
+| What do you do, and how should I talk to you (tone, language)? | So it pitches its answers at you rather than at a programmer, in your own language. |
+| One assistant in charge, or work solo? | By default it keeps the plan itself and hands routine legwork to helper assistants on smaller models, which saves your strongest model's allowance; solo means it does everything itself. |
+| Which assistant is this for: Claude Code, Codex, or both? | They keep their settings in different folders, and it has to know which one to write to. |
+| Everywhere, or just one project? | These habits can be your default for all your work, or stay inside a single folder; your answer decides where the files go. |
+| Which project folder? | It never guesses a folder; your notes go where you say and nowhere else. |
+| You already have instructions of your own here: merge, keep separate, or skip? | So it does not quietly paint over something you wrote yourself. |
+| Which folders hold your older projects? | Projects set up by an older version are missing the line that tells a project apart from a copy of it, and it can only add that line to folders you point it at. |
+| Which of these folders is the original? | Two folders with identical notes are usually one copied from the other, and getting this right is what stops an old chat editing the copy by mistake. |
+| Here is every file I want to write, go ahead? | Nothing is written before you have seen the whole list. |
+| Do you also use an assistant in a browser? | So it can hand you a short personalised version of these habits to paste there, at the end. |
+
+If it asks you something that is not on this list, it is fair to ask why before you
+answer.
+
+When it finishes it should tell you where each file went, what it backed up, and
+anything it skipped. If it claims the installation "works" without having opened a new
+session to check, that part is unverified: ask it to say so plainly.
+
+---
+
+## For the assistant doing the installation
+
+## 0. Fetch the kit, then explain it before installing anything
+
+The user's first message is usually a question, not an order: "learn about the Builder Kit
+at `<address>` and tell me what it would do if we installed it." Treat it as a question.
+
+1. Fetch the kit yourself from the repository address the user gave, with the tools this
+   host actually exposes: clone it, or read its files over the network. Put the copy in a
+   scratch location. The user downloads nothing, unzips nothing, and never has to open or
+   work inside the kit's own folder.
+2. Read README.md, INSTALL.md and PROTOCOL.md before you describe them. Describe what you
+   read, not what a kit like this usually contains.
+3. Answer in plain words, leading with what was asked rather than a feature list: what it
+   would add, which folders it would write in, what it changes about the way you work, and
+   what it does not do. Name both destinations concretely: the assistant's own settings
+   folder, and the project folder the user chooses.
+4. Answer "is it safe?" specifically, and do not oversell it. It is text: instructions and
+   notes, with nothing to execute, so no software is installed, no service starts, no
+   account is created and nothing is sent anywhere. It does write into the assistant's
+   settings folder, so say that rather than "it installs nothing". It changes how you
+   work, which is the point of it. It is undone by restoring the backups and deleting the
+   files, and you can list them. Say what you have not verified.
+5. Install nothing until the user says yes. "Tell me about it" is not a yes. Answer
+   follow-up questions and offer the install again; do not press.
+6. If the network fetch is unavailable or denied, say so plainly and stop. Do not
+   reconstruct the kit from memory, and do not describe a version you have not read.
+7. **Updating** is one sentence from the user: "update the Builder protocol." Fetch the
+   current kit from the same address, compare it with what is installed, say what would
+   change, and on a yes run sections 2 to 7 as an update, including section 5 for existing
+   projects. The user never downloads a folder.
+
+## 1. Establish the target
+
+Read README.md, PROTOCOL.md and the chosen
 assistant's instruction template (global/CLAUDE.md or global/AGENTS.md) before
 writing. Install the kit's instructions, skills and optional project template only.
 The user's scope and prior choices govern this workflow.
 
-## 1. Establish the target
-
 Determine Claude Code, Codex or both from the request and the assistant being used.
-Ask only for missing choices that affect the installation. A user-wide (global)
-installation applies across projects; a project-only installation applies in one chosen
-folder. Determine which the user wants, or whether they want both user-wide defaults and
+Ask only for missing choices that affect the installation, and give each question a
+one-line reason as you ask it; the reasons are listed at the top of this file.
+A user-wide (global) installation applies across projects; a project-only installation
+applies in one chosen folder. Determine which the user wants, or whether they want both user-wide defaults and
 project setup. Do not invent a project path. Inspect existing instructions first.
 
 - For standalone setup, use the paths below. Run `claude --version` or `codex --version`
@@ -22,10 +106,33 @@ project setup. Do not invent a project path. Inspect existing instructions first
 
 | Source | Claude destination | Codex destination |
 |---|---|---|
-| global/CLAUDE.md | ~/.claude/CLAUDE.md | — |
-| global/AGENTS.md | — | $CODEX_HOME/AGENTS.md, default ~/.codex/AGENTS.md |
+| global/CLAUDE.md | ~/.claude/CLAUDE.md | (not used) |
+| global/AGENTS.md | (not used) | $CODEX_HOME/AGENTS.md, default ~/.codex/AGENTS.md |
 | PROTOCOL.md | ~/.claude/builder-protocol.md | builder-protocol.md in the same Codex home |
 | Seven skills/* folders | ~/.claude/skills/ | ~/.agents/skills/ |
+
+User instructions and skills apply across the user's projects; project instructions and
+skills apply within one chosen project. The remaining targets and the invocation form:
+
+| Component | Claude Code | Codex |
+|---|---|---|
+| Project skills alternative | Project .claude/skills/ | Project .agents/skills/ |
+| Project instructions | CLAUDE.md reads shared AGENTS.md | AGENTS.md |
+| Explicit skill | /checkpoint or name | $checkpoint or name |
+
+For Codex, the documented portable skill path is `.agents/skills`; some deployments also
+expose legacy `.codex/skills`. Check actual discovery and avoid duplicates. Respect a
+custom CODEX_HOME for instructions; do not assume it relocates the documented user skill
+directory. Applicable AGENTS.override.md files can take precedence over an AGENTS.md
+file. See the
+[official instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+and [official skills guide](https://learn.chatgpt.com/docs/build-skills).
+
+For a manual install, follow this target mapping and the conflict checks below: copy the
+personalized instruction file, PROTOCOL.md as builder-protocol.md, and the seven skill
+folders into one chosen user or project location. Copy the project template only to a
+project the user chooses. Leave the fetched copy unchanged while you install from it; it
+is a scratch source, not a folder the user keeps working in.
 
 On Windows resolve `~` from the user's profile directory. Use PowerShell literal paths;
 do not repurpose HOME, CODEX_HOME or another system variable. Honor an existing custom
@@ -41,8 +148,12 @@ instruction/skill targets; never inspect credential stores. Preserve the source 
 Prepare personalized copies in a project-local scratch directory, not by editing the kit.
 
 For a fresh install, collect any missing preferences in one concise question: the name
-or nickname the user wants the assistant to use, role, tone and language. Reuse answers
-already given. Fill the instruction file's PERSONALIZE block. PREFERENCES.txt is optional
+or nickname the user wants the assistant to use, role, tone, language, and whether the
+assistant should keep one assistant in charge with helpers for the legwork (the default)
+or work solo. Say in one short line what the five answers are for (they fill the block the
+assistant reads at the start of every session), so the question informs rather than
+interrogates. Ask about helpers once, with its one-line reason, and never more than that.
+Reuse answers already given. Fill the instruction file's PERSONALIZE block. PREFERENCES.txt is optional
 and only for a requested browser setup.
 
 For an existing installation, recognize the `Kit version` line and PERSONALIZE markers.
@@ -107,8 +218,10 @@ work in a copied folder and overwrote files there. This step closes that for eve
 project you are shown. Run it on every update, including an update from 2.1.0, and
 after a 1.x upgrade.
 
-1. Ask once: "Which folder or folders hold your Builder Kit projects? I will look for
-   projects beneath them and change nothing until you confirm." Reuse folders the user
+1. Ask once: "Which folder or folders hold your Builder Kit projects? Projects set up by
+   an older version are missing the line that tells a project apart from a copy of it,
+   and I can only add it to folders you point me at. I will look for projects beneath
+   them and change nothing until you confirm." Reuse folders the user
    already named. If the user declines, skip this step and say that the assistant will
    ask about the identity the first time it starts in each older project.
 2. Find every `docs/STATUS.md` beneath those folders. Skip `.git`, `node_modules`, other
@@ -142,7 +255,8 @@ after a 1.x upgrade.
      session start. Say so.
    - **skipped:** not a kit project, or unreadable.
 5. Ask once, in one message: "Add the identity to the N projects above? For each copy
-   group, which folder is the original?" Wait for the answer. On yes, insert only the
+   group, which folder is the original? Getting the original right is what stops a
+   later conversation editing the copy by mistake." Wait for the answer. On yes, insert only the
    block (heading, id and root) above `## Now`. Change nothing
    else in the file and nothing else in the project. The report lists every file changed,
    and a project under Git shows the lines in its diff. On no, change nothing.
@@ -198,8 +312,32 @@ loaded them. If a fresh session was not run, say **files verified; loading in a 
 assistant session not yet verified**.
 
 Report exact targets, installed version, preserved preferences, backups, skipped conflicts,
-validation performed and remaining steps. For browser preferences, provide the personalized
-text only if requested; account settings are a separate manual/connected-app action.
+validation performed and remaining steps.
 
 To undo, restore the exact pre-install backups and remove only known kit-owned additions
 after review. Keep project memory. Never erase whole configuration or skills directories.
+
+## 8. Offer the browser version, once, at the end
+
+Some of the same person's work happens in an assistant on a website rather than on their
+computer. After a successful install, offer once:
+
+"Do you also use an assistant in a browser? I can write you a short personalised version
+of these habits to paste into its custom instructions."
+
+On yes, write a plain text file into the project the user chose, named
+`builder-browser-instructions.txt`, and tell them where it is. Build it from the answers
+they already gave: their name, role, tone and language, then the few habits that work with
+no files at all, written in the second person. Keep it short and specific to them, not a
+copy of the protocol. `PREFERENCES.txt` in the kit is the longer reference to draw from;
+what you hand the user is the short personalised version of it.
+
+Be straight about the limits. A custom-instructions field holds a limited amount of text,
+and how much differs by vendor and changes: do not paste pages into one, and do not state
+a character limit you have not checked in that vendor's current documentation. Say that a
+plain browser assistant cannot read or write their project, so anything it produces comes
+back by hand, and that pasting it into the settings is theirs to do. If the user has
+connected that assistant to their files, for example through GitHub or a cloud drive, say
+that it may be able to keep the notes too, and that this depends on the connection and is
+not something the kit sets up or has tested. On no, skip this and do
+not raise it again.

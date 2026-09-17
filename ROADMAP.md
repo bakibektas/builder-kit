@@ -1,6 +1,6 @@
 # Roadmap
 
-Version 2.1.1 ships instruction files for Claude Code and Codex, seven shared skills,
+Version 2.2.0 ships instruction files for Claude Code and Codex, seven shared skills,
 and standalone project memory in five files.
 The assistant follows these text files; the kit includes no background program.
 

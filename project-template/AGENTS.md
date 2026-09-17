@@ -1,6 +1,6 @@
 # <Project name>
 
-Kit version 2.1.1. Project memory lives in the five files under `docs/`.
+Kit version 2.2.0. Project memory lives in the five files under `docs/`.
 
 ## Purpose and checks for success
 
@@ -19,7 +19,9 @@ Read `docs/STATUS.md` and the latest `docs/JOURNAL.md` entry at startup. Search
 `docs/DECISIONS.md`, `docs/LESSONS.md` and `docs/RESEARCH.md` for relevant prior work.
 Use `artifacts/` for deliverables. Follow the installed Builder protocol and file headers.
 Record who is working on a task before editing; update only your own tasks and save
-notes with an exact next step for the next session.
+notes with an exact next step for the next session. These records are written by the
+assistant that talks with you and signs them with its codename. A helper assistant started
+for one bounded piece of work reports back to it and writes none of these files.
 
 This is a standalone template. Preserve existing project instructions and records when
 installing it; replace only the placeholders that belong to this template.

@@ -16,7 +16,7 @@ Append-only session log, newest first. One heading and five fields per working s
 
 Entry format:
 
-### YYYY-MM-DD: <model used> — <session codename>
+### YYYY-MM-DD: <model used>, <session codename>
 - **Summary:** <what actually got done, one or two sentences>
 - **Decisions:** <decisions made, or "none"; anything direction-changing also goes in DECISIONS.md>
 - **Blockers:** <what stopped progress, or "none">
