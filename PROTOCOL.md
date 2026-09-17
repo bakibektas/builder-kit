@@ -67,6 +67,7 @@ for separate work?"
 (`<the paths or project names you can see>`). You are now in `<HERE>`. Start fresh here,
 or tell me which folder this work belongs to?"
 
+Number the options in each question (1, 2) so the user can reply with a number.
 Wait for the answer. Before it arrives, do not create tasks, write records, edit files,
 run commands that change anything, or read any file outside HERE. A task the user gave
 earlier in the conversation does not authorize work in a different folder.
@@ -104,7 +105,8 @@ If you have no project in mind, say "for this folder". Name the real counts and 
 - **"Stop":** write nothing. Report what you would have written.
 - A request the user makes after this check, in this session, clearly about HERE (for
   example "fix this file here") may edit the named files without setting up a project.
-  It still never creates kit records in HERE.
+  It still never creates kit records in HERE. "Continue", "go on" or a task named in
+  earlier messages asks for remembered work, so it is never such a request.
 - A folder with kit records but no Project block was set up by an older kit version.
   Ask once: "This folder has Builder records but no project identity yet. Add one for
   `<HERE>`?"

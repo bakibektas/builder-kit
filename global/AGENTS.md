@@ -41,9 +41,11 @@ pick an option ("yes", "ok", "go on") is not an answer: ask again with the optio
 
 **Write only in a registered project:** one whose `docs/STATUS.md` Project block names
 this folder as root (or reads `any clone of this repository`). Elsewhere, create no tasks
-or records and edit nothing on the strength of remembered context. First ask: "I'm about
-to `<what, with counts>` for `<project you believe this is>` in `<HERE>`, which isn't set
-up as a Builder Kit project. Set it up, or stop?" The full check and answers are in
+or records and edit no file on the strength of remembered context. "Continue" or "go on"
+asks for remembered work, so it never counts as permission here. If HERE's STATUS has no
+`## Project` block, your first reply is this question, before any edit: "I'm about to
+`<what, with counts>` for `<project you believe this is>` in `<HERE>`, which isn't set up
+as a Builder Kit project. Set it up, or stop?" The full check and answers are in
 `builder-protocol.md` and the session-start skill.
 
 Keep the host's configured permissions and respect existing user instructions. This kit

@@ -35,12 +35,12 @@ startup workflow, but only for the folder where it was given.
       - RECORD or `docs/STATUS.md` is missing: HERE is not a registered project. Go to
         step 3 and follow the write gate.
       - Otherwise the check passes.
-   e. After asking, **stop and wait**. Until the user answers, write nothing, create no
-      tasks, change nothing, and read no file outside HERE. Do not continue a task from
-      earlier in the conversation. An answer must pick one option or name a folder. If
-      the reply is "yes", "ok", "go on", "continue" or anything else that does not
-      choose, change nothing and ask the same question again with the options numbered.
-      Never choose for the user.
+   e. Number the options in the question (1, 2). After asking, **stop and wait**.
+      Until the user answers, write nothing, create no tasks, change nothing, and read
+      no file outside HERE. Do not continue a task from earlier in the conversation.
+      An answer must pick one option or name a folder. If the reply is "yes", "ok",
+      "go on", "continue" or anything else that does not choose, change nothing and ask
+      the same question again with the options numbered. Never choose for the user.
    f. On "start fresh here", say "I will treat what I remember about `<THERE>` as
       background only. I will not act on its tasks, plans or file paths." Announce a new
       codename. Then repeat step d with THERE treated as unknown, and use only HERE.
@@ -52,14 +52,15 @@ startup workflow, but only for the folder where it was given.
       where they name your codename: report them as background and claim none of them
       until the user chooses one.
 3. **Write gate.** HERE is registered only if its Project block names HERE as root (or
-   reads `any clone of this repository`). If it is not registered, do not create tasks
-   or write any record in it. First say: "I'm about to `<what you will write, with counts>`
-   for `<project you believe this is, or "this folder">` in `<HERE>`, which isn't set up
-   as a Builder Kit project. Set it up, or stop?" On "set it up", create only the missing
-   records from the project template. Set Project id to HERE's folder name plus today's
-   date, and Project root to HERE. On "stop", write nothing. If records exist without a
-   Project block (older kit), ask: "This folder has Builder records but no project
-   identity yet. Add one for `<HERE>`?"
+   reads `any clone of this repository`). If it is not registered, do not create tasks,
+   write any record or edit any file in it; "continue" or a remembered task does not
+   change that. Your first reply is the question, before any edit: "I'm about to
+   `<what you will write, with counts>` for `<project you believe this is, or "this
+   folder">` in `<HERE>`, which isn't set up as a Builder Kit project. Set it up, or
+   stop?" On "set it up", create only the missing records from the project template.
+   Set Project id to HERE's folder name plus today's date, and Project root to HERE. On
+   "stop", write nothing. If records exist without a Project block (older kit), ask:
+   "This folder has Builder records but no project identity yet. Add one for `<HERE>`?"
 4. Read the project instructions. Read `docs/STATUS.md` in full and only the latest
    `docs/JOURNAL.md` entry. Search `docs/DECISIONS.md`, `docs/LESSONS.md` and
    `docs/RESEARCH.md` for the current task's keywords. Codex uses project AGENTS.md;
