@@ -115,29 +115,41 @@ after a 1.x upgrade.
    dependency and build folders, and anything you cannot read. Do not follow links out of
    the named folders. A kit project's STATUS.md has `## Now` and `## Tasks` sections;
    list any other STATUS.md as "not a kit project, skipped".
-3. Show one list, one line per project folder, as absolute paths:
-   - **will add:** no `## Project` block. Show the block you will add:
-     `Project id` = the folder's name plus today's date (`cnc-plotter-2026-09-17`),
+3. Look for copies before you list anything. Take every found project that has no
+   `## Project` block and compare its `## Tasks` section with each other one. Identical
+   task lines mean one folder is probably a copy of the other; call them a **copy group**.
+   Folders whose names differ only by a suffix such as `-fork`, `-copy` or `-old` are
+   also a copy group. Copies are the case this step exists for: an older conversation
+   resumed in the wrong one of them is how files get overwritten.
+4. Show one list, one line per project folder, as absolute paths:
+   - **will add:** no `## Project` block and not in a copy group. Show the block you will
+     add: `Project id` = the folder's name plus today's date (`cnc-plotter-2026-09-17`),
      `Project root` = the folder's absolute path.
+   - **copy group:** list its folders together and ask which one is the original. Each
+     folder still gets its own block with its own id and root; every folder except the
+     original also gets `**Copied from:** <original's id> at <original's root>`. If the
+     user does not know, write `**Copied from:** unknown; same records as <other folder>`
+     in each.
    - **already set:** the block exists and its root is this folder, or reads
      `any clone of this repository`. No change.
-   - **needs a decision:** the block exists but its root is another folder (a moved or
-     copied project), or two found projects have the same focus and tasks (one may be a
-     copy of the other). Change nothing for these; the assistant asks in that folder at
-     the next session start. Say so.
+   - **moved or copied since 2.1:** the block exists but its root is another folder.
+     Change nothing; the assistant asks "moved or copy?" in that folder at the next
+     session start. Say so.
    - **skipped:** not a kit project, or unreadable.
-4. Ask once: "Add the identity to the N projects marked 'will add'?" On yes, insert only
-   the two-line block under a `## Project` heading, above `## Now`. Change nothing else in
-   the file and nothing else in the project. The report lists every file changed, and a
-   project under Git shows the two lines in its diff. On no, change nothing.
-5. Re-read each changed STATUS.md and confirm its root is its own folder.
+5. Ask once, in one message: "Add the identity to the N projects above? For each copy
+   group, which folder is the original?" Wait for the answer. On yes, insert only the
+   block (heading, id, root and any `Copied from` line) above `## Now`. Change nothing
+   else in the file and nothing else in the project. The report lists every file changed,
+   and a project under Git shows the lines in its diff. On no, change nothing.
+6. Re-read each changed STATUS.md and confirm its root is its own folder.
 
 Be honest about the limit: this step can only change the projects it was pointed at.
 Tell the user: "Projects outside these folders still lack an identity. The assistant will
 ask to add one, before doing anything else, the first time it starts in each of them."
 That question is the backstop in PROTOCOL.md; it is not a substitute for this step.
 A copy made after this step carries the original's root, so the assistant will ask
-whether it was moved or copied.
+whether it was moved or copied. Do not say the projects "can no longer be mistaken for
+copies": the identity makes a mistake visible to the assistant, it does not prevent one.
 
 ## 6. Copy the files and set up an optional project
 
@@ -170,7 +182,8 @@ seven skills has a valid name and description in its opening metadata block (YAM
 frontmatter), and no unrelated file changed. Confirm the five project memory files are
 present, a set-up project's STATUS.md Project root is that project's folder, and all
 existing project records are preserved. List the projects that received an identity in
-section 5, the ones that need a decision, and the folders that were not searched.
+section 5, which folder each copy was recorded as copied from, projects left for the
+"moved or copy?" question, and the folders that were not searched.
 
 Start a fresh user session for the host to discover installed instructions and skills.
 Ask it to name the loaded instruction files and project records and invoke session-start
