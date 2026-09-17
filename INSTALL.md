@@ -125,11 +125,16 @@ after a 1.x upgrade.
    - **will add:** no `## Project` block and not in a copy group. Show the block you will
      add: `Project id` = the folder's name plus today's date (`cnc-plotter-2026-09-17`),
      `Project root` = the folder's absolute path.
-   - **copy group:** list its folders together and ask which one is the original. Each
-     folder still gets its own block with its own id and root; every folder except the
-     original also gets `**Copied from:** <original's id> at <original's root>`. If the
-     user does not know, write `**Copied from:** unknown; same records as <other folder>`
-     in each.
+   - **copy group:** list its folders together and ask which one is the original. The
+     original gets its own block. Every other folder in the group gets the original's
+     block, unchanged: the original's id and the original's root. That is what a copy
+     made after this update would carry, so the first session in each copy asks "moved
+     or copy?" and registers it with a `Copied from` line when the user says "a copy".
+     Do not register a copy under its own root here: in live testing a small model
+     resumed old work in a copy that was registered as its own project, even with a
+     `Copied from` line, and edited its files in 5 of 6 runs. If the user does not know
+     which folder is the original, treat the one whose `docs/` files changed least
+     recently as the original, and say so.
    - **already set:** the block exists and its root is this folder, or reads
      `any clone of this repository`. No change.
    - **moved or copied since 2.1:** the block exists but its root is another folder.
@@ -138,10 +143,11 @@ after a 1.x upgrade.
    - **skipped:** not a kit project, or unreadable.
 5. Ask once, in one message: "Add the identity to the N projects above? For each copy
    group, which folder is the original?" Wait for the answer. On yes, insert only the
-   block (heading, id, root and any `Copied from` line) above `## Now`. Change nothing
+   block (heading, id and root) above `## Now`. Change nothing
    else in the file and nothing else in the project. The report lists every file changed,
    and a project under Git shows the lines in its diff. On no, change nothing.
-6. Re-read each changed STATUS.md and confirm its root is its own folder.
+6. Re-read each changed STATUS.md and confirm its root: its own folder, or for a copy,
+   the original's folder.
 
 Be honest about the limit: this step can only change the projects it was pointed at.
 Tell the user: "Projects outside these folders still lack an identity. The assistant will
@@ -182,8 +188,8 @@ seven skills has a valid name and description in its opening metadata block (YAM
 frontmatter), and no unrelated file changed. Confirm the five project memory files are
 present, a set-up project's STATUS.md Project root is that project's folder, and all
 existing project records are preserved. List the projects that received an identity in
-section 5, which folder each copy was recorded as copied from, projects left for the
-"moved or copy?" question, and the folders that were not searched.
+section 5, the copies that now carry their original's identity and will ask "moved or
+copy?" at their next session, and the folders that were not searched.
 
 Start a fresh user session for the host to discover installed instructions and skills.
 Ask it to name the loaded instruction files and project records and invoke session-start
