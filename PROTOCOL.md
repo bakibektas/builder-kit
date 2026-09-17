@@ -68,6 +68,9 @@ or tell me which folder this work belongs to?"
 Wait for the answer. Before it arrives, do not create tasks, write records, edit files,
 run commands that change anything, or read any file outside HERE. A task the user gave
 earlier in the conversation does not authorize work in a different folder.
+An answer must pick one of the options or name a folder. A reply such as "yes", "ok",
+"go on" or "continue" is not an answer: change nothing and ask the same question again,
+with the options as a numbered list. Never choose an option for the user.
 
 - **"Start fresh here":** say "I will treat what I remember about `<THERE>` as background
   only. I will not act on its tasks, plans or file paths." Announce a new codename. Run
@@ -76,9 +79,9 @@ earlier in the conversation does not authorize work in a different folder.
   `<THERE>` and run session-start again." Then stop.
 - **"Same project, moved":** update only the `Project root` line to HERE, then pass.
 - **"A copy for separate work":** register HERE as a new project (see the write gate) and
-  add `**Copied from:** <old id> at <old root>`. Copied tasks, journal entries and next
-  steps are the original's history, even where they name your codename. Report them as
-  background and claim none of them until the user chooses one.
+  add `**Copied from:** <old id> at <old root>`. Announce a new codename. Copied tasks,
+  journal entries and next steps are the original's history, even where they name your
+  codename. Report them as background and claim none of them until the user chooses one.
 
 ## Write only in a registered project
 

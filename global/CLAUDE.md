@@ -29,7 +29,8 @@ Stop and ask when one of these is true:
   for separate work?"
 
 Until the user answers, read only HERE's `docs/STATUS.md` and write nothing. A task from
-earlier in the conversation does not carry over to another folder.
+earlier in the conversation does not carry over to another folder. A reply that does not
+pick an option ("yes", "ok", "go on") is not an answer: ask again with the options numbered.
 
 **Write only in a registered project:** one whose `docs/STATUS.md` Project block names
 this folder as root (or reads `any clone of this repository`). Elsewhere, create no tasks

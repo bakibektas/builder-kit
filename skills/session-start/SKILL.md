@@ -35,16 +35,20 @@ startup workflow, but only for the folder where it was given.
       - Otherwise the check passes.
    e. After asking, **stop and wait**. Until the user answers, write nothing, create no
       tasks, change nothing, and read no file outside HERE. Do not continue a task from
-      earlier in the conversation.
+      earlier in the conversation. An answer must pick one option or name a folder. If
+      the reply is "yes", "ok", "go on", "continue" or anything else that does not
+      choose, change nothing and ask the same question again with the options numbered.
+      Never choose for the user.
    f. On "start fresh here", say "I will treat what I remember about `<THERE>` as
       background only. I will not act on its tasks, plans or file paths." Announce a new
       codename. Then repeat step d with THERE treated as unknown, and use only HERE.
       On "switch back", say "Reopen this conversation from `<THERE>` and run
       session-start again," then stop. On "moved", change only the `Project root` line
       to HERE. On "a copy", register HERE as a new project (step 3) with a
-      `**Copied from:** <old id> at <old root>` line. Copied tasks, journal entries and
-      next steps are the original's history, even where they name your codename: report
-      them as background and claim none of them until the user chooses one.
+      `**Copied from:** <old id> at <old root>` line, and announce a new codename.
+      Copied tasks, journal entries and next steps are the original's history, even
+      where they name your codename: report them as background and claim none of them
+      until the user chooses one.
 3. **Write gate.** HERE is registered only if its Project block names HERE as root (or
    reads `any clone of this repository`). If it is not registered, do not create tasks
    or write any record in it. First say: "I'm about to `<what you will write, with counts>`
