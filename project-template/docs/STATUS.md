@@ -16,9 +16,22 @@ It is the ONE file read in full at the start of every session, so it must stay s
 - Move completed tasks out after a week: delete the line here, the work is already recorded
   in JOURNAL.md.
 - Refer to people by role, never by name.
+- The Project block is this folder's identity. Only it makes the folder a Builder project.
+  Fill it in once at setup and do not change it casually. Project id: a short name plus
+  the setup date, e.g. `cnc-plotter-2026-09-17`. Project root: the absolute path of the
+  folder that holds this `docs/` folder. If you move the project, update the root. If you
+  copy it to start separate work, give the copy a new id and root, and add a
+  `**Copied from:** <old id> at <old root>` line. For a Git project whose clones or
+  worktrees live at different paths, write `**Project root:** any clone of this repository`
+  (copies are then caught only from the conversation's history).
 
 Delete the EXAMPLE block once real content exists.
 -->
+
+## Project
+
+**Project id:** <short-name>-<YYYY-MM-DD>
+**Project root:** <absolute path of the folder that contains this docs/ folder>
 
 ## Now
 

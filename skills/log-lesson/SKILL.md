@@ -6,6 +6,10 @@ description: Capture a correction, wrong turn or reusable discovery in docs/LESS
 # log-lesson
 
 A lesson changes future behavior. Record it while the particulars are still available.
+Before writing any project record, confirm you are still in the registered project
+checked at session start: this folder's `docs/STATUS.md` Project root names this folder
+(or reads `any clone of this repository`). If not, write nothing yet; follow the Builder
+protocol's location check and write gate, naming the project and this folder.
 
 1. Search docs/LESSONS.md for related lessons first. Merge duplicates and archive
    superseded entries without losing their history.

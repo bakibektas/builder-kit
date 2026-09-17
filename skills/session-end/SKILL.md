@@ -7,6 +7,10 @@ description: Close owned Builder tasks, save deliverables and lessons, and write
 
 Use the project's memory files. The user controls the scope; this ritual
 does not itself authorize publishing, pushing or deleting files.
+Before writing any project record, confirm you are still in the registered project
+checked at session start: this folder's `docs/STATUS.md` Project root names this folder
+(or reads `any clone of this repository`). If not, write nothing yet; follow the Builder
+protocol's location check and write gate, naming the project and this folder.
 
 1. Update only tasks you own. Mark verified work done, blocked work with its actual
    reason, and unfinished work todo with an exact resume step. Preserve other owners.
@@ -27,6 +31,6 @@ does not itself authorize publishing, pushing or deleting files.
 6. Clean only your own known scratch files within verified project paths when appropriate.
    Never sweep a shared .tmp directory or another contributor's edits.
 
-Report what was delivered, where it lives, what was checked, limitations, any files that
+Report `Project: <id> at <root>`, what was delivered, where it lives, what was checked, limitations, any files that
 could not be saved, and what remains. Distinguish local edits, committed work and published
 work. Do not call the task complete merely because the session is ending.

@@ -60,7 +60,9 @@ conflict. Routine copying into an empty, requested target needs no repeated conf
   create no duplicate loading lines, redundant copies or unnecessary backups.
 - **Kit-owned update:** preserve personalization and review any other local edits. The
   version marker alone does not prove all text is replaceable. Preserve local skill
-  changes unless the user has explicitly chosen their replacement.
+  changes unless the user has explicitly chosen their replacement. When updating from a
+  version before 2.1, offer to add the `## Project` block to STATUS.md in each project
+  the user names; change nothing else in those projects.
 - **Existing custom instruction file:** propose a small merge, use a separate BuilderKit
   entry file, or skip. For a separate entry file, install the personalized instruction
   template as builder-kit-entry.md and add one reviewed read instruction to the custom file:
@@ -90,8 +92,10 @@ blindly: it may contain personal resources. Preserve unrelated files and folders
    custom content untouched. Apply only once the concrete migration is authorized.
 5. Copy changed skill files under the same names after handling local modifications.
 6. Never replace project STATUS, JOURNAL, DECISIONS, LESSONS, RESEARCH or artifacts during
-   an upgrade. Offer a separate project-instruction migration if Codex should share an
-   existing Claude project's facts. Do not overwrite project-specific notes with placeholders.
+   an upgrade. Offer to add the `## Project` block (id and root) at the top of an existing
+   STATUS.md; that is the only change 2.1 needs in a project. Offer a separate
+   project-instruction migration if Codex should share an existing Claude project's facts.
+   Do not overwrite project-specific notes with placeholders.
 7. If adding Codex beside Claude, carry preferences only when requested and prepare its
    own instruction file and skill location. A Claude preferences field does not configure Codex.
 
@@ -103,9 +107,11 @@ No package install, network call, hook/config edit, model
 selection change or permission change is part of this installation.
 
 For an explicitly named fresh project, copy project-template/ without replacing
-existing files. Keep shared project facts in AGENTS.md and use CLAUDE.md to read it
-when both assistants are wanted. For Claude-only setup both files are needed; for Codex-only
-setup CLAUDE.md is optional. Fill project purpose, conventions and actual build or test
+existing files. Fill the `## Project` block in docs/STATUS.md: a new Project id and the
+project folder's absolute path as Project root. Without that block the folder is not a
+registered project and the assistant asks before writing records there. Keep shared
+project facts in AGENTS.md and use CLAUDE.md to read it when both assistants are wanted.
+For Claude-only setup both files are needed; for Codex-only setup CLAUDE.md is optional. Fill project purpose, conventions and actual build or test
 commands. If the user chose a project-only install with no global Builder protocol, place
 PROTOCOL.md as builder-protocol.md in the project and add an explicit read instruction to
 project AGENTS.md. Personalization belongs there as well in that case.
@@ -122,7 +128,8 @@ Re-read targets, not source drafts. Verify that personalization survived verbati
 shared protocol exists beside the instruction file, file references work, each of the
 seven skills has a valid name and description in its opening metadata block (YAML
 frontmatter), and no unrelated file changed. Confirm the five project memory files are
-present and all existing project records are preserved.
+present, a set-up project's STATUS.md Project root is that project's folder, and all
+existing project records are preserved.
 
 Start a fresh user session for the host to discover installed instructions and skills.
 Ask it to name the loaded instruction files and project records and invoke session-start

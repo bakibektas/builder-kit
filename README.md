@@ -1,6 +1,6 @@
 # The Builder Kit
 
-Version 2.0.1 (2026-09-14).
+Version 2.1.0 (2026-09-17).
 
 A shared set of working instructions for **Claude Code and OpenAI Codex**: seven skills
 (reusable task instructions), saved project records, checks backed by evidence, and
@@ -33,6 +33,9 @@ JOURNAL records what happened in each session. DECISIONS records why direction c
 LESSONS records corrections and what to do differently next time. RESEARCH preserves
 findings with sources and dates. Read STATUS and the latest JOURNAL entry at startup;
 search the other records when relevant. Every session ends with a saved next step.
+STATUS also names the project and the folder it lives in. The assistant checks that
+folder before it trusts what it remembers, and writes records only in a folder set up
+this way.
 
 ## Package map
 
@@ -79,7 +82,7 @@ project you choose. Keep the kit checkout unchanged as the source for future upd
 
 | Skill | Result |
 |---|---|
-| session-start | Read project records, identify the session and task owner, then continue requested work |
+| session-start | Check the session is in the right project folder, read its records, identify the session and task owner, then continue requested work |
 | next-task | Choose useful work that can start now and record who will do it |
 | log-lesson | Capture a correction with a specific prevention rule |
 | research-method | Check evidence from different expert perspectives and resolve disagreements |
@@ -117,6 +120,21 @@ and Codex. Its scope is project memory, session skills and portable instructions
 
 ## Version history
 
+- 2.1.0 (2026-09-17): fixed a real failure. A user copied a project into a new folder to
+  make a simplified fork, then resumed the old conversation there and ran session-start.
+  The resumed conversation still described the original project. The kit told the
+  assistant to load context, resume and record tasks before work, and nothing checked
+  which folder it was now in. So it read the original project's files from the new
+  folder and filed tasks that had nothing to do with the fork. The user stopped using
+  the kit, and the defect was ours: the kit assumed one project stays in one folder.
+  Two guards now apply at every start and resume. First, a location check: the assistant
+  compares the current folder with the folder the conversation belongs to and with the
+  project root recorded in docs/STATUS.md. If they differ or it cannot tell, it stops and
+  asks whether to start fresh or switch back. Second, a write gate: tasks and records are
+  written only in a registered project, one whose STATUS.md has the new `## Project`
+  block naming that folder. Elsewhere, the assistant names the project it thinks it is in
+  and asks first. Existing projects need that block added once; the assistant offers to
+  add it. These are still instructions, not enforcement.
 - 2.0.1 (2026-09-14): simplified documentation and skills around the standalone file
   workflow; clarified preferred names, installation scope, project records and checks.
 - 2.0 (2026-09-14): introduced the shared protocol and separate Claude and Codex instruction

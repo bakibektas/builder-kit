@@ -1,6 +1,6 @@
 # <Project name>
 
-Kit version 2.0.1. Project memory lives in the five files under `docs/`.
+Kit version 2.1.0. Project memory lives in the five files under `docs/`.
 
 Read `AGENTS.md` beside this file for shared project purpose, conventions, checks for
 success and record locations. The installer copies both files for Claude projects,

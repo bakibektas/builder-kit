@@ -1,6 +1,6 @@
 # Builder Working Protocol
 
-Kit version 2.0.1 (2026-09-14).
+Kit version 2.1.0 (2026-09-17).
 
 Shared behavior for Claude Code and Codex. The installer copies this file beside the
 assistant's instruction file as `builder-protocol.md`. Personal preferences belong in
@@ -20,9 +20,91 @@ other assistants.
 Work as an experienced partner: give the answer early, correct mistakes with evidence,
 and finish the authorized work. Ask when missing information materially changes the
 outcome; use reasonable, stated assumptions for routine reversible choices. Do not
-stop after a startup ritual when the user already gave you a task. Keep progress
-updates concise. End with what changed, what was checked, limitations, and what remains.
+stop after a startup ritual when the user already gave you a task, unless the location
+check below stops you. Keep progress updates concise. End with what changed, what was
+checked, limitations, and what remains.
 State uncertainty and the evidence behind it; numerical confidence is optional.
+
+## Check where you woke up before using what you remember
+
+A conversation can be resumed in a different folder from the one where it began: a copy,
+a fork or a move. Your memory of the earlier folder is not proof that you are still
+there. Run this check at every session start and every resume, before any other project
+work. Until it passes, read nothing except the current folder's `docs/STATUS.md`, and
+write nothing.
+
+1. **Where you are (HERE):** the nearest folder, at or above the current working
+   directory, that contains `docs/STATUS.md`; if none, the working directory itself.
+   Write it as an absolute path. Take the working directory from the host's current
+   environment information or `pwd` / `Get-Location`, never from older messages.
+2. **Where this conversation belongs (THERE):** the folder named by this conversation's
+   earlier messages. Use the project root you reported at an earlier start or checkpoint.
+   Otherwise use the folder that the file paths you read or edited belong to. If this
+   conversation has no earlier messages, THERE is unknown. That is fine.
+3. **What the folder says (RECORD):** the `## Project` block in HERE's `docs/STATUS.md`:
+   `Project id` and `Project root`.
+4. Compare the folders as paths. Ignore letter case on Windows and macOS, slash direction
+   and a trailing slash. Then act on the first matching row:
+
+| Situation | Action |
+|---|---|
+| THERE is a folder outside HERE | **Stop and ask (A).** |
+| Earlier messages exist but you cannot tell which folder they belong to | **Stop and ask (C).** |
+| RECORD's root is a different folder from HERE | **Stop and ask (B).** |
+| RECORD is missing, or there is no `docs/STATUS.md` | HERE is not a registered project. Continue under the write gate below. |
+| THERE is unknown or equals HERE, and RECORD's root equals HERE or reads `any clone of this repository` | Pass. Say `Project: <id> at <HERE>` in your first report. |
+
+**Ask (A), in these words:** "This conversation belongs to `<THERE>`. You are now in
+`<HERE>`. Start fresh here, or switch back to `<THERE>`?"
+
+**Ask (B), in these words:** "This folder's records say the project lives at
+`<RECORD root>`, but you are in `<HERE>`. Is this the same project moved, or a copy
+for separate work?"
+
+**Ask (C), in these words:** "I can't tell which folder this conversation belongs to
+(`<the paths or project names you can see>`). You are now in `<HERE>`. Start fresh here,
+or tell me which folder this work belongs to?"
+
+Wait for the answer. Before it arrives, do not create tasks, write records, edit files,
+run commands that change anything, or read any file outside HERE. A task the user gave
+earlier in the conversation does not authorize work in a different folder.
+
+- **"Start fresh here":** say "I will treat what I remember about `<THERE>` as background
+  only. I will not act on its tasks, plans or file paths." Announce a new codename. Run
+  the table again with THERE treated as unknown, and work only in HERE.
+- **"Switch back":** do not work on `<THERE>` from HERE. Say "Reopen this conversation from
+  `<THERE>` and run session-start again." Then stop.
+- **"Same project, moved":** update only the `Project root` line to HERE, then pass.
+- **"A copy for separate work":** register HERE as a new project (see the write gate) and
+  add `**Copied from:** <old id> at <old root>`. Copied tasks, journal entries and next
+  steps are the original's history, even where they name your codename. Report them as
+  background and claim none of them until the user chooses one.
+
+## Write only in a registered project
+
+A folder is a **registered project** only when its `docs/STATUS.md` has a `## Project`
+block whose `Project root` is this folder (or reads `any clone of this repository`).
+In a folder that is not registered, do not create or update tasks. Do not write STATUS,
+JOURNAL, DECISIONS, LESSONS, RESEARCH, checkpoints or artifacts there, and do not edit
+files because of something you remember from before this session. First ask, naming the
+project you believe you are working on, what you are about to write, and the folder:
+
+"I'm about to `<create 3 tasks / write a journal entry / edit 2 files>` for `<project you
+believe this is>` in `<HERE>`, which isn't set up as a Builder Kit project. Set it up, or stop?"
+
+If you have no project in mind, say "for this folder". Name the real counts and paths.
+- **"Set it up":** create only the missing records from the project template. Set
+  Project id to HERE's folder name plus today's date and Project root to HERE. Keep
+  existing files. Then continue.
+- **"Stop":** write nothing. Report what you would have written.
+- A request the user makes after this check, in this session, clearly about HERE (for
+  example "fix this file here") may edit the named files without setting up a project.
+  It still never creates kit records in HERE.
+- A folder with kit records but no Project block was set up by an older kit version.
+  Ask once: "This folder has Builder records but no project identity yet. Add one for
+  `<HERE>`?"
+
+Before any later record write, confirm that you are still in the folder you checked.
 
 ## Project memory in files
 
@@ -44,9 +126,10 @@ confidence is optional.
 | `docs/LESSONS.md` | Search task keywords | Context, failure, successful approach, specific action to prevent a repeat |
 | `docs/RESEARCH.md` | Search before researching | Findings, source URLs, verification dates, uncertainty; aim for 200 lines |
 
-Create only missing records in an authorized project; preserve existing content. Keep
-deliverables in `artifacts/`, named `YYYY-MM-DD-<title>.md`. Archive old journal/research
-entries and superseded lessons without losing them. Search and merge duplicate lessons.
+Create only missing records in a registered project (see the write gate above);
+preserve existing content. Keep deliverables in `artifacts/`, named
+`YYYY-MM-DD-<title>.md`. Archive old journal/research entries and superseded lessons
+without losing them. Search and merge duplicate lessons.
 Private assistant memory is a convenience, never the project's authoritative record.
 
 ## Task and session lifecycle
@@ -59,10 +142,10 @@ evidence that the other session is still working. Never reset another active ses
 close only your tasks: done when verified, blocked with a concrete reason, or returned
 to todo with the precise resume step. Do not mark incomplete work done to tidy a board.
 
-Checkpoint before context loss and at useful milestones. Preserve the current task,
-decisions, changed files, checks and exact next step. After the assistant shortens its
-conversation context (compaction), read the saved checkpoint and inspect current work
-before continuing. A checkpoint does
+Checkpoint before context loss and at useful milestones. Preserve the project id and
+root, the current task, decisions, changed files, checks and exact next step. After the assistant shortens its
+conversation context (compaction), run the location check again, then read the saved
+checkpoint and inspect current work before continuing. A checkpoint does
 not end the task. A session ends with a durable handoff and an honest final report.
 
 ## Models, tools and delegation

@@ -62,6 +62,10 @@ Explain confidence using the evidence and remaining gaps; numerical confidence i
 
 Prepend a `docs/RESEARCH.md` entry using its format and save a substantive
 deliverable in `artifacts/`. Verify the written files before reporting success.
+Before writing any project record, confirm you are still in the registered project
+checked at session start: this folder's `docs/STATUS.md` Project root names this folder
+(or reads `any clone of this repository`). If not, write nothing yet; follow the Builder
+protocol's location check and write gate, naming the project and this folder.
 Record the question, verdict, URLs, verification
 dates, uncertainty and what the finding informed. Report any failure to save the files.
 
