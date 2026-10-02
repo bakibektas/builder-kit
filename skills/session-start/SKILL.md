@@ -1,13 +1,12 @@
 ---
 name: session-start
-description: Check that the session is in the right project folder, then restore that Builder project's context and session identity from its files. Use at the start or resume of a working session, or when asked where work left off.
+description: Check the session is in the right project folder, then restore that Builder project's context and identity from its files. Use at the start or resume of a session, or when asked where work left off.
 ---
 
 # session-start
 
-Read the installed Builder protocol. Read the project's own instructions at step 4, after
-the location check. The user's existing task authorization remains valid during this
-startup workflow, but only for the folder where it was given.
+Read the installed Builder protocol. The user's existing task authorization remains valid
+during this startup workflow, but only for the folder where it was given.
 
 **Run this yourself.** When a conversation carries no Builder context yet, do this on the
 first message, whether it is "continue", a task or a question. The user does not have to
@@ -27,8 +26,8 @@ location check at step 2 decides what happens, and it happens before you create 
       directory, that contains `docs/STATUS.md`; if none, the working directory itself.
       Take the working directory from the host's current environment information or a
       `pwd` / `Get-Location` command, never from older messages.
-   b. THERE = the project folder this conversation's earlier messages belong to: the
-      project root you reported before, or the folder of the files you read or edited.
+   b. THERE = the project folder this conversation's earlier messages belong to, worked
+      out as in the protocol's step 2.
       Relative paths such as `firmware/main.c` name no folder: with only those, the
       folder is unclear, even if the same files exist in HERE.
       If the conversation has no earlier messages, THERE is unknown.
@@ -73,8 +72,8 @@ location check at step 2 decides what happens, and it happens before you create 
       Copied tasks, journal entries and next steps are the original's history, even
       where they name your codename: report them as background and claim none of them
       until the user chooses one.
-3. **Write gate.** HERE is registered only if its Project block names HERE as root (or
-   reads `any clone of this repository`).
+3. **Write gate.** HERE counts as registered only if it is a registered project as the
+   protocol defines one.
    a. **Register it yourself** when HERE has no `docs/STATUS.md` and this conversation has
       no messages before the one you are answering. The test is mechanical and it is the
       only one: any history above this message at all, of any kind, sends you to (b)
@@ -82,29 +81,30 @@ location check at step 2 decides what happens, and it happens before you create 
       whether the history is relevant; the point of the test is that you do not have to.
       Create only the missing records from the project template, set Project id to HERE's
       folder name plus today's date and Project root to HERE, keep existing files, and say
-      in one line what you created and how to undo it. Then continue. Do not ask.
+      in one line what you created and how to undo it. If your instruction file names a
+      projects list, add this project's entry there. Then continue. Do not ask.
+      In an empty folder never ask for a project description or "what do you want to
+      build": create the records from what the user said and fill them in as work happens.
    b. **Ask first** in every other unregistered case, because something already claims the
       folder: do not create tasks, write any record or edit any file, not even the five
       records themselves. "Continue", "go on" and a plain task all ask for remembered
       work, so none of them is permission here. Say, before any edit: "I'm about to
       `<what you will write, with counts>` for `<project you believe this is, or "this
       folder">` in `<HERE>`. This folder's records point somewhere else, so I have not
-      written anything. Set this up as its own project, or stop?" On "set it up", do (a).
-      On "stop", write nothing. Records without a Project block are handled at step 2c,
+      written anything. Set this up as its own project, or stop?" Act on the answer as the
+      protocol says. Records without a Project block are handled at step 2c,
       first, and that question is never skipped.
-4. Read the project instructions. Read `docs/STATUS.md` in full and only the latest
-   `docs/JOURNAL.md` entry. Search `docs/DECISIONS.md`, `docs/LESSONS.md` and
-   `docs/RESEARCH.md` for the current task's keywords. Codex uses project AGENTS.md;
-   Claude uses CLAUDE.md (which may point to the same AGENTS.md). Preserve existing
-   instructions.
-5. Inspect relevant task ownership and changed files. An in-progress task alone is not
-   evidence of abandonment. Leave active owners alone; reconcile only your own work or
-   work demonstrably abandoned and authorized for takeover.
+4. Read the project instructions: Codex uses project AGENTS.md; Claude uses CLAUDE.md
+   (which may point to the same AGENTS.md). Read the project's records as the protocol's
+   record table says. Search `docs/RESEARCH.md` only when you research.
+   **Before your first edit or write of any file in a session, read `docs/LESSONS.md` and `docs/DECISIONS.md` in full and say in your reply, after the opening line, which entry applies, or "no recorded lesson applies".**
+5. Inspect relevant task ownership and changed files, as "Task and session lifecycle" in
+   the protocol says.
 6. Report `Project: <id> at <HERE>`, codename, loaded sources, last checkpoint, blockers
-   and next action, and say plainly if you created the records just now. Record the task
-   and owner in STATUS before edits. Continue an already requested task; if the user asked
-   only for orientation, report the recommendation without inventing new work.
+   and next action, and say plainly if you created the records just now. Continue an
+   already requested task; if the user asked only for orientation, report the
+   recommendation without inventing new work.
+7. Agree the next step, as "Agree the next step" in the protocol says.
 
-After the assistant shortens its conversation context (compaction), run step 2 again,
-then read the saved checkpoint and current project records, and continue the same task
-and codename.
+After the assistant shortens its conversation context (compaction), run step 2 again and
+then the protocol's steps for a compacted session.

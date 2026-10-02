@@ -1,6 +1,6 @@
 # <Project name>
 
-Kit version 2.2.0. Project memory lives in the five files under `docs/`.
+Kit version 2.3.0. Project memory lives in the five files under `docs/`.
 
 ## Purpose and checks for success
 
@@ -12,19 +12,18 @@ Kit version 2.2.0. Project memory lives in the five files under `docs/`.
 
 ## Saved project records
 
-At every start or resume, first run the Builder protocol's location check: the
-`## Project` block in `docs/STATUS.md` must name this folder, and this conversation must
-not belong to another folder. Otherwise stop and ask before reading or writing further.
-Read `docs/STATUS.md` and the latest `docs/JOURNAL.md` entry at startup. Search
-`docs/DECISIONS.md`, `docs/LESSONS.md` and `docs/RESEARCH.md` for relevant prior work.
-Use `artifacts/` for deliverables. Follow the installed Builder protocol and file headers.
-Record who is working on a task before editing; update only your own tasks and save
-notes with an exact next step for the next session. These records are written by the
-assistant that talks with you and signs them with its codename. A helper assistant started
-for one bounded piece of work reports back to it and writes none of these files.
+At every start or resume, run the Builder protocol's location check first, and stop and ask
+before reading or writing further if it does not pass. Read `docs/STATUS.md` and the latest
+`docs/JOURNAL.md` entry at startup. Before the first edit, read `docs/LESSONS.md` and
+`docs/DECISIONS.md` in full and say which entry applies, or "no recorded lesson applies".
+Search `docs/RESEARCH.md` for prior research. Use `artifacts/` for deliverables. Record who
+is working on a task before editing; update only your own tasks. Before any reply that
+reports finished work, a change or a stop, update STATUS with the exact next step, prepend a
+JOURNAL entry and end the reply with `checkpoint saved`. Sign these records with your
+codename.
 
 This is a standalone template. Preserve existing project instructions and records when
-installing it; replace only the placeholders that belong to this template.
+installing it; replace only the placeholders.
 
 ## Standing rules
 

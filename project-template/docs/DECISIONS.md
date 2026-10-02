@@ -3,27 +3,17 @@
 <!--
 HOW TO USE THIS FILE
 
-Append-only decision record, newest first. Only decisions that changed direction or closed
-off an option; routine choices do not belong here.
+Append-only, newest first. Only decisions that changed direction or closed off an option.
 
-- The WHY is mandatory. A decision without a recorded reason is worthless three weeks later,
-  and it will be re-litigated.
+- The WHY is mandatory.
 - Never edit or delete a past decision. To reverse one, append a new entry that names the
   entry it supersedes and gives the new WHY.
-- Do not read this file whole at session start. Search it for keywords relevant to the task
-  you are about to start, so you do not reopen a settled question.
-- Never archived and never trimmed: the value is in the full trail. It stays small because
-  genuine direction changes are rare.
-- Refer to people by role, never by name.
+- Read this file in full before the first edit of a session.
+- Never archived and never trimmed.
 
 Entry format, one line each:
 
 YYYY-MM-DD | <user-request | agent-decision | joint> | <what was decided> | WHY: <reason>
-
-"user-request": the user decided it. "agent-decision": the assistant decided it and the
-user did not object. "joint": worked out together.
-
-Delete the EXAMPLE block once real entries exist.
 -->
 
 <!-- EXAMPLE: delete this block

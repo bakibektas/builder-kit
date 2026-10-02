@@ -25,7 +25,7 @@ Entry format:
 ### YYYY-MM-DD: <the question asked>
 - **Verdict:** <the answer in two to five lines, plain language first>
 - **Sources:** <url (date, verified/secondary)> <repeat>
-- **Confidence:** <percent, with the main caveat>
+- **Confidence:** <how sure, with the main caveat; a percent is optional>
 - **Informed:** <the decision, task, or deliverable this fed, or "none yet">
 
 Delete the EXAMPLE block once real entries exist.

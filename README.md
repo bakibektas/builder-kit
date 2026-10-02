@@ -46,6 +46,21 @@ Your assistant saves into them as it works, when a piece of work is finished and
 through a long one, without being asked. If a chat closes or crashes, the last save is
 already there.
 
+**The way back.** Real work wanders: one task opens inside another, and a third inside
+that. Your assistant keeps the chain in STATUS and shows it at the end of its replies
+while a side task is open:
+
+> **Trail:** launch > SEO > cover images > **members page** | back to: lane plan, go live
+
+An idea that is not for now is parked on its own line instead of being started.
+
+**All your projects in one list.** If you say yes at install, your assistant keeps one
+list of your projects: where each one lives, what it is about, which other projects it
+works with, and where it stands. An assistant working in one project can then see what is
+happening in the others. Ask *what else is going on?* from anywhere, or mention another
+project, and it looks there. It often looks by itself when what you ask for lives in
+another project.
+
 ---
 
 ## A fixed way of working
@@ -124,7 +139,7 @@ that back.
 |---|---|---|
 | Start of each chat | You explain the project again | It reads its notes first: a little extra reading |
 | While it works | Nothing is written down | It keeps the notes current: a little extra writing |
-| Mistakes you already corrected | Tend to come back | Written down once, read every time |
+| Mistakes you already corrected | Remembered only if your assistant has its own memory, on that one computer | Written into the project's own notes and read before the next change |
 | Wrong turns | Found late, with work already built on them | The next step is agreed with you first |
 | Routine legwork | Done by your biggest model | Handed to smaller, cheaper helpers where your assistant offers them |
 | A chat that closes or crashes | The thread is lost | The last save is already in your project |
@@ -137,9 +152,14 @@ where it pays back.
 
 ## Requirements
 
-- **A computer with Claude Code or OpenAI Codex.** The kit needs an assistant that can read
-  and write files in your folders. It cannot be installed into a chat app on your phone or
-  a chat window in your browser.
+- **A computer with Claude Code or OpenAI Codex.** The kit works only where your assistant
+  can open the folders on your computer. The right places are Claude Code (in the terminal
+  or inside VS Code) and the Codex command line. The wrong places are the chat screen of
+  the Claude app, claude.ai in a browser, the phone apps and ChatGPT: there the assistant
+  builds things on the web, cannot save to your computer, and never sees the kit.
+- **Not sure you are in the right place?** Ask your assistant: *Can you see the folders on
+  my computer?* If it lists them or offers to open one, you are. If it says it has no
+  access to your files, you are in a chat window: open Claude Code or Codex instead.
 - **A capable model.** The kit is written instructions, so it works best with a model big
   enough to hold them and careful enough to follow them: **Claude Opus**, **Sonnet** or
   **Fable**, **OpenAI's Sol** or **Astra**, and their equivalents.
@@ -211,7 +231,9 @@ it into the custom instructions of the assistant you use there.
 ## FAQ
 
 **What does it put on my computer?** Plain text in two places: instructions in your
-assistant's own settings folder, and notes about your work in your project folder.
+assistant's own settings folder, and notes about your work in your project folder. If you
+say yes to the projects list, a third: one small folder in your home that holds only that
+list, with one permission so your assistant can update it without asking each time.
 
 **What does it cost?** The kit is free. It uses a little more of your assistant's allowance
 for reading and writing notes: see [Cost and savings](#cost-and-savings).
@@ -250,7 +272,7 @@ The formal wording is the standard MIT licence, in [LICENSE](LICENSE).
 
 ## Files in this kit
 
-Version 2.2.0 (2026-09-17). Works with **Claude Code** and **OpenAI Codex**.
+Version 2.3.0 (2026-10-02). Works with **Claude Code** and **OpenAI Codex**.
 
 | File | What's inside |
 |---|---|

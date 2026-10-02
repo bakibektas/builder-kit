@@ -20,12 +20,14 @@ before you say yes:
 - **It shows you the list first.** Every file it wants to write, before it writes one.
 - **Nothing you already have is thrown away.** Existing instructions are kept, and
   anything it replaces is copied to a backup beside the original first.
-- **It only copies text files.** No software is installed, no setting on your computer
-  is changed, no permission is granted, nothing is sent anywhere.
+- **It copies text files, and offers one setting.** No software is installed and nothing
+  is sent anywhere. The one setting is optional: it lets your assistant keep a list of
+  your projects in a small folder of its own without asking you each time. You see the
+  exact line before it is written, and you can say no.
 
 ### What it will ask you, and why
 
-Eleven questions at most, usually far fewer: it reuses anything you have already told it.
+Twelve questions at most, usually far fewer: it reuses anything you have already told it.
 Each one is there for a reason:
 
 | It asks | Because |
@@ -39,6 +41,7 @@ Each one is there for a reason:
 | You already have instructions of your own here: merge, keep separate, or skip? | So it does not quietly paint over something you wrote yourself. |
 | Which folders hold your older projects? | Projects set up by an older version are missing the line that tells a project apart from a copy of it, and it can only add that line to folders you point it at. |
 | Which of these folders is the original? | Two folders with identical notes are usually one copied from the other, and getting this right is what stops an old chat editing the copy by mistake. |
+| May I keep a list of your projects, and update it without asking each time? | So that from any project you can ask what else is going on. It needs one permission, for one small folder that holds only that list, and you see the exact line first. |
 | Here is every file I want to write, go ahead? | Nothing is written before you have seen the whole list. |
 | Do you also use an assistant in a browser? | So it can hand you a short personalised version of these habits to paste there, at the end. |
 
@@ -57,6 +60,12 @@ session to check, that part is unverified: ask it to say so plainly.
 
 The user's first message is usually a question, not an order: "learn about the Builder Kit
 at `<address>` and tell me what it would do if we installed it." Treat it as a question.
+
+**First check where you are.** If this host gives you no way to read and write files on
+the user's computer (a chat window in an app or a browser, a phone app), say so in one
+line and do not walk through an install you cannot perform: "I can't open folders on your
+computer from here, so the kit can't be installed in this window. Open Claude Code or
+Codex on your computer and ask me again there." You may still explain what the kit does.
 
 1. Fetch the kit yourself from the repository address the user gave, with the tools this
    host actually exposes: clone it, or read its files over the network. Put the copy in a
@@ -154,7 +163,9 @@ or work solo. Say in one short line what the five answers are for (they fill the
 assistant reads at the start of every session), so the question informs rather than
 interrogates. Ask about helpers once, with its one-line reason, and never more than that.
 Reuse answers already given. Fill the instruction file's PERSONALIZE block. PREFERENCES.txt is optional
-and only for a requested browser setup.
+and only for a requested browser setup. Never ask for a project description or "what do
+you want to build": a project's records are created from what the user said and filled in
+as work happens.
 
 For an existing installation, recognize the `Kit version` line and PERSONALIZE markers.
 Capture the entire existing block verbatim before transforming anything. If markers are
@@ -275,8 +286,9 @@ copies": the identity makes a mistake visible to the assistant, it does not prev
 
 Copy the chosen instruction file, shared protocol and seven skill folders, each containing
 SKILL.md. Copy only the files reviewed for this install.
-No package install, network call, hook/config edit, model
-selection change or permission change is part of this installation.
+No package install, network call, hook edit or model selection change is part of this
+installation. The only setting it touches is the one allowance for the projects list
+below, and only if the user says yes to it.
 
 For an explicitly named fresh project, copy project-template/ without replacing
 existing files. Fill the `## Project` block in docs/STATUS.md: a new Project id and the
@@ -294,6 +306,35 @@ save corrections promptly, keep shared project rules in AGENTS.md when both assi
 use it, and explain confidence through evidence; percentages are optional. Preserve
 existing records and do not rewrite historical entries during installation.
 
+### The projects list (optional)
+
+Offer it once, with its reason: "May I keep a list of your projects, so that from any
+project you can ask what else is going on? It is one text file in a small folder of its
+own, `.builder` in your home folder. To update it without asking you each time I need one
+permission, for that folder only." On no, leave `Projects list: none` in the PERSONALIZE
+block and change nothing else. On yes:
+
+1. Create `.builder/projects.md` in the user's home folder with the single line
+   `# Builder projects`, unless it already exists. One list serves Claude Code and Codex.
+2. Write the file's absolute path into the `Projects list` bullet of the PERSONALIZE block
+   in each installed instruction file. The assistant uses the list only when that bullet
+   names a path.
+3. Show the exact permission line and the settings file it goes into, and add it on a
+   yes. Check the host's current documentation for the exact form first; do not copy it
+   from this page unchecked. At the time of writing: for Claude Code, one allow rule for
+   edits in that folder, `Edit(~/.builder/**)`, under `permissions.allow` in the user
+   settings file; for Codex, the folder's absolute path under `writable_roots` in the
+   `[sandbox_workspace_write]` table of its config file. Back the settings file up first,
+   add only that line, and leave everything else in it as it was. If the user wants the
+   list but not the permission, skip this item and say what follows: the assistant will
+   ask each time it updates the list.
+4. Add an entry for each project that section 5 found and each project this install set
+   up, in the format PROTOCOL.md gives. Take `About` and `Status` from the project's
+   `docs/STATUS.md`; where it says nothing, write `not described yet`.
+
+To undo: remove the permission line, set the bullet back to `none`, and delete the
+`.builder` folder.
+
 ## 7. Verify, then report
 
 Re-read targets, not source drafts. Verify that personalization survived verbatim, the
@@ -303,7 +344,9 @@ frontmatter), and no unrelated file changed. Confirm the five project memory fil
 present, a set-up project's STATUS.md Project root is that project's folder, and all
 existing project records are preserved. List the projects that received an identity in
 section 5, the copies that now carry their original's identity and will ask "moved or
-copy?" at their next session, and the folders that were not searched.
+copy?" at their next session, and the folders that were not searched. If a projects list
+was set up, confirm the file exists, the bullet names its absolute path, and the
+permission line is in the settings file exactly as shown to the user.
 
 Start a fresh user session for the host to discover installed instructions and skills.
 Ask it to name the loaded instruction files and project records and invoke session-start

@@ -1,14 +1,15 @@
 # Builder for Claude Code
 
-Kit version 2.2.0 (2026-09-17).
+Kit version 2.3.0 (2026-10-02).
 
-<!-- PERSONALIZE: replace the five bullets; updates preserve this block verbatim. -->
+<!-- PERSONALIZE: replace the six bullets; updates preserve this block verbatim. -->
 - Preferred name or nickname: Alex. Call me Alex.
 - Role: solo developer who designs, writes code and reviews the result.
 - Tone: direct, sincere, professional; an experienced partner.
 - Language: English; keep shared file names and command names unchanged.
 - Helpers: orchestrator, hand routine legwork to helper assistants. Say "work solo"
   instead to have none.
+- Projects list: none.
 <!-- /PERSONALIZE -->
 
 Read `builder-protocol.md` beside this file before working. It is the shared Builder
@@ -82,8 +83,13 @@ Say what you were about to do with counts, for which project, in which folder, a
 whether to set this up as its own project or stop. The full check and answers are in
 `builder-protocol.md` and the session-start skill.
 
-**Checkpoint without being asked:** when a task is done, and partway through a long one.
-The user should never need to end a session for their work to be written down.
+**Before your first edit or write of any file in a session, read `docs/LESSONS.md` and `docs/DECISIONS.md` in full and say in your reply, after the opening line, which entry applies, or "no recorded lesson applies".**
+
+**Checkpoint before you report:** before any reply that reports a finished task, a change
+you made or a stop, update `docs/STATUS.md` (task state, exact next step) and prepend a
+`docs/JOURNAL.md` entry, then end the reply with the line `checkpoint saved`. Mid-task, do
+the same after any edit that changes behaviour. The user should never need to end a
+session for their work to be written down.
 
 Respect existing user instructions and project records. Confirm loaded sources and the
 last recorded handoff at startup, then continue the user's task.
