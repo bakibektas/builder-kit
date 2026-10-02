@@ -1,6 +1,6 @@
 # <Project name>
 
-Kit version 2.3.0. Project memory lives in the five files under `docs/`.
+Kit version 2.3.1. Project memory lives in the five files under `docs/`.
 
 Read `AGENTS.md` beside this file for project purpose, conventions, checks for success and
 record locations. Codex and Claude inherit the same project facts from it.

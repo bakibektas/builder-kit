@@ -2,6 +2,44 @@
 
 What changed in each release, and why. Newest first.
 
+## 2.3.1 (2026-10-03)
+
+Three fixes from the first reports on 2.3.0.
+
+- **Several chats in one project.** The trail and the parked line now carry the name of
+  the session that wrote them. Before it saves, the assistant reads the status note again
+  and changes only its own lines, so two chats working in one project can tell their notes
+  apart.
+- **Long lessons and decisions.** A lessons or decisions note of more than about 1,000
+  lines is no longer read whole before the first change: the assistant reads the top and
+  searches the rest for the task at hand. Nothing is trimmed or moved.
+- **A translated setup is left alone.** If you have put the kit into your own language, an
+  update stops and says so. It offers a list of what changed, and replaces your version
+  only if you say so.
+
+### How 2.3.1 was tested
+
+Tested on 3 October 2026 in Claude Code on Sonnet 5.5, six runs per line, each read from
+the files the run leaves. The numbers are small and each test is one made-up situation.
+Not tested: two chats saving at the very same moment, Haiku, and Codex.
+
+| | 2.3.0 | 2.3.1 |
+|---|---|---|
+| Two chats in one project: each trail carries its session's name | 0 of 6 | 5 of 6 |
+| Two chats in one project: a new chat names both ways back | 6 of 6 | 6 of 6 |
+| Lessons note of about 2,000 lines: not read whole | 0 of 6 | 6 of 6 |
+| Lessons note of about 2,000 lines: the corrected mistake still avoided | 6 of 6 | 6 of 6 |
+| Lessons note of normal size: read in full | 6 of 6 | 6 of 6 |
+| Update over a translated setup: nothing overwritten, nothing doubled | 0 of 6 | 6 of 6 |
+
+In the two-chat test 2.3.0 lost nothing either; what its lines lacked was a name. In the
+one run 2.3.1 missed, the session had finished its side task and removed its own trail,
+which the check counted as a miss. With the long lessons note, 2.3.1 is also asked to tell
+you how long the note has grown; it did so in only 2 of 6 runs.
+
+**Size.** The text read at the start of every chat is now 9,952 tokens, up from 9,856 in
+2.3.0 and down from 10,644 in 2.2.0.
+
 ## 2.3.0 (2026-10-02)
 
 - **Lessons are read before the first change.** Before it edits anything in a session, the

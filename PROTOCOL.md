@@ -1,6 +1,6 @@
 # Builder Working Protocol
 
-Kit version 2.3.0 (2026-10-02).
+Kit version 2.3.1 (2026-10-03).
 
 Shared behavior for Claude Code and Codex. Personal preferences belong in the assistant's
 instruction file; project facts belong in the project's instruction file. Explicit user
@@ -205,7 +205,9 @@ Where a retained template header differs from this protocol, follow this protoco
 | `docs/RESEARCH.md` | Search before researching | Findings, source URLs, verification dates, uncertainty; aim for 200 lines |
 
 **Before your first edit or write of any file in a session, read `docs/LESSONS.md` and `docs/DECISIONS.md` in full and say in your reply, after the opening line, which entry applies, or "no recorded lesson applies".**
-This runs once the location check has passed.
+A file of more than about 1,000 lines is not read whole: read its top entries, search the
+rest for the files and words of the task, and tell the user in one line how long it has
+grown.
 
 Keep deliverables in `artifacts/`, named
 `YYYY-MM-DD-<title>.md`. Archive old research entries and superseded lessons
@@ -248,21 +250,24 @@ to todo with the precise resume step. Do not mark incomplete work done to tidy a
 **Checkpoint before you report.** Before any reply that reports a finished task, a change
 you made, or a stop, update `docs/STATUS.md` (the task's state and the exact next step)
 and prepend a `docs/JOURNAL.md` entry, then end that reply with one line:
-`checkpoint saved`. If the user corrected you during the task, write the lesson to
-`docs/LESSONS.md` in the same step. While a long task is in flight, do the same after any edit that changes
-behaviour, and before the assistant shortens its own context. Preserve the project id and
-root, the current task, decisions, changed files, checks and the exact next step. The user
-should never have to end a session for their work to be recorded: a chat that closes,
-crashes or runs out must already have its last state on disk.
+`checkpoint saved`. If the user corrected you during the task, write the lesson to `docs/LESSONS.md`
+in the same step. Another session may be saving here: read STATUS again just before you
+write it, change only your own lines (Trail, Parked, your tasks; Focus and Next action
+only if your job moves them), and add your journal entry on top. While a long task is in
+flight, do the same after any edit that changes behaviour, and before the assistant
+shortens its own context. Preserve the project id and root, the current task, decisions,
+changed files, checks and the exact next step. The user should never have to end a session
+for their work to be recorded: a chat that closes, crashes or runs out must already have
+its last state on disk.
 
 **Keep the trail.** When the user opens a task from inside another one before the outer
 task is finished, write the chain into `docs/STATUS.md` under Now in the same step:
-`**Trail:** <main goal> > <outer task> > **<current task>** | back to: <the steps to
-return to, nearest first>`. While that line exists, end every reply with it, above
-`checkpoint saved`. When the current task is done, say which step you return to and
+`**Trail (<your codename>):** <main goal> > <outer task> > **<current task>** | back to:
+<the steps to return to, nearest first>`. While that line exists, end every reply with it,
+above `checkpoint saved`. When the current task is done, say which step you return to and
 shorten the line; remove it once you are back on the main goal. An idea the user raises
-that is not for now goes on a `**Parked:**` line under Now, and you say in one line that
-you parked it; start it only when the user says to.
+that is not for now goes on a `**Parked (<your codename>):**` line under Now, and you say
+in one line that you parked it; start it only when the user says to.
 
 A checkpoint does not end the task, and it does not replace session-end, which also closes
 tasks, merges lessons and writes the final handoff. After the assistant shortens its

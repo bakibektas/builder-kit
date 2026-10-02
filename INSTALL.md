@@ -14,9 +14,12 @@ install?* and *how do I undo it?*. When you are ready, say **go ahead and instal
 
 To update later, say **update the Builder protocol**. Nothing to re-download by hand.
 
-The rest of this page is the recipe your assistant follows. Three things worth knowing
+The rest of this page is the recipe your assistant follows. Four things worth knowing
 before you say yes:
 
+- **A setup you have translated is left alone.** If your copy of the kit is in your own
+  language, an update stops and tells you. It offers a list of what changed, and replaces
+  your version only if you say so.
 - **It shows you the list first.** Every file it wants to write, before it writes one.
 - **Nothing you already have is thrown away.** Existing instructions are kept, and
   anything it replaces is copied to a backup beside the original first.
@@ -151,6 +154,20 @@ location per assistant, either user-wide or project-only; do not duplicate same-
 skills in both. Check any older Codex skill locations before adding another copy.
 
 ## 2. Prepare a reviewable change
+
+**First, before anything is written, check for an adapted setup.** Some users have
+translated the kit into their own language. Look at the installed protocol, the
+instruction file, the skills folder and the project records. The setup is adapted if the
+protocol or instruction file is not in English or is a rewrite of the kit's text, if there
+are skill folders not named like the kit's seven whose content is the kit's routines, or
+if a project's `docs/STATUS.md` has the kit's shape under other headings. If it is, stop:
+overwrite nothing, add none of the kit's skills beside theirs, add no English `## Project`
+block, and skip section 5. Say plainly: "Your setup has been adapted. It is in your own
+words, and an update would replace your version with the English one." Then offer two
+things. One is a list of what changed since their version (they have a version line), made
+from `HISTORY.md` and by comparing the kit's files with theirs, so they can carry the
+changes over by hand. The other is installing the official version anyway, which you do
+only if they say so, after a backup of every file you replace.
 
 List every exact target file and same-named skill folder. Read only the named
 instruction/skill targets; never inspect credential stores. Preserve the source checkout.

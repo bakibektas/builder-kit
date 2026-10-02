@@ -1,6 +1,6 @@
 # Builder for Codex
 
-Kit version 2.3.0 (2026-10-02).
+Kit version 2.3.1 (2026-10-03).
 
 <!-- PERSONALIZE: replace the six bullets; updates preserve this block verbatim. -->
 - Preferred name or nickname: Alex. Call me Alex.

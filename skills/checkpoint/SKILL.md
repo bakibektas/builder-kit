@@ -20,13 +20,13 @@ protocol's location check and write gate, naming the project and this folder.
 
 1. Capture the project id and root, the current task, owner/session identity, requested
    outcome, decisions, changed files, completed checks, blockers, unfinished work and exact next step.
-2. Update docs/STATUS.md (the task's state, the exact next step, and the `Trail` and
-   `Parked` lines under Now while a side task or a parked idea exists) and add a
-   docs/JOURNAL.md entry at the top, marked checkpoint. If your instruction file names a
-   projects list, bring this project's `Status` line there up to date. Record any unsaved decisions,
-   lessons (always the lesson from a correction the user gave) and research in their
-   existing records. Save substantive
-   drafts in artifacts/ with draft in the filename. Preserve others' active tasks.
+2. Read docs/STATUS.md again, then update only your own lines in it (the task's state, the
+   exact next step, and the `Trail` and `Parked` lines under Now while a side task or a
+   parked idea exists) and add a docs/JOURNAL.md entry at the top, marked checkpoint. If
+   your instruction file names a projects list, bring this project's `Status` line there
+   up to date. Record any unsaved decisions, lessons (always the lesson from a correction
+   the user gave) and research in their existing records. Save substantive drafts in
+   artifacts/ with draft in the filename. Preserve others' active tasks.
 3. Verify the written files before claiming the checkpoint was saved. If a write fails,
    report the failure and provide the exact unsaved handoff in the response.
 4. Say it in one line, `checkpoint saved`, at the end of the reply, and continue. Keep the

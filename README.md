@@ -272,7 +272,7 @@ The formal wording is the standard MIT licence, in [LICENSE](LICENSE).
 
 ## Files in this kit
 
-Version 2.3.0 (2026-10-02). Works with **Claude Code** and **OpenAI Codex**.
+Version 2.3.1 (2026-10-03). Works with **Claude Code** and **OpenAI Codex**.
 
 | File | What's inside |
 |---|---|

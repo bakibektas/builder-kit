@@ -1,6 +1,6 @@
 # <Project name>
 
-Kit version 2.3.0. Project memory lives in the five files under `docs/`.
+Kit version 2.3.1. Project memory lives in the five files under `docs/`.
 
 ## Purpose and checks for success
 
