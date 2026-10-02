@@ -20,7 +20,8 @@ to change.
   your yes.
 
 Jump to: [Cost and savings](#cost-and-savings) · [Requirements](#requirements) ·
-[How to install](#how-to-install) · [FAQ](#faq)
+[How to install](#how-to-install) · [Where it comes from](#where-it-comes-from) ·
+[FAQ](#faq)
 
 ---
 
@@ -114,7 +115,7 @@ A partner helps you find the better idea instead of building the first one. It t
 when it thinks your judgment is off, before it carries on and not after. It writes down
 what you decided and why, so neither of you has to hold it in your head.
 
-A partner, not a slave.
+A partner, not a servant.
 
 ---
 
@@ -131,21 +132,22 @@ The kit keeps you in the loop, so your decisions are what steer the work.
 
 ## Cost and savings
 
-The kit is free. Reading and keeping notes is not: your assistant uses a little more of its
-allowance at the start of every chat and while it works. The bet is that you get more than
-that back.
+The kit is free. Reading and keeping notes is not: your assistant uses more of its
+allowance at the start of every chat and while it works. In our test over three chats, a
+run with the kit used about three times the tokens of a run without it on Sonnet, and
+about twice on Haiku. The bet is that you get more than that back.
 
 | | Without the kit | With the kit |
 |---|---|---|
-| Start of each chat | You explain the project again | It reads its notes first: a little extra reading |
-| While it works | Nothing is written down | It keeps the notes current: a little extra writing |
+| Start of each chat | You explain the project again | It reads its notes first: extra reading |
+| While it works | Nothing is written down | It keeps the notes current: extra writing |
 | Mistakes you already corrected | Remembered only if your assistant has its own memory, on that one computer | Written into the project's own notes and read before the next change |
 | Wrong turns | Found late, with work already built on them | The next step is agreed with you first |
 | Routine legwork | Done by your biggest model | Handed to smaller, cheaper helpers where your assistant offers them |
 | A chat that closes or crashes | The thread is lost | The last save is already in your project |
 
 We have not measured the net effect, and it will differ from project to project. A short
-one-off chat costs slightly more with the kit. A project that runs over many sessions is
+one-off chat costs more with the kit. A project that runs over many sessions is
 where it pays back.
 
 ---
@@ -228,6 +230,42 @@ it into the custom instructions of the assistant you use there.
 
 ---
 
+## Where it comes from
+
+The kit grew out of the way I have worked with AI assistants since 2023.
+
+- **2023.** I asked ChatGPT to end every answer with a confidence level, a source count
+  and the weights behind it, to track the quality of the answer and where it came from.
+- **January 2025.** In Cursor I asked for a readme and a project log "and put all of our
+  history there". The next chat started by reading them. Those were the first project
+  notes.
+- **October 2025.** I started a repository of my own for these instructions. One of the
+  first rules was to address me by my name in every reply.
+- **November 2025.** Each assistant got a codename, so the chat log shows who is
+  speaking. Later that month the notes moved into a database, so the assistants would
+  stop editing several files by hand.
+
+That setup runs on my computer every day and has grown much larger. The kit is its
+written part: the notes and the rules, without the database and the tools around it.
+
+- **August 2026.** I asked for a general version for other people. The first version,
+  private, was built on 13 August. Version 1.4, on 24 August, made the greeting by your
+  name a rule with a purpose: if the greeting is missing, the instructions did not load.
+  I had seen assistants with the kit installed skip it. The first public version, 1.4,
+  came out on 27 August.
+- **September 2026.** 2.0 added OpenAI Codex next to Claude Code. A friend copied a
+  project, carried on the old chat inside the copy, and the assistant worked on the wrong
+  files. Since 2.1.0 the kit checks which folder it is in. In 2.2.0 the assistant starts
+  by itself, because people kept forgetting the start command, and every reply opens
+  with the assistant's codename and `[O]`.
+- **October 2026.** In 2.3.0 the assistant reads the lessons before its first change, and
+  keeps the way back, which was proposed by someone who uses the kit every day. 2.3.1
+  came out on 3 October, after the first reports on 2.3.0.
+
+Every version, with what changed and why, is in [HISTORY.md](HISTORY.md).
+
+---
+
 ## FAQ
 
 **What does it put on my computer?** Plain text in two places: instructions in your
@@ -235,8 +273,8 @@ assistant's own settings folder, and notes about your work in your project folde
 say yes to the projects list, a third: one small folder in your home that holds only that
 list, with one permission so your assistant can update it without asking each time.
 
-**What does it cost?** The kit is free. It uses a little more of your assistant's allowance
-for reading and writing notes: see [Cost and savings](#cost-and-savings).
+**What does it cost?** The kit is free. It uses more of your assistant's allowance for
+reading and writing notes: see [Cost and savings](#cost-and-savings).
 
 **Does it control my assistant?** Yes. It directs the order of the work, what gets written
 down, and when it stops to check with you.
